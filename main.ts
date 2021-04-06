@@ -1112,8 +1112,6 @@ function setLevelTileMap0 (level: number) {
         keyCount = 5
     } else if (false) {
     	
-    } else {
-    	
     }
     initializeLevel(level)
 }
