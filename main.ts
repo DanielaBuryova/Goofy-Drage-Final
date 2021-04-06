@@ -18,6 +18,8 @@ namespace SpriteKind {
     export const Coin = SpriteKind.create()
     export const Flier = SpriteKind.create()
     export const key = SpriteKind.create()
+    export const heart = SpriteKind.create()
+    export const caveBoss = SpriteKind.create()
 }
 function initializeKeyAni () {
     KeyAni = animation.createAnimation(ActionKind.Idle, 225)
@@ -181,6 +183,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherS
 function initializeAnimations () {
     initializeHeroAnimations()
     initializeKeyAni()
+    initializecaveBossAni()
 }
 function giveIntroduction () {
     game.setDialogFrame(img`
@@ -240,6 +243,112 @@ function giveIntroduction () {
         . . . . . . . . . . . . . . . . 
         `)
     showInstruction("Play with friends, gain as much points as possible, beat your friends and become the best GOOFY DRAGON in the entire universe! Good luck!")
+    if (currentLevel == 10) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            b c c c c c c b d c c c b b b b c c c d b c c c c c c b 
+            c c f f f f f c b d c c c b b c c c d b c f f f f f c c 
+            c f f f f 2 f f c b c c c b b c c c b c f f 2 f f f f c 
+            b f f f 2 1 2 f f d b c c d d c c b d f f 2 1 2 f f f b 
+            b d f f f 2 f f f d b b c b b c b b d f f f 2 f f f d b 
+            c c b d f f f b b b d c c c c c c d b b b f f f d b c c 
+            b c c c d d d c c c c c c b b c c c c c c d d d c c c b 
+            `)
+        showInstruction("Beware, the cave statue is more harmful, than the fire of it's anger you've already met. You need to kill this monster and escape in 10s to enter the next level.")
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("You need to collect at least 5 keys in this level to escape.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 16 || currentLevel == 17) {
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("You need to collect at least 5 keys in this level to escape.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     attemptJump()
@@ -344,6 +453,11 @@ function animateIdle () {
         . . . . . 6 6 5 . . 6 6 5 . . . 
         `)
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.halo, 250)
+    otherSprite.y += 3
+    info.changeLifeBy(1)
+})
 function setLevelTileMap0 (level: number) {
     clearGame()
     if (level == 0) {
@@ -978,14 +1092,26 @@ function setLevelTileMap0 (level: number) {
             bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccbbbbbbbbbbbbbbbbbbbbbbbbcbbbbbccbbbbbbbcbbcbbbbbbbbbbbbcccccccccccccbbbbbbbbbbbbbbbbbccccccccbbbbbbbbbbbbccccc
             `)
         tiles.setTilemap(tilemap`level`)
+        isKilled = 0
+        keyCount = 5
     } else if (level == 11) {
         tiles.setTilemap(tilemap`level_0`)
     } else if (level == 12) {
         tiles.setTilemap(tilemap`level5`)
     } else if (level == 13) {
-        tiles.setTilemap(tilemap`level4`)
+        tiles.setTilemap(tilemap`level32`)
     } else if (level == 14) {
-        tiles.setTilemap(tilemap`level29`)
+        tiles.setTilemap(tilemap`level4`)
+    } else if (level == 15) {
+        tiles.setTilemap(tilemap`level33`)
+    } else if (level == 16) {
+        tiles.setTilemap(tilemap`level34`)
+        keyCount = 5
+    } else if (level == 17) {
+        tiles.setTilemap(tilemap`level35`)
+        keyCount = 5
+    } else if (false) {
+    	
     } else {
     	
     }
@@ -1265,6 +1391,55 @@ function animateJumps () {
             `)
     }
 }
+function createCaveBoss () {
+    // enemy that moves back and forth
+    for (let value0 of tiles.getTilesByType(assets.tile`boss`)) {
+        boss = sprites.create(img`
+            ........ccddcbddddbcddcc........
+            ......dddcccbcbddbcbcccddd......
+            ....dbbbbddccdcbbcdccddbbbbd....
+            ...bccccbbbdccbccbccdbbbccccb...
+            ..dccccccbbbdccbbccdbbbccccccd..
+            ..ccbbbbccbbbddccddbbbccbbbbcc..
+            .ccbdddddccbbbbddbbbbccdddddbcc.
+            .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+            cdbccccccbdcccbbbbcccdbccccccbdc
+            dbccfffffcbdcccbbcccdbcfffffccbd
+            cccffff2ffcbcccbbcccbcff2ffffccc
+            bbbfff212ffdbccddccbdff212fffbbb
+            ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+            cbccbdfffbbbdccccccdbbbfffdbccbc
+            ccbcccdddccccccbbccccccdddcccbcc
+            bccbcccccbccbcbddbcbccbcccccbccb
+            ccddddddcccccbddddbcccccddddddcc
+            cdbdbdbddccbddbddbddbccddbdbdbdc
+            dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+            bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+            bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+            bbccccddddbbcbdbbdbcbbddddccccbb
+            bccccdbbccbcddddddddcbccbbdccccb
+            .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+            .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+            .cdbbccbccbcbbccccbbcbccbccbbdc.
+            ..dbbccbcccccdbbbbdcccccbccbbd..
+            ..dbbccbcccdbcddddcbdcccbccbbd..
+            ...bbcccdcdbdccbbccdbdcdcccbb...
+            ....bccccbbcbdccccdbcbbccccb....
+            ......ccccccbddddddbcccccc......
+            ........ccbcbddbbddbcbcc........
+            `, SpriteKind.caveBoss)
+        tiles.placeOnTile(boss, value0)
+        tiles.setTileAt(value0, assets.tile`tile0`)
+        boss.ay = gravity
+        if (Math.percentChance(50)) {
+            boss.ay = Math.randomRange(30, 60)
+        } else {
+            boss.ay = Math.randomRange(-60, -30)
+        }
+        animation.attachAnimation(boss, caveBossAni)
+        animation.setAction(boss, ActionKind.Idle)
+    }
+}
 function clearGame () {
     for (let value of sprites.allOfKind(SpriteKind.Bumper)) {
         value.destroy()
@@ -1275,17 +1450,23 @@ function clearGame () {
     for (let value3 of sprites.allOfKind(SpriteKind.Goal)) {
         value3.destroy()
     }
+    for (let value of sprites.allOfKind(SpriteKind.heart)) {
+        value.destroy()
+    }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, location) {
-    if (currentLevel < 10) {
-        info.changeLifeBy(1)
-    }
-    currentLevel += 1
-    if (hasNextLevel()) {
-        game.splash("Next level unlocked!")
-        setLevelTileMap0(currentLevel)
-    } else {
-        game.over(true, effects.confetti)
+    if (isKilled == 1 && keyCount <= 0) {
+        info.stopCountdown()
+        if (currentLevel < 10) {
+            info.changeLifeBy(1)
+        }
+        currentLevel += 1
+        if (hasNextLevel()) {
+            game.splash("Next level unlocked!")
+            setLevelTileMap0(currentLevel)
+        } else {
+            game.over(true, effects.confetti)
+        }
     }
 })
 function createEnemies () {
@@ -1324,6 +1505,30 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         hero.vy += 80
     }
 })
+function spawnHearts () {
+    for (let value10 of tiles.getTilesByType(assets.tile`myTile3`)) {
+        heart = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . f f f f . . . . f f f f . . 
+            . f 2 2 2 2 f . . f 2 2 2 2 f . 
+            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
+            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
+            . . f c 2 2 2 2 2 2 2 2 2 f . . 
+            . . . f c 2 2 2 2 2 2 2 f . . . 
+            . . . . f c 2 2 2 2 2 f . . . . 
+            . . . . . f c 2 2 2 f . . . . . 
+            . . . . . . f c c f . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.heart)
+        tiles.setTileAt(value10, assets.tile`tile0`)
+        tiles.placeOnTile(heart, value10)
+    }
+}
 function showInstruction (text: string) {
     game.showLongText(text, DialogLayout.Bottom)
     info.changeScoreBy(1)
@@ -1333,6 +1538,703 @@ function initializeHeroAnimations () {
     animateIdle()
     animateDrage()
     animateJumps()
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.caveBoss, function (sprite, otherSprite) {
+    if (sprite.vy > 0 && !(sprite.isHittingTile(CollisionDirection.Top)) || sprite.y < otherSprite.top) {
+        otherSprite.destroy(effects.blizzard, 250)
+        otherSprite.vy = -50
+        sprite.vy = -2 * pixelsToMeters
+        info.changeScoreBy(25)
+        info.startCountdown(10)
+        pause(invincibilityPeriod)
+        isKilled = 1
+    } else {
+        info.changeLifeBy(-2)
+        sprite.say("Ow!", invincibilityPeriod)
+    }
+})
+function initializecaveBossAni () {
+    caveBossAni = animation.createAnimation(ActionKind.Idle, 150)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcbbccccbbcbccbccbbdc.
+        ..dbbccbcccccdbbbbdcccccbccbbd..
+        ..dbbccbcccdbcddddcbdcccbccbbd..
+        ...bbcccdcdbdccbbccdbdcdcccbb...
+        ....bccccbbcbdccccdbcbbccccb....
+        ......ccccccbddddddbcccccc......
+        ........ccbcbddbbddbcbcc........
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbccccbbffffbbccccbccbbd..
+        ..dbbccbcccdcdbbbbdcdcccbccbbd..
+        ...bbcccdcdbbcddddcbbdcdcccbb...
+        ....bccccbbcdccbbccdcbbccccb....
+        ......ccccccbdccccdbcccccc......
+        ........ccbfbddddddbfbcc........
+        ............bddbbddb............
+        ................................
+        ................................
+        ................................
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbcccdbbffffbbdcccbccbbd..
+        ...bbcccdcdbcdbbbbdcbdcdcccbb...
+        ....bccccbbcbcddddcbcbbccccb....
+        ......cccccfdccbbccdfccccc......
+        ........ccbfbdccccdbfbcc........
+        ............bddddddb............
+        ............bddbbddb............
+        ................................
+        ................................
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccffffffffffffccbccbbd..
+        ...bbcccdfddbbffffbbddfdcccbb...
+        ....bccccbfbcdbbbbdcbfbccccb....
+        ......cccccfbcddddcbfccccc......
+        ........ccbfdccbbccdfbcc........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        ................................
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccffffffffffffccbccbbd..
+        ...bbcccdffffffffffffffdcccbb...
+        ....bccccbffffffffffffbccccb....
+        ......cccccbcdbbbbdcbccccc......
+        ........ccbfbcddddcbfbcc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff21fcbcccbbcccbcf12ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccffff2ff2ffffccbccbbd..
+        ...bbcccdff2f2f22f2f2ffdcccbb...
+        ....bccccbffffffffffffbccccb....
+        ......cccccbcdbbbbdcbccccc......
+        ........ccbfbcddddcbfbcc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdff12fffdbbcbbcbbdfff21ffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccff442ff244ffccbccbbd..
+        ...bbcccdff2424224242ffdcccbb...
+        ....bccccb4f24244242f4bccccb....
+        ......cccccbcdbbbbdcbccccc......
+        ........ccbfbcddddcbfbcc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff21fcbcccbbcccbcf12ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdff121ffdbbcbbcbbdff121ffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccfff5ff5fffcccbccbbd..
+        ..dbbccbccf5452552545fccbccbbd..
+        ...bbcccdf524242242425fdcccbb...
+        ....bcccc44224244242244ccccb....
+        ......ccc2cbcdbbbbdcbc2ccc......
+        ........cc2fbcddddcbf2cc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccfff121fcbcccbbcccbcf121fffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdff12fffdbbcbbcbbdfff21ffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccff55ff55ffcccbccbbd..
+        ..dbbccbccf5542552455fccbccbbd..
+        ...bbcccdf544242242445fdcccbb...
+        ....bcccc44224244242244ccccb....
+        ......cc52cbcdbbbbdcbc25cc......
+        ........c42fbcddddcbf24c........
+        ..........2fdccbbccdf2..........
+        ..........4fbdccccdbf4..........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccfff121fcbcccbbcccbcf121fffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdff121ffdbbcbbcbbdff121ffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccf555ff555fcccbccbbd..
+        ..dbbccbccf5542552455fccbccbbd..
+        ...bbcccd55442422424455dcccbb...
+        ....bcccc4ffffffffffff4ccccb....
+        ......cc52cbcdbbbbdcbc25cc......
+        ........542fbcddddcbf245........
+        .........52fdccbbccdf25.........
+        .........54fbdccccdbf45.........
+        ..........42bddddddb24..........
+        ...........4bddbbddb4...........
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccfff121fcbcccbbcccbcf121fffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdff12fffdbbcbbcbbdfff21ffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccff55ff55ffcccbccbbd..
+        ..dbbccbccf5542552455fccbccbbd..
+        ...bbcccdf544242242445fdcccbb...
+        ....bcccc44224244242244ccccb....
+        ......cc52cbcdbbbbdcbc25cc......
+        ........c42fbcddddcbf24c........
+        ..........2fdccbbccdf2..........
+        ..........4fbdccccdbf4..........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff21fcbcccbbcccbcf12ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdff121ffdbbcbbcbbdff121ffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccfff5ff5fffcccbccbbd..
+        ..dbbccbccf5452552545fccbccbbd..
+        ...bbcccdf524242242425fdcccbb...
+        ....bcccc44224244242244ccccb....
+        ......ccc2cbcdbbbbdcbc2ccc......
+        ........cc2fbcddddcbf2cc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdff12fffdbbcbbcbbdfff21ffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccff442ff244ffccbccbbd..
+        ...bbcccdff2424224242ffdcccbb...
+        ....bccccb4f24244242f4bccccb....
+        ......cccccbcdbbbbdcbccccc......
+        ........ccbfbcddddcbfbcc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff21fcbcccbbcccbcf12ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccffff2ff2ffffccbccbbd..
+        ...bbcccdff2f2f22f2f2ffdcccbb...
+        ....bccccbffffffffffffbccccb....
+        ......cccccbcdbbbbdcbccccc......
+        ........ccbfbcddddcbfbcc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccffffffffffffccbccbbd..
+        ...bbcccdffffffffffffffdcccbb...
+        ....bccccbffffffffffffbccccb....
+        ......cccccbcdbbbbdcbccccc......
+        ........ccbfbcddddcbfbcc........
+        ...........fdccbbccdf...........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbccffffffffffffccbccbbd..
+        ...bbcccdfddbbffffbbddfdcccbb...
+        ....bccccbfbcdbbbbdcbfbccccb....
+        ......cccccfbcddddcbfccccc......
+        ........ccbfdccbbccdfbcc........
+        ...........fbdccccdbf...........
+        ............bddddddb............
+        ............bddbbddb............
+        ................................
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbcccffffffffffcccbccbbd..
+        ..dbbccbcccdbbffffbbdcccbccbbd..
+        ...bbcccdcdbcdbbbbdcbdcdcccbb...
+        ....bccccbbcbcddddcbcbbccccb....
+        ......cccccfdccbbccdfccccc......
+        ........ccbfbdccccdbfbcc........
+        ............bddddddb............
+        ............bddbbddb............
+        ................................
+        ................................
+        `)
+    caveBossAni.addAnimationFrame(img`
+        ........ccddcbddddbcddcc........
+        ......dddcccbcbddbcbcccddd......
+        ....dbbbbddccdcbbcdccddbbbbd....
+        ...bccccbbbdccbccbccdbbbccccb...
+        ..dccccccbbbdccbbccdbbbccccccd..
+        ..ccbbbbccbbbddccddbbbccbbbbcc..
+        .ccbdddddccbbbbddbbbbccdddddbcc.
+        .cddbbbbbdcccbbbbbbcccdbbbbbddc.
+        cdbccccccbdcccbbbbcccdbccccccbdc
+        dbccfffffcbdcccbbcccdbcfffffccbd
+        cccffff2ffcbcccbbcccbcff2ffffccc
+        bbbfff212ffdbccddccbdff212fffbbb
+        ccbdfff2fffdbbcbbcbbdfff2fffdbcc
+        cbccbdfffbbbdccccccdbbbfffdbccbc
+        ccbcccdddccccccbbccccccdddcccbcc
+        bccbcccccbccbcbddbcbccbcccccbccb
+        ccddddddcccccbddddbcccccddddddcc
+        cdbdbdbddccbddbddbddbccddbdbdbdc
+        dbdbdbdbddcbdcddddcdbcddbdbdbdbd
+        bbcdbdbcbdbcbbccccbbcbdbcbdbdcbb
+        bcbcbbcbcbdccccbbccccdbcbcbbcbcb
+        bbccccddddbbcbdbbdbcbbddddccccbb
+        bccccdbbccbcddddddddcbccbbdccccb
+        .bccdbbccbcdbbbbbbbbdcbccbbdccb.
+        .ccdbbccbcdbcccbbcccbdcbccbbdcc.
+        .cdbbccbccbcffccccffcbccbccbbdc.
+        ..dbbccbccccbbffffbbccccbccbbd..
+        ..dbbccbcccdcdbbbbdcdcccbccbbd..
+        ...bbcccdcdbbcddddcbbdcdcccbb...
+        ....bccccbbcdccbbccdcbbccccb....
+        ......ccccccbdccccdbcccccc......
+        ........ccbfbddddddbfbcc........
+        ............bddbbddb............
+        ................................
+        ................................
+        ................................
+        `)
 }
 function createPlayer (player2: Sprite) {
     player2.ay = gravity
@@ -1346,6 +2248,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSpri
     otherSprite.destroy(effects.trail, 250)
     otherSprite.y += -3
     info.changeScoreBy(5)
+    keyCount += -1
 })
 function initializeLevel (level: number) {
     effects.clouds.startScreenEffect()
@@ -1354,6 +2257,9 @@ function initializeLevel (level: number) {
     tiles.setTileAt(playerStartLocation, assets.tile`tile0`)
     createEnemies()
     spawnGoals()
+    createCaveBoss()
+    spawnHearts()
+    createCaveBoss()
 }
 function hasNextLevel () {
     return currentLevel != levelCount
@@ -1387,7 +2293,10 @@ function spawnGoals () {
 let heroFacingLeft = false
 let key: Sprite = null
 let playerStartLocation: tiles.Location = null
+let heart: Sprite = null
 let fire: Sprite = null
+let caveBossAni: animation.Animation = null
+let boss: Sprite = null
 let mainJumpRight: animation.Animation = null
 let mainJumpLeft: animation.Animation = null
 let mainRunRight: animation.Animation = null
@@ -1405,6 +2314,10 @@ let gravity = 0
 let pixelsToMeters = 0
 let invincibilityPeriod = 0
 let hero: Sprite = null
+let keyCount = 0
+let isKilled = 0
+isKilled = 1
+keyCount = 0
 hero = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -1552,7 +2465,7 @@ scene.setBackgroundImage(img`
     `)
 initializeAnimations()
 createPlayer(hero)
-levelCount = 15
+levelCount = 17
 currentLevel = 0
 setLevelTileMap0(currentLevel)
 giveIntroduction()
@@ -1603,6 +2516,16 @@ game.onUpdate(function () {
             value9.vx = Math.randomRange(30, 60)
         } else if (value9.isHittingTile(CollisionDirection.Right)) {
             value9.vx = Math.randomRange(-60, -30)
+        }
+    }
+})
+// bumper movement
+game.onUpdate(function () {
+    for (let value11 of sprites.allOfKind(SpriteKind.caveBoss)) {
+        if (value11.isHittingTile(CollisionDirection.Top)) {
+            value11.ay = Math.randomRange(30, 60)
+        } else if (value11.isHittingTile(CollisionDirection.Bottom)) {
+            value11.ay = Math.randomRange(-60, -30)
         }
     }
 })
