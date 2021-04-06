@@ -2467,6 +2467,32 @@ levelCount = 17
 currentLevel = 0
 setLevelTileMap0(currentLevel)
 giveIntroduction()
+// Reset double jump when standing on wall
+game.onUpdate(function () {
+    if (hero.isHittingTile(CollisionDirection.Bottom)) {
+        canDoubleJump = true
+    }
+})
+// bumper movement
+game.onUpdate(function () {
+    for (let value9 of sprites.allOfKind(SpriteKind.Bumper)) {
+        if (value9.isHittingTile(CollisionDirection.Left)) {
+            value9.vx = Math.randomRange(30, 60)
+        } else if (value9.isHittingTile(CollisionDirection.Right)) {
+            value9.vx = Math.randomRange(-60, -30)
+        }
+    }
+})
+// bumper movement
+game.onUpdate(function () {
+    for (let value11 of sprites.allOfKind(SpriteKind.caveBoss)) {
+        if (value11.isHittingTile(CollisionDirection.Top)) {
+            value11.ay = Math.randomRange(30, 60)
+        } else if (value11.isHittingTile(CollisionDirection.Bottom)) {
+            value11.ay = Math.randomRange(-60, -30)
+        }
+    }
+})
 // set up hero animations
 game.onUpdate(function () {
     if (hero.vx < 0) {
@@ -2498,32 +2524,6 @@ game.onUpdate(function () {
             animation.setAction(hero, ActionKind.IdleLeft)
         } else {
             animation.setAction(hero, ActionKind.IdleRight)
-        }
-    }
-})
-// Reset double jump when standing on wall
-game.onUpdate(function () {
-    if (hero.isHittingTile(CollisionDirection.Bottom)) {
-        canDoubleJump = true
-    }
-})
-// bumper movement
-game.onUpdate(function () {
-    for (let value9 of sprites.allOfKind(SpriteKind.Bumper)) {
-        if (value9.isHittingTile(CollisionDirection.Left)) {
-            value9.vx = Math.randomRange(30, 60)
-        } else if (value9.isHittingTile(CollisionDirection.Right)) {
-            value9.vx = Math.randomRange(-60, -30)
-        }
-    }
-})
-// bumper movement
-game.onUpdate(function () {
-    for (let value11 of sprites.allOfKind(SpriteKind.caveBoss)) {
-        if (value11.isHittingTile(CollisionDirection.Top)) {
-            value11.ay = Math.randomRange(30, 60)
-        } else if (value11.isHittingTile(CollisionDirection.Bottom)) {
-            value11.ay = Math.randomRange(-60, -30)
         }
     }
 })
