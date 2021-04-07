@@ -16,7 +16,6 @@ namespace SpriteKind {
     export const Bumper = SpriteKind.create()
     export const Goal = SpriteKind.create()
     export const Coin = SpriteKind.create()
-    export const Flier = SpriteKind.create()
     export const key = SpriteKind.create()
     export const heart = SpriteKind.create()
     export const caveBoss = SpriteKind.create()
@@ -186,24 +185,6 @@ function initializeAnimations () {
     initializecaveBossAni()
 }
 function giveIntroduction () {
-    game.setDialogFrame(img`
-        . a a a a a a a a a a a a a . . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        . a a a a a a a a a a a a a . . 
-        . . . . . . . . . . . . . . . . 
-        `)
     game.setDialogCursor(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -222,27 +203,194 @@ function giveIntroduction () {
         . . . . 6 . . . . . 6 . . 7 6 . 
         . 5 6 6 . . . . 5 6 6 . . . . . 
         `)
-    showInstruction("Use ARROWS to move and A to jump. Jump in the air to DOUBLE JUMP!")
-    showInstruction("Don't get your face burnt or you'll lose lifes.")
     game.setDialogFrame(img`
-        . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
-        4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
-        4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-        4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
-        4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
-        . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
         . . . . . . . . . . . . . . . . 
         `)
-    showInstruction("Play with friends, gain as much points as possible, beat your friends and become the best GOOFY DRAGON in the entire universe! Good luck!")
+    if (currentLevel == 0) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+        showInstruction("Use ARROWS to move and A to jump. Jump in the air to DOUBLE JUMP!")
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("Don't get your face burnt or you'll lose your lifes.")
+        game.setDialogFrame(img`
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . f f f f . . . . f f f f . . 
+            . f 2 2 2 2 f . . f 2 2 2 2 f . 
+            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
+            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
+            . . f c 2 2 2 2 2 2 2 2 2 f . . 
+            . . . f c 2 2 2 2 2 2 2 f . . . 
+            . . . . f c 2 2 2 2 2 f . . . . 
+            . . . . . f c 2 2 2 f . . . . . 
+            . . . . . . f c c f . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        showInstruction("Play with friends, gain as much points as possible, beat your friends and become the best GOOFY DRAGON in the entire universe! Good luck!")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 1) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("You can destroy your enemies by jumping on their heads.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
     if (currentLevel == 10) {
         game.setDialogFrame(img`
             . a a a a a a a a a a a a a . . 
@@ -349,6 +497,42 @@ function giveIntroduction () {
             . 5 6 6 . . . . 5 6 6 . . . . . 
             `)
     }
+    game.setDialogFrame(img`
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    game.setDialogCursor(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+        . . . . 6 . . . . . 6 . . 7 6 . 
+        . 5 6 6 . . . . 5 6 6 . . . . . 
+        `)
 }
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     attemptJump()
@@ -584,6 +768,7 @@ function setLevelTileMap0 (level: number) {
             7777777777777777777777799999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             `)
         tiles.setTilemap(tilemap`level_1`)
+        info.setScore(0)
     } else if (level == 1) {
         tiles.setTilemap(tilemap`level2`)
     } else if (level == 2) {
@@ -1269,9 +1454,6 @@ function animateRun () {
         `)
 }
 function animateJumps () {
-    // Because there isn't currently an easy way to say "play this animation a single time
-    // and stop at the end", this just adds a bunch of the same frame at the end to accomplish
-    // the same behavior
     mainJumpLeft = animation.createAnimation(ActionKind.JumpingLeft, 100)
     animation.attachAnimation(hero, mainJumpLeft)
     mainJumpLeft.addAnimationFrame(img`
@@ -1390,7 +1572,6 @@ function animateJumps () {
     }
 }
 function createCaveBoss () {
-    // enemy that moves back and forth
     for (let value0 of tiles.getTilesByType(assets.tile`boss`)) {
         boss = sprites.create(img`
             ........ccddcbddddbcddcc........
@@ -1448,8 +1629,8 @@ function clearGame () {
     for (let value3 of sprites.allOfKind(SpriteKind.Goal)) {
         value3.destroy()
     }
-    for (let value of sprites.allOfKind(SpriteKind.heart)) {
-        value.destroy()
+    for (let value4 of sprites.allOfKind(SpriteKind.heart)) {
+        value4.destroy()
     }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, location) {
@@ -1468,7 +1649,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, lo
     }
 })
 function createEnemies () {
-    // enemy that moves back and forth
     for (let value5 of tiles.getTilesByType(assets.tile`tile10`)) {
         fire = sprites.create(img`
             . . . . . . . 2 . . . . . . . . 
@@ -1505,7 +1685,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 function spawnHearts () {
     for (let value10 of tiles.getTilesByType(assets.tile`myTile3`)) {
-        heart = sprites.create(img`
+        heart2 = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . f f f f . . . . f f f f . . 
@@ -1524,12 +1704,11 @@ function spawnHearts () {
             . . . . . . . . . . . . . . . . 
             `, SpriteKind.heart)
         tiles.setTileAt(value10, assets.tile`tile0`)
-        tiles.placeOnTile(heart, value10)
+        tiles.placeOnTile(heart2, value10)
     }
 }
 function showInstruction (text: string) {
     game.showLongText(text, DialogLayout.Bottom)
-    info.changeScoreBy(1)
 }
 function initializeHeroAnimations () {
     animateRun()
@@ -2249,10 +2428,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSpri
     keyCount += -1
 })
 function initializeLevel (level: number) {
-    effects.clouds.startScreenEffect()
     playerStartLocation = tiles.getTilesByType(assets.tile`tile9`)[0]
     tiles.placeOnTile(hero, playerStartLocation)
     tiles.setTileAt(playerStartLocation, assets.tile`tile0`)
+    giveIntroduction()
     createEnemies()
     spawnGoals()
     createCaveBoss()
@@ -2264,7 +2443,7 @@ function hasNextLevel () {
 }
 function spawnGoals () {
     for (let value7 of tiles.getTilesByType(assets.tile`tile8`)) {
-        key = sprites.create(img`
+        key2 = sprites.create(img`
             . . . . . f f f f f f . . . . . 
             . . . . f 4 5 5 5 5 4 f . . . . 
             . . . f 4 5 5 4 4 5 5 4 f . . . 
@@ -2283,15 +2462,15 @@ function spawnGoals () {
             . . . . . f f f f . . . . . . . 
             `, SpriteKind.key)
         tiles.setTileAt(value7, assets.tile`tile0`)
-        tiles.placeOnTile(key, value7)
-        animation.attachAnimation(key, KeyAni)
-        animation.setAction(key, ActionKind.Idle)
+        tiles.placeOnTile(key2, value7)
+        animation.attachAnimation(key2, KeyAni)
+        animation.setAction(key2, ActionKind.Idle)
     }
 }
 let heroFacingLeft = false
-let key: Sprite = null
+let key2: Sprite = null
 let playerStartLocation: tiles.Location = null
-let heart: Sprite = null
+let heart2: Sprite = null
 let fire: Sprite = null
 let caveBossAni: animation.Animation = null
 let boss: Sprite = null
@@ -2334,8 +2513,6 @@ hero = sprites.create(img`
     . 6 7 . . 6 . . . . 6 . . . . . 
     . . . . . 6 6 5 . . 6 6 5 . . . 
     `, SpriteKind.Player)
-// how long to pause between each contact with a
-// single enemy
 invincibilityPeriod = 600
 pixelsToMeters = 30
 gravity = 9.81 * pixelsToMeters
@@ -2466,14 +2643,11 @@ createPlayer(hero)
 levelCount = 17
 currentLevel = 0
 setLevelTileMap0(currentLevel)
-giveIntroduction()
-// Reset double jump when standing on wall
 game.onUpdate(function () {
     if (hero.isHittingTile(CollisionDirection.Bottom)) {
         canDoubleJump = true
     }
 })
-// bumper movement
 game.onUpdate(function () {
     for (let value9 of sprites.allOfKind(SpriteKind.Bumper)) {
         if (value9.isHittingTile(CollisionDirection.Left)) {
@@ -2483,7 +2657,6 @@ game.onUpdate(function () {
         }
     }
 })
-// bumper movement
 game.onUpdate(function () {
     for (let value11 of sprites.allOfKind(SpriteKind.caveBoss)) {
         if (value11.isHittingTile(CollisionDirection.Top)) {
@@ -2493,7 +2666,6 @@ game.onUpdate(function () {
         }
     }
 })
-// set up hero animations
 game.onUpdate(function () {
     if (hero.vx < 0) {
         heroFacingLeft = true
