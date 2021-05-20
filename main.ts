@@ -293,6 +293,24 @@ function mainMenu () {
             6666666666666666666666777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777776666666666666666666666
             6666666666666666666666777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777776666666666666666666666
             `)
+        Cursor0 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . . . f 2 2 f . . . . . . 
+            . . . . . . f 2 2 f . . . . . . 
+            . . . . . . f f f f . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.cursor)
         Play = sprites.create(img`
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
@@ -345,12 +363,18 @@ function mainMenu () {
             f5555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.button)
+        Cursor0.setPosition(80, 60)
         Play.setPosition(80, 60)
         Score.setPosition(80, 75)
         Options.setPosition(80, 90)
         Credits.setPosition(80, 105)
-    } else {
-    	
+        controller.moveSprite(Cursor0, 0, controller.dy())
+        if (menu != 0) {
+            Play.destroy()
+            Score.destroy()
+            Options.destroy()
+            Credits.destroy()
+        }
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherSprite) {
@@ -1758,10 +1782,18 @@ function animateJumps () {
     }
 }
 sprites.onOverlap(SpriteKind.cursor, SpriteKind.button, function (sprite, otherSprite) {
-    if (0 == 0 && false) {
-    	
-    } else if (0 == 0 && false) {
-    	
+    if (Cursor0 == Play && controller.A.isPressed()) {
+        menu = 1
+        mainMenu()
+    } else if (Cursor0 == Score && controller.A.isPressed()) {
+        menu = 2
+        mainMenu()
+    } else if (Cursor0 == Options && controller.A.isPressed()) {
+        menu = 3
+        mainMenu()
+    } else if (Cursor0 == Credits && controller.A.isPressed()) {
+        menu = 4
+        mainMenu()
     }
 })
 function createCaveBoss () {
@@ -2681,6 +2713,8 @@ let Credits: Sprite = null
 let Options: Sprite = null
 let Score: Sprite = null
 let Play: Sprite = null
+let Cursor0: Sprite = null
+let menu = 0
 let KeyAni: animation.Animation = null
 let currentLevel = 0
 let levelCount = 0
@@ -2690,8 +2724,6 @@ let invincibilityPeriod = 0
 let hero: Sprite = null
 let keyCount = 0
 let isKilled = 0
-let menu = 0
-menu = 0
 isKilled = 1
 keyCount = 0
 hero = sprites.create(img`
