@@ -369,12 +369,15 @@ function mainMenu () {
         Options.setPosition(80, 90)
         Credits.setPosition(80, 105)
         controller.moveSprite(Cursor0, 0, controller.dy())
-        if (menu != 0) {
-            Play.destroy()
-            Score.destroy()
-            Options.destroy()
-            Credits.destroy()
-        }
+    }
+    if (menu != 0) {
+        Play.destroy()
+        Score.destroy()
+        Options.destroy()
+        Credits.destroy()
+    }
+    if (menu == 1 && isChangedMenu == true) {
+    	
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherSprite) {
@@ -431,6 +434,11 @@ function giveIntroduction () {
         . a a a a a a a a a a a a a . . 
         . . . . . . . . . . . . . . . . 
         `)
+    if (menu == 0) {
+        showInstruction("Menu is 0")
+    } else if (menu != 0) {
+        showInstruction("Menu is not 0")
+    }
     if (currentLevel == 0) {
         game.setDialogFrame(img`
             . a a a a a a a a a a a a a . . 
@@ -1784,15 +1792,19 @@ function animateJumps () {
 sprites.onOverlap(SpriteKind.cursor, SpriteKind.button, function (sprite, otherSprite) {
     if (Cursor0 == Play && controller.A.isPressed()) {
         menu = 1
+        isChangedMenu = true
         mainMenu()
     } else if (Cursor0 == Score && controller.A.isPressed()) {
         menu = 2
+        isChangedMenu = true
         mainMenu()
     } else if (Cursor0 == Options && controller.A.isPressed()) {
         menu = 3
+        isChangedMenu = true
         mainMenu()
     } else if (Cursor0 == Credits && controller.A.isPressed()) {
         menu = 4
+        isChangedMenu = true
         mainMenu()
     }
 })
@@ -2709,12 +2721,12 @@ let doubleJumpSpeed = 0
 let canDoubleJump = false
 let mainDrageRight: animation.Animation = null
 let mainDrageLeft: animation.Animation = null
+let isChangedMenu = false
 let Credits: Sprite = null
 let Options: Sprite = null
 let Score: Sprite = null
 let Play: Sprite = null
 let Cursor0: Sprite = null
-let menu = 0
 let KeyAni: animation.Animation = null
 let currentLevel = 0
 let levelCount = 0
@@ -2724,6 +2736,9 @@ let invincibilityPeriod = 0
 let hero: Sprite = null
 let keyCount = 0
 let isKilled = 0
+let menu = 0
+menu = 0
+mainMenu()
 isKilled = 1
 keyCount = 0
 hero = sprites.create(img`
@@ -2874,6 +2889,7 @@ createPlayer(hero)
 levelCount = 17
 currentLevel = 0
 setLevelTileMap0(currentLevel)
+mainMenu()
 game.onUpdate(function () {
     if (hero.isHittingTile(CollisionDirection.Bottom)) {
         canDoubleJump = true
@@ -2928,5 +2944,10 @@ game.onUpdate(function () {
         } else {
             animation.setAction(hero, ActionKind.IdleRight)
         }
+    }
+})
+game.onUpdate(function () {
+    if (isChangedMenu == true) {
+        isChangedMenu = false
     }
 })
