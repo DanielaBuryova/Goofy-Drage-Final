@@ -363,19 +363,6 @@ function mainMenu () {
             f5555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.button)
-        exit = sprites.create(img`
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 f f f f f 5 f 
-            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f f f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 5 5 f 5 5 5 f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            `, SpriteKind.button)
         back = sprites.create(img`
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
@@ -386,6 +373,19 @@ function mainMenu () {
             f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 f 5 5 5 f 
             f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 5 5 f 
             f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `, SpriteKind.button)
+        exit = sprites.create(img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 f f f f f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f f f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 5 5 f 5 5 5 f 
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             `, SpriteKind.button)
@@ -2750,8 +2750,8 @@ let canDoubleJump = false
 let mainDrageRight: animation.Animation = null
 let mainDrageLeft: animation.Animation = null
 let isChangedMenu = false
-let back: Sprite = null
 let exit: Sprite = null
+let back: Sprite = null
 let Credits: Sprite = null
 let Options: Sprite = null
 let Score: Sprite = null
