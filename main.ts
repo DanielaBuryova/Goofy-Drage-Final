@@ -363,19 +363,6 @@ function mainMenu () {
             f5555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.button)
-        back = sprites.create(img`
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 5 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 f 5 5 5 f 
-            f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f 5 5 5 5 f 
-            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 f 5 5 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 5 5 f 
-            f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            `, SpriteKind.button)
         Cursor0.setPosition(80, 60)
         Play.setPosition(80, 60)
         Score.setPosition(80, 75)
@@ -876,16 +863,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSp
 function setLevelTileMap0 (level: number) {
     clearGame()
     if (level == 0) {
-    	
-    } else if (level == 1) {
-    	
-    } else if (level == 2) {
-    	
-    } else if (level == 3) {
-    	
-    } else if (level == 4) {
-    	
-    } else if (level == 5) {
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -1010,9 +987,9 @@ function setLevelTileMap0 (level: number) {
             `)
         tiles.setTilemap(tilemap`level_1`)
         info.setScore(0)
-    } else if (level == 6) {
+    } else if (level == 1) {
         tiles.setTilemap(tilemap`level2`)
-    } else if (level == 7) {
+    } else if (level == 2) {
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -1136,7 +1113,7 @@ function setLevelTileMap0 (level: number) {
             77777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
             `)
         tiles.setTilemap(tilemap`level3`)
-    } else if (level == 8) {
+    } else if (level == 3) {
         scene.setBackgroundImage(img`
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -1260,9 +1237,9 @@ function setLevelTileMap0 (level: number) {
             99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
             `)
         tiles.setTilemap(tilemap`level16`)
-    } else if (level == 9) {
+    } else if (level == 4) {
         tiles.setTilemap(tilemap`level15`)
-    } else if (level == 10) {
+    } else if (level == 5) {
         scene.setBackgroundImage(img`
             1111111111111999999999999999999111111111111119999999999999999999999999999999999999999999999999999999999999991111111111111111111111199999999999999999999999999999
             1111111111111999999999999999999111111111111111199999999999999999999999999999999999999999999999999999999991111111111111111111111111199999999999999999999999999999
@@ -1386,15 +1363,15 @@ function setLevelTileMap0 (level: number) {
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             `)
         tiles.setTilemap(tilemap`level17`)
-    } else if (level == 11) {
+    } else if (level == 6) {
         tiles.setTilemap(tilemap`level21`)
-    } else if (level == 12) {
+    } else if (level == 7) {
         tiles.setTilemap(tilemap`level18`)
-    } else if (level == 13) {
+    } else if (level == 8) {
         tiles.setTilemap(tilemap`level20`)
-    } else if (level == 14) {
+    } else if (level == 9) {
         tiles.setTilemap(tilemap`level19`)
-    } else if (level == 15) {
+    } else if (level == 10) {
         scene.setBackgroundImage(img`
             ccccccccccccccbbbbbbbbbbbbbbbbbbccccccccccccccccccbbbbbcbbbbbbbbccbbcccccccccccccccbbbbbbbccccccbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccc
             ccccccccccccccbbbbbbbbbbbbbbbbbbccccccccccccccccccbbbbbcbbbcbbbbbcbbcbbccccccccccccbbbbbbcccccccbbbbccbbbcbbbbbbbbbbbbbbbbbbbbcccbbbbbbbbbbbbbbbbbbbbbbbbbcccccc
@@ -1520,22 +1497,24 @@ function setLevelTileMap0 (level: number) {
         tiles.setTilemap(tilemap`level`)
         isKilled = 0
         keyCount = 5
-    } else if (level == 16) {
+    } else if (level == 11) {
         tiles.setTilemap(tilemap`level_0`)
-    } else if (level == 17) {
+    } else if (level == 12) {
         tiles.setTilemap(tilemap`level5`)
-    } else if (false) {
+    } else if (level == 13) {
         tiles.setTilemap(tilemap`level32`)
-    } else if (false) {
+    } else if (level == 14) {
         tiles.setTilemap(tilemap`level4`)
-    } else if (false) {
+    } else if (level == 15) {
         tiles.setTilemap(tilemap`level33`)
-    } else if (false) {
+    } else if (level == 16) {
         tiles.setTilemap(tilemap`level34`)
         keyCount = 5
-    } else {
+    } else if (level == 17) {
         tiles.setTilemap(tilemap`level35`)
         keyCount = 5
+    } else if (false) {
+    	
     }
     initializeLevel(level)
 }
@@ -2743,7 +2722,6 @@ let canDoubleJump = false
 let mainDrageRight: animation.Animation = null
 let mainDrageLeft: animation.Animation = null
 let isChangedMenu = false
-let back: Sprite = null
 let Credits: Sprite = null
 let Options: Sprite = null
 let Score: Sprite = null
@@ -2969,7 +2947,7 @@ game.onUpdate(function () {
     }
 })
 game.onUpdate(function () {
-    if (isChangedMenu == true && controller.B.isPressed()) {
+    if (isChangedMenu == true) {
         giveIntroduction()
     }
 })
