@@ -363,11 +363,39 @@ function mainMenu () {
             f5555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.button)
-        Cursor0.setPosition(80, 60)
-        Play.setPosition(80, 60)
-        Score.setPosition(80, 75)
-        Options.setPosition(80, 90)
-        Credits.setPosition(80, 105)
+        exit = sprites.create(img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 f f f f f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f f f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 5 5 f 5 5 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `, SpriteKind.button)
+        back = sprites.create(img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 f 5 5 5 f 
+            f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f 5 5 5 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 5 5 f 
+            f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `, SpriteKind.button)
+        Cursor0.setPosition(80, 50)
+        Play.setPosition(80, 50)
+        Score.setPosition(80, 65)
+        Options.setPosition(80, 80)
+        Credits.setPosition(80, 95)
+        exit.setPosition(80, 110)
+        back.setPosition(80, 110)
         controller.moveSprite(Cursor0, 0, controller.dy())
     }
     if (menu != 0) {
@@ -2722,6 +2750,8 @@ let canDoubleJump = false
 let mainDrageRight: animation.Animation = null
 let mainDrageLeft: animation.Animation = null
 let isChangedMenu = false
+let back: Sprite = null
+let exit: Sprite = null
 let Credits: Sprite = null
 let Options: Sprite = null
 let Score: Sprite = null
