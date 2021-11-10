@@ -169,8 +169,484 @@ function initializeKeyAni () {
         . . . . . . f f f . . . . . . . 
         `)
 }
-function mainMenu () {
-    if (menu == 0) {
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherSprite) {
+    if (sprite.vy > 0 && !(sprite.isHittingTile(CollisionDirection.Bottom)) || sprite.y < otherSprite.top) {
+        otherSprite.destroy(effects.ashes, 250)
+        otherSprite.vy = -50
+        sprite.vy = -2 * pixelsToMeters
+        info.changeScoreBy(3)
+    } else {
+        info.changeLifeBy(-1)
+        sprite.say("Ow!", invincibilityPeriod)
+    }
+    pause(invincibilityPeriod)
+})
+function initializeAnimations () {
+    initializeHeroAnimations()
+    initializeKeyAni()
+    initializecaveBossAni()
+}
+function giveIntroduction () {
+    game.setDialogCursor(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+        . . . . 6 . . . . . 6 . . 7 6 . 
+        . 5 6 6 . . . . 5 6 6 . . . . . 
+        `)
+    game.setDialogFrame(img`
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    if (currentLevel == 10) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+        showInstruction("Use ARROWS to move and A to jump. Jump in the air to DOUBLE JUMP!")
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("Don't get your face burnt or you'll lose your lifes.")
+        game.setDialogFrame(img`
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . f f f f . . . . f f f f . . 
+            . f 2 2 2 2 f . . f 2 2 2 2 f . 
+            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
+            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
+            . . f c 2 2 2 2 2 2 2 2 2 f . . 
+            . . . f c 2 2 2 2 2 2 2 f . . . 
+            . . . . f c 2 2 2 2 2 f . . . . 
+            . . . . . f c 2 2 2 f . . . . . 
+            . . . . . . f c c f . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        showInstruction("Play with friends, gain as much points as possible, beat your friends and become the best GOOFY DRAGON in the entire universe! Good luck!")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 11) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("You can destroy your enemies by jumping on their heads.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 12) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            b c c c c c c b d c c c b b b b c c c d b c c c c c c b 
+            c c f f f f f c b d c c c b b c c c d b c f f f f f c c 
+            c f f f f 2 f f c b c c c b b c c c b c f f 2 f f f f c 
+            b f f f 2 1 2 f f d b c c d d c c b d f f 2 1 2 f f f b 
+            b d f f f 2 f f f d b b c b b c b b d f f f 2 f f f d b 
+            c c b d f f f b b b d c c c c c c d b b b f f f d b c c 
+            b c c c d d d c c c c c c b b c c c c c c d d d c c c b 
+            `)
+        showInstruction("Beware, the cave statue is more harmful, than the fire of it's anger you've already met. You need to kill this monster and escape in 10s to enter the next level.")
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("You need to collect at least 5 keys in this level to escape.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 26 || currentLevel == 17) {
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("You need to collect at least 5 keys in this level to escape.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    game.setDialogFrame(img`
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    game.setDialogCursor(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+        . . . . 6 . . . . . 6 . . 7 6 . 
+        . 5 6 6 . . . . 5 6 6 . . . . . 
+        `)
+}
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    attemptJump()
+})
+function animateDrage () {
+    mainDrageLeft = animation.createAnimation(ActionKind.CrouchLeft, 100)
+    animation.attachAnimation(hero, mainDrageLeft)
+    mainDrageLeft.addAnimationFrame(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . . 6 7 7 7 . 6 . 7 6 . 6 
+        . . . . . 6 . . . . 6 . . 7 6 . 
+        . . . 5 6 6 . . 5 6 6 . . . . . 
+        `)
+    mainDrageRight = animation.createAnimation(ActionKind.CrouchRight, 100)
+    animation.attachAnimation(hero, mainDrageRight)
+    mainDrageRight.addAnimationFrame(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . 5 . . . . . . . . 
+        . . 6 6 6 . 8 . 5 . . . . . . . 
+        . . . 7 6 6 8 8 5 5 5 . . . . . 
+        . . 6 6 7 6 6 8 8 5 6 6 6 . . . 
+        . . . 7 6 7 6 5 8 6 6 9 6 f 7 . 
+        . . . 6 7 6 6 8 6 6 7 7 7 7 7 . 
+        . . . . 6 6 6 8 6 7 . . . 1 . . 
+        . . . . . 7 6 8 6 6 7 . . . . . 
+        . . . . . 6 6 6 6 6 6 7 . . . . 
+        . 5 . . 6 6 6 6 6 6 6 7 . . . . 
+        6 . . 6 7 6 7 6 6 7 6 7 . . . . 
+        6 . 6 7 . 6 . 7 7 7 6 . . . . . 
+        . 6 7 . . 6 . . . . 6 . . . . . 
+        . . . . . 6 6 5 . . 6 6 5 . . . 
+        `)
+}
+function attemptJump () {
+    // else if: either fell off a ledge, or double jumping
+    if (hero.isHittingTile(CollisionDirection.Bottom)) {
+        hero.vy = -4 * pixelsToMeters
+    } else if (canDoubleJump) {
+        doubleJumpSpeed = -3 * pixelsToMeters
+        // Good double jump
+        if (hero.vy >= -40) {
+            doubleJumpSpeed = -4.5 * pixelsToMeters
+            hero.startEffect(effects.trail, 500)
+            scene.cameraShake(2, 150)
+        }
+        hero.vy = doubleJumpSpeed
+        canDoubleJump = false
+    }
+}
+function animateIdle () {
+    mainIdleLeft = animation.createAnimation(ActionKind.IdleLeft, 100)
+    animation.attachAnimation(hero, mainIdleLeft)
+    mainIdleLeft.addAnimationFrame(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . . 6 7 7 7 . 6 . 7 6 . 6 
+        . . . . . 6 . . . . 6 . . 7 6 . 
+        . . . 5 6 6 . . 5 6 6 . . . . . 
+        `)
+    mainIdleRight = animation.createAnimation(ActionKind.IdleRight, 100)
+    animation.attachAnimation(hero, mainIdleRight)
+    mainIdleRight.addAnimationFrame(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . 5 . . . . . . . . 
+        . . 6 6 6 . 8 . 5 . . . . . . . 
+        . . . 7 6 6 8 8 5 5 5 . . . . . 
+        . . 6 6 7 6 6 8 8 5 6 6 6 . . . 
+        . . . 7 6 7 6 5 8 6 6 9 6 f 7 . 
+        . . . 6 7 6 6 8 6 6 7 7 7 7 7 . 
+        . . . . 6 6 6 8 6 7 . . . 1 . . 
+        . . . . . 7 6 8 6 6 7 . . . . . 
+        . . . . . 6 6 6 6 6 6 7 . . . . 
+        . 5 . . 6 6 6 6 6 6 6 7 . . . . 
+        6 . . 6 7 6 7 6 6 7 6 7 . . . . 
+        6 . 6 7 . 6 . 7 7 7 6 . . . . . 
+        . 6 7 . . 6 . . . . 6 . . . . . 
+        . . . . . 6 6 5 . . 6 6 5 . . . 
+        `)
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.halo, 250)
+    otherSprite.y += 3
+    info.changeLifeBy(1)
+})
+function setLevelTileMap0 (level: number) {
+    clearGame()
+    if (level == 0) {
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799999999999999999999999999999999999999999999999
@@ -398,499 +874,16 @@ function mainMenu () {
         back.setPosition(80, 110)
         controller.moveSprite(Cursor0, 0, controller.dy())
     }
-    if (menu != 0) {
+    if (level != 0) {
         Play.destroy()
         Score.destroy()
         Options.destroy()
         Credits.destroy()
     }
-    if (menu == 1 && isChangedMenu == true) {
-    	
-    }
-}
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherSprite) {
-    if (sprite.vy > 0 && !(sprite.isHittingTile(CollisionDirection.Bottom)) || sprite.y < otherSprite.top) {
-        otherSprite.destroy(effects.ashes, 250)
-        otherSprite.vy = -50
-        sprite.vy = -2 * pixelsToMeters
-        info.changeScoreBy(3)
-    } else {
-        info.changeLifeBy(-1)
-        sprite.say("Ow!", invincibilityPeriod)
-    }
-    pause(invincibilityPeriod)
-})
-function initializeAnimations () {
-    initializeHeroAnimations()
-    initializeKeyAni()
-    initializecaveBossAni()
-}
-function giveIntroduction () {
-    game.setDialogCursor(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . 5 . . . . . . . 
-        . . . . . . . 5 . 8 . 6 6 6 . . 
-        . . . . . 5 5 5 8 8 6 6 7 . . . 
-        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-        . . 1 . . . 7 6 8 6 6 6 . . . . 
-        . . . . . 7 6 6 8 6 7 . . . . . 
-        . . . . 7 6 6 6 6 6 6 . . . . . 
-        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-        . . . . 6 . . . . . 6 . . 7 6 . 
-        . 5 6 6 . . . . 5 6 6 . . . . . 
-        `)
-    game.setDialogFrame(img`
-        . a a a a a a a a a a a a a . . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        . a a a a a a a a a a a a a . . 
-        . . . . . . . . . . . . . . . . 
-        `)
-    if (menu == 0) {
-        showInstruction("Menu is 0")
-    } else if (menu != 0) {
-        showInstruction("Menu is not 0")
-    }
-    if (currentLevel == 0) {
-        game.setDialogFrame(img`
-            . a a a a a a a a a a a a a . . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            . a a a a a a a a a a a a a . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-        showInstruction("Use ARROWS to move and A to jump. Jump in the air to DOUBLE JUMP!")
-        game.setDialogCursor(img`
-            . . . . . . . 2 . . . . . . . . 
-            . . . . . . . 2 2 . . . . . . . 
-            . . . . 2 . 2 4 4 2 . . . . . . 
-            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
-            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
-            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
-            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
-            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
-            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
-            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
-            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
-            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
-            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
-            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
-            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
-            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
-            `)
-        showInstruction("Don't get your face burnt or you'll lose your lifes.")
-        game.setDialogFrame(img`
-            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
-            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
-            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
-            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
-            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . f f f f . . . . f f f f . . 
-            . f 2 2 2 2 f . . f 2 2 2 2 f . 
-            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
-            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
-            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
-            . . f c 2 2 2 2 2 2 2 2 2 f . . 
-            . . . f c 2 2 2 2 2 2 2 f . . . 
-            . . . . f c 2 2 2 2 2 f . . . . 
-            . . . . . f c 2 2 2 f . . . . . 
-            . . . . . . f c c f . . . . . . 
-            . . . . . . . f f . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        showInstruction("Play with friends, gain as much points as possible, beat your friends and become the best GOOFY DRAGON in the entire universe! Good luck!")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    if (currentLevel == 1) {
-        game.setDialogFrame(img`
-            . a a a a a a a a a a a a a . . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            . a a a a a a a a a a a a a . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            . . . . . . . 2 . . . . . . . . 
-            . . . . . . . 2 2 . . . . . . . 
-            . . . . 2 . 2 4 4 2 . . . . . . 
-            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
-            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
-            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
-            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
-            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
-            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
-            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
-            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
-            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
-            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
-            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
-            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
-            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
-            `)
-        showInstruction("You can destroy your enemies by jumping on their heads.")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    if (currentLevel == 10) {
-        game.setDialogFrame(img`
-            . a a a a a a a a a a a a a . . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            . a a a a a a a a a a a a a . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            b c c c c c c b d c c c b b b b c c c d b c c c c c c b 
-            c c f f f f f c b d c c c b b c c c d b c f f f f f c c 
-            c f f f f 2 f f c b c c c b b c c c b c f f 2 f f f f c 
-            b f f f 2 1 2 f f d b c c d d c c b d f f 2 1 2 f f f b 
-            b d f f f 2 f f f d b b c b b c b b d f f f 2 f f f d b 
-            c c b d f f f b b b d c c c c c c d b b b f f f d b c c 
-            b c c c d d d c c c c c c b b c c c c c c d d d c c c b 
-            `)
-        showInstruction("Beware, the cave statue is more harmful, than the fire of it's anger you've already met. You need to kill this monster and escape in 10s to enter the next level.")
-        game.setDialogCursor(img`
-            . . . . . f f f f f f . . . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 5 5 f . . f 5 5 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . . . f f 5 5 f f . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . f f 5 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f 4 4 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f f f f . . . . . . . 
-            `)
-        showInstruction("You need to collect at least 5 keys in this level to escape.")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    if (currentLevel == 16 || currentLevel == 17) {
-        game.setDialogCursor(img`
-            . . . . . f f f f f f . . . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 5 5 f . . f 5 5 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . . . f f 5 5 f f . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . f f 5 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f 4 4 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f f f f . . . . . . . 
-            `)
-        showInstruction("You need to collect at least 5 keys in this level to escape.")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    game.setDialogFrame(img`
-        . a a a a a a a a a a a a a . . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        . a a a a a a a a a a a a a . . 
-        . . . . . . . . . . . . . . . . 
-        `)
-    game.setDialogCursor(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . 5 . . . . . . . 
-        . . . . . . . 5 . 8 . 6 6 6 . . 
-        . . . . . 5 5 5 8 8 6 6 7 . . . 
-        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-        . . 1 . . . 7 6 8 6 6 6 . . . . 
-        . . . . . 7 6 6 8 6 7 . . . . . 
-        . . . . 7 6 6 6 6 6 6 . . . . . 
-        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-        . . . . 6 . . . . . 6 . . 7 6 . 
-        . 5 6 6 . . . . 5 6 6 . . . . . 
-        `)
-}
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    attemptJump()
-})
-function animateDrage () {
-    mainDrageLeft = animation.createAnimation(ActionKind.CrouchLeft, 100)
-    animation.attachAnimation(hero, mainDrageLeft)
-    mainDrageLeft.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . 5 . . . . . . . 
-        . . . . . . . 5 . 8 . 6 6 6 . . 
-        . . . . . 5 5 5 8 8 6 6 7 . . . 
-        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-        . . 1 . . . 7 6 8 6 6 6 . . . . 
-        . . . . . 7 6 6 8 6 7 . . . . . 
-        . . . . 7 6 6 6 6 6 6 . . . . . 
-        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-        . . . . . 6 7 7 7 . 6 . 7 6 . 6 
-        . . . . . 6 . . . . 6 . . 7 6 . 
-        . . . 5 6 6 . . 5 6 6 . . . . . 
-        `)
-    mainDrageRight = animation.createAnimation(ActionKind.CrouchRight, 100)
-    animation.attachAnimation(hero, mainDrageRight)
-    mainDrageRight.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . 5 . . . . . . . . 
-        . . 6 6 6 . 8 . 5 . . . . . . . 
-        . . . 7 6 6 8 8 5 5 5 . . . . . 
-        . . 6 6 7 6 6 8 8 5 6 6 6 . . . 
-        . . . 7 6 7 6 5 8 6 6 9 6 f 7 . 
-        . . . 6 7 6 6 8 6 6 7 7 7 7 7 . 
-        . . . . 6 6 6 8 6 7 . . . 1 . . 
-        . . . . . 7 6 8 6 6 7 . . . . . 
-        . . . . . 6 6 6 6 6 6 7 . . . . 
-        . 5 . . 6 6 6 6 6 6 6 7 . . . . 
-        6 . . 6 7 6 7 6 6 7 6 7 . . . . 
-        6 . 6 7 . 6 . 7 7 7 6 . . . . . 
-        . 6 7 . . 6 . . . . 6 . . . . . 
-        . . . . . 6 6 5 . . 6 6 5 . . . 
-        `)
-}
-function attemptJump () {
-    // else if: either fell off a ledge, or double jumping
-    if (hero.isHittingTile(CollisionDirection.Bottom)) {
-        hero.vy = -4 * pixelsToMeters
-    } else if (canDoubleJump) {
-        doubleJumpSpeed = -3 * pixelsToMeters
-        // Good double jump
-        if (hero.vy >= -40) {
-            doubleJumpSpeed = -4.5 * pixelsToMeters
-            hero.startEffect(effects.trail, 500)
-            scene.cameraShake(2, 150)
-        }
-        hero.vy = doubleJumpSpeed
-        canDoubleJump = false
-    }
-}
-function animateIdle () {
-    mainIdleLeft = animation.createAnimation(ActionKind.IdleLeft, 100)
-    animation.attachAnimation(hero, mainIdleLeft)
-    mainIdleLeft.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . 5 . . . . . . . 
-        . . . . . . . 5 . 8 . 6 6 6 . . 
-        . . . . . 5 5 5 8 8 6 6 7 . . . 
-        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-        . . 1 . . . 7 6 8 6 6 6 . . . . 
-        . . . . . 7 6 6 8 6 7 . . . . . 
-        . . . . 7 6 6 6 6 6 6 . . . . . 
-        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-        . . . . . 6 7 7 7 . 6 . 7 6 . 6 
-        . . . . . 6 . . . . 6 . . 7 6 . 
-        . . . 5 6 6 . . 5 6 6 . . . . . 
-        `)
-    mainIdleRight = animation.createAnimation(ActionKind.IdleRight, 100)
-    animation.attachAnimation(hero, mainIdleRight)
-    mainIdleRight.addAnimationFrame(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . 5 . . . . . . . . 
-        . . 6 6 6 . 8 . 5 . . . . . . . 
-        . . . 7 6 6 8 8 5 5 5 . . . . . 
-        . . 6 6 7 6 6 8 8 5 6 6 6 . . . 
-        . . . 7 6 7 6 5 8 6 6 9 6 f 7 . 
-        . . . 6 7 6 6 8 6 6 7 7 7 7 7 . 
-        . . . . 6 6 6 8 6 7 . . . 1 . . 
-        . . . . . 7 6 8 6 6 7 . . . . . 
-        . . . . . 6 6 6 6 6 6 7 . . . . 
-        . 5 . . 6 6 6 6 6 6 6 7 . . . . 
-        6 . . 6 7 6 7 6 6 7 6 7 . . . . 
-        6 . 6 7 . 6 . 7 7 7 6 . . . . . 
-        . 6 7 . . 6 . . . . 6 . . . . . 
-        . . . . . 6 6 5 . . 6 6 5 . . . 
-        `)
-}
-sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSprite) {
-    otherSprite.destroy(effects.halo, 250)
-    otherSprite.y += 3
-    info.changeLifeBy(1)
-})
-function setLevelTileMap0 (level: number) {
-    clearGame()
-    if (level == 0) {
+    if (level == 10) {
+        gravity = 9.81 * pixelsToMeters
+        invincibilityPeriod = 600
+        giveIntroduction()
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -1015,9 +1008,9 @@ function setLevelTileMap0 (level: number) {
             `)
         tiles.setTilemap(tilemap`level_1`)
         info.setScore(0)
-    } else if (level == 1) {
+    } else if (level == 11) {
         tiles.setTilemap(tilemap`level2`)
-    } else if (level == 2) {
+    } else if (level == 12) {
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -1141,7 +1134,7 @@ function setLevelTileMap0 (level: number) {
             77777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
             `)
         tiles.setTilemap(tilemap`level3`)
-    } else if (level == 3) {
+    } else if (level == 13) {
         scene.setBackgroundImage(img`
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -1265,9 +1258,9 @@ function setLevelTileMap0 (level: number) {
             99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
             `)
         tiles.setTilemap(tilemap`level16`)
-    } else if (level == 4) {
+    } else if (level == 14) {
         tiles.setTilemap(tilemap`level15`)
-    } else if (level == 5) {
+    } else if (level == 15) {
         scene.setBackgroundImage(img`
             1111111111111999999999999999999111111111111119999999999999999999999999999999999999999999999999999999999999991111111111111111111111199999999999999999999999999999
             1111111111111999999999999999999111111111111111199999999999999999999999999999999999999999999999999999999991111111111111111111111111199999999999999999999999999999
@@ -1391,15 +1384,381 @@ function setLevelTileMap0 (level: number) {
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             `)
         tiles.setTilemap(tilemap`level17`)
-    } else if (level == 6) {
+    } else if (level == 16) {
         tiles.setTilemap(tilemap`level21`)
-    } else if (level == 7) {
+    } else if (level == 17) {
+        scene.setBackgroundImage(img`
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            99999999999999999999777777777777777777777777777777777777777777777777777777777777777777777777e7777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999977777777777777777777777777977777777777777777777777777777777777777777eeee77777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999777777777777777777777779999777777777777777777777777777777777777777eeeeee777777777777777777777777777777777777777777777777777777777777777
+            99999999999999999999999999999999999997777777779999999997777777777777777777777777777777777eeeeeeeeee77777777777777777777777777777777777777777777777777777777eeeee
+            999999999999999999999999999999999999999999999999999999999977777777777777777777777777777eeeeeeeeeeeeee7777777777777777777777777777777777777777777777777777eeeeeee
+            9999999999999999999999999999999999999999999999999999999999999977777777777777777777777eeeeeeeeeeeeeeeeee7777777777777777777777777777777777777777777777777eeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999999eeeeee77777777eeeeeeeeeeeeeeeeeeeeeeeeee77777777777777777777777777777777777777777777eeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777777777777777777777777777777777777777eeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777777777777777777777777777777777eeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777777777777777eeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777777777777777777eeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999777777999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999777777779eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999977779999999999999999997777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999997777777999997779999999997777777777eeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999997777777999997779999999997777777777eeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999977777779999977799999999999777777eeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999777777799999ee9999999977797777eeeeeeeeedeeeeeeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999977777e99999ee9999999977799999eeeeeeeeeddeeeeeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999777799eeeee999ee99999999777999999eeeeeeeeedeeeeeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999997777777eeeeeeee99eee9999999ee9999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999997777777eeeeeeeeeeeee99999977799999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999777777799eeeeeeeeeee999999777999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeddeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999777779999999eeeeeee999999777999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999eeeeeee9999e7779999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999777eeee999eee99999999999eeeeeeeeeeeeeeeeeeeeeee77eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999777eeeee99eee99999999999eeeeeeeeeeeeeeeeeeee7777777eeeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999777eeeeeeeeee99999999999eeeeeeeeeeeeeeeeeeee77777777eeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999eeeeeeeeee99999999999eeeeeeeeeeeeeeeeeeee7777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeddeeeeeeeeeeeeee77777eeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999eeeeeeeeeee9999999999eeeeeeeeeeeeeeeeeeee777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeee7777777eeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999eeeeeeeeee9999999999eeeeeeeeeeeeeeeeeeeee77777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777eeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999eeeeeeeee9999999999eeeeeeeeeeeeeeeeeeeeeeeddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777eeeeeeeeeeeeeee
+            999999999999999999999999999999999999999777eeeeeeeeeeeeeeeee999999999eeeeeeeeeeeeeeeeeeeeeeeddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777eeeeeeeeeeeeeee
+            9999999999999999999999999999999999999997779eeeeeeeeeeeeeeeee99999999eeeeeeeeeeeeeeeeeeeeeedddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777777eeeeeeeeeeeeeee
+            9999999999999999999999999999999999999997779999eee777eeeeeeeee9999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999e777eeeeeeeeee999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999997779eeeeeeeee999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeddddeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999eeeeeeeeee9999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeddddeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999eeeeeeeee9999eeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeee77777eeeeeeeeeeeeeeeeeeeeeddddeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999eeeeeeeee999eeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeee77777eeeeeeeeeeeeeeeeeeeeeddeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999eeeeeeeee999eeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeee77777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999eeeeeeeee99eeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeeeeeeeeeeeeeeeeeeddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777ee
+            9999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777ee
+            9999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777ee
+            99999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedeee
+            999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedeee
+            999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeddeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            9999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            999999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            99999999999999999999999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            `)
         tiles.setTilemap(tilemap`level18`)
-    } else if (level == 8) {
+    } else if (level == 18) {
+        scene.setBackgroundImage(img`
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999911111199999999999999999999999999999
+            9999999999999999999999999991111999999999999999999999999999999999999999999999999999999999999999999999999999999999999999111999111111119991111199999999999999999999
+            9999999999999999999991111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999999911111111111111111111111111999999999999999999
+            9999999999999999999111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999999999911111111111111111111111111199999999999999999
+            9999999999999999999111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111119999999999999999
+            9999999999999999991111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111119999999999999999
+            9999999999999999991111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111999999999999999
+            9999999999999999991111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111999999999999999
+            9999999999999999991111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111999999999999999
+            9999999999999999999111111111111111119999999999999999999999999999999911199999111111199999999999999999999999999999999111111111111111111111111111111999999999999999
+            9999999999999999999991111111111119999999999999999999999999999999991111119991111111111999999999999999999999999999999111111111111111111111111111119999999999999999
+            9999999999999999999999999999999999999999999999999999999999111111111111111191111111111999999999999999999999999999999911111111111111111111111111199999999999999999
+            9999999999999999999999999999999999999999999999999999999911111111111111111111111111111199999999999999999999999999999999999999991111111111111111999999999999999999
+            9999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999911111111111111111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999111111111111111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999111119999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999977777777777777799999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999997777777777777777777779999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999777777777777777777777777799999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999997777777777777777777777777779999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999977777777777777777777777777777777777799999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999997777777777777777777777777777777777777777779999999999999999999999999999999999999999999977
+            9999999999999999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777779999999999999999999999999999999999999999997777
+            9999999999999999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777779999999999999999999999999999999999999999997777
+            9999999999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777779999999999999999999999999999999999999999997777
+            9999999999999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777999999999999999999999999999999999999999977777
+            9999999999999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777999999999999999999999999999999999999999977777
+            9999999999999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777799999777777779999777777779999999999999777777
+            9999999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799997777777777797777777777799999999997777777
+            9999999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799777777777777797777777777779999999997777777
+            9999999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777797777777777777777777777777777977777777777777
+            9999999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            9999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777779777777777777777777777777ee7777777777777777777777777777
+            99999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777999999977777777777777777eeeeee77777777777777777777777777
+            9999999999999999999999999999999999999999999999999997777777777777777777777777eeee777777777777777777777799999999977777777777777eeeeeeeeeeee77777799999999999777777
+            999999999999999999999999999999999999999999999999999999777777777777777777777eeeeeee7777777777777777779999999999997777777777777eeeeeeeeeeeeeee99999999999999997777
+            999999999999999999999999999999999999999999999999999999997777777777777777777eeeeeeee777777777777779999999999999999997777777999eeeeeeeeeeeee9999999999999999999977
+            99999999999999999999997777999999999999999999999999999999997777777777777777eeeeeeeeeeee7777777999999999999999999999999999999999eeeeeeeeeeee99999999999999999999ee
+            9999999999999999999997777777799999999999999999999999999999997777777777799eeeeeeeeeeeeeeeee9999999999999999999999999999999999999eeeeeeeeeee99999999999999999999ee
+            999999999999999999777777777777999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeee9999999999999999999999999999999999999eeeeeeeeeee9999999999999999999eee
+            99999999999999999977777777777799999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeee9999999999999999999999999999999999999eeeeeeeeeeee999999999999999999eee
+            99999999999999999977777777777799999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeee999999999999999999999999999999999999eeeeeeeeeeeee99999999999999999eeee
+            999999999999999999777777777777999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeee99999999999999999999999999999999999eeeeeeeeeeeeee9999999999999999eeee
+            999999999999999999777777777777999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeee99999999999999999999999999999999999eeeeeeeeeeeeee999999999999999eeeee
+            9999999999999999997777eee77777999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeee99999999999999999999999999999999999eeeeeeeeeeeeeee99999999999999eeeee
+            999999999999999999999eeeee9999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeee999999999999999999999999999999999eeeeeeeeeeeeeeee9999999999999eeeeee
+            999999999999999999999eeeee9999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeee999999999999999999999999999999999eeeeeeeeeeeeeeeee999999999999eeeeee
+            999999999999999999999eeeeee999999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeee9999999999999999999999999999999eeeeeeeeeeeeeeeeeee9999999999eeeeeee
+            99999999999999999999eeeeeeee99999999999999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeee9999999999999999999999999999999eeeeeeeeeeeeeeeeeee999999999eeeeeeee
+            99999999997777777777eeeeeeee7777777779999999999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeee9999977777777777777777799999999eeeeeeeeeeeeeeeeeeee9999999eeeeeeeee
+            9977777777777777777eeeeeeeee7777777777777779999999999999999999999999eeeeeeeeeeeeeeeeeeeeeeeeee99777777777777777777777799999eeeeeeeeeeeeeeeeeeeee977777eeeeeeeeee
+            7777777777777777777eeeeeeeee7777777777777777777777777999999999999999eeeeeeeeeeeeeeeeeeeeeeeeee77777777777777777777777777999eeeeeeeeeeeeeeeeeeeeee77777eeeeeeeeee
+            7777777777777777777eeeeeeeee7777777777777777777777777777777779999999eeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777777777777799eeeeeeeeeeeeeeeeeeeeee7777eeeeeeeeeee
+            7777777777777777777eeeeeeeee777777777777777777777777777777777779999eeeeeeeeeeeeeeeeeeeeeeeeeeee777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeee77eeeeeeeeeeee
+            77777777777777777777eeeeeeee777777777777777777777777777777777777799eeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777eee7777777777777777777777777777777777777779eeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            777777777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            7777777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            777777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            777777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            777777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            777777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee7777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            77777777777777777777777777777777777777777777777777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee77777777777777eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+            `)
         tiles.setTilemap(tilemap`level20`)
-    } else if (level == 9) {
+    } else if (level == 19) {
+        scene.setBackgroundImage(img`
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999911111199999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999911111999111111119991119999999999999999999999999999999999999999999999999999999999999999999999999999999999999991111999999999999999999999999999
+            9999999999999999991111111111111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111999999999999999999999
+            9999999999999999911111111111111111111111111199999999999999999999999999999999999999999999999999999999999999999999999999999999911111111111111119999999999999999999
+            9999999999999999111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999911111111111111119999999999999999999
+            9999999999999999111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999911111111111111111999999999999999999
+            9999999999999991111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999911111111111111111999999999999999999
+            9999999999999991111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111999999999999999999
+            9999999999999991111111111111111111111111111119999999999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111999999999999999999
+            9999999999999991111111111111111111111111111119999999999999999999999999999999911111119999911199999999999999999999999999999999111111111111111119999999999999999999
+            9999999999999999111111111111111111111111111119999999999999999999999999999991111111111999111111999999999999999999999999999999999111111111111999999999999999999999
+            9999999999999999911111111111111111111111111199999999999999999999999999999991111111111911111111111111119999999999999999999999999999999999999999999999999999999999
+            9999999999999999991111111111111111999999999999999999999999999999999999999911111111111111111111111111111199999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999111111111111111111111111111111119999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999911111111111111111111111111111199999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999911111111111111111111111111119999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999111111111119999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999997779999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999977777999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999977777999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999977777777999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999999777777777777777779999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999999977777777777777777777779999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999997777777777777777777777777799999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999999999999977777777777777777777777777779999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999997777797777777777777777777777777777777999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999997777777777777777777777777777777777777799999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999977777777777777777777777777777777777777779999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999977777777777777777777777777777777777777777999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999977777777777777777777777777777777777777777799999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+            9999999999999977777777777777777777777777777777777777777779999999999999999999999999999999999999999999999999999999999999999999999977799997777999999999999999999999
+            9999999999997777777777777777777777777777777777777777777777999999999999999999999999977779999999999999999999999999999999999999999777777777777777999999999999999999
+            9999999999977777777777777777777777777777777777777777777777999999999999999999999999777777999999999999999999999999999999999999999777777777777777777999999999999999
+            9999999999777777777777777777777777777777777777777777777777799999999999999999999999777777999999999999999999999999999999999999999777777777777777777779999999999999
+            9999999977777777777777777777777777777777777777777777777777779999999999999999999999777777999999999999999999999999999999999999999977777777777777777777999999999999
+            9999999777777777777777777777777777777777777777777777777777777999999999999999999977777777777999999999999999999999999999999999999977777777777777777777779999999999
+            9999997777777777777777777777777777777777777777777777777777777799999999999999977777777777777777779999999999999999999999999999999977777777777777777777777799999999
+            9999977777777777777777777777777777777777777777777777777777777779999999999999777777777777777777777779997777799999999999999999999777777777777777777777777779999999
+            9997777777777777777777777777777777777777777777777777777777777777999999999997777777777777777777777777797777779999999999999999997777777777777777777777777777999999
+            9977777777777777777777777777777777777777777777777777777777777777799999999777777777777777777777777777777777779999999999999999997777777777777777777777777777779999
+            9777777777777777777777777777777777777777777777777777777777777777777999997777777777777777777777777777777777779999999999999999977777777777777777777777777777777799
+            7777777777777777777777777777777777777777777777777777777777777777777799977777777777777777777777777777777777799999999999999997777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777779999777777777777777777777777777777777777777799999999999977777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777997777777777777777777777777777777777777777777779999999999777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777999999977777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777799777777777777777777777777777777777777777777777777779999777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777799777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777999977777777799999999997777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777799999999977777777779999997777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779999977777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799977777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777999777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799997777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777997777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777999977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777999977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779999977777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777779999777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799997777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777999997777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799999977777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777799999999777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777777777777777779999999999999999999999999999777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777777777777779999999999999999999999999999999999999977777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777777777777799999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777777779999999999999999999999999999999999999999999999999997777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777777999999999999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777777999999999999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777777999999999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777777799999999999777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777777779999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777779999999999977777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777799999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777777999999999777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777779999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777999999999777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777777999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777779999999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777799999999777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777799999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            7777777777777777777777799999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
+            `)
         tiles.setTilemap(tilemap`level19`)
-    } else if (level == 10) {
+    } else if (level == 20) {
         scene.setBackgroundImage(img`
             ccccccccccccccbbbbbbbbbbbbbbbbbbccccccccccccccccccbbbbbcbbbbbbbbccbbcccccccccccccccbbbbbbbccccccbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccc
             ccccccccccccccbbbbbbbbbbbbbbbbbbccccccccccccccccccbbbbbcbbbcbbbbbcbbcbbccccccccccccbbbbbbcccccccbbbbccbbbcbbbbbbbbbbbbbbbbbbbbcccbbbbbbbbbbbbbbbbbbbbbbbbbcccccc
@@ -1525,20 +1884,20 @@ function setLevelTileMap0 (level: number) {
         tiles.setTilemap(tilemap`level`)
         isKilled = 0
         keyCount = 5
-    } else if (level == 11) {
+    } else if (level == 21) {
         tiles.setTilemap(tilemap`level_0`)
-    } else if (level == 12) {
+    } else if (level == 22) {
         tiles.setTilemap(tilemap`level5`)
-    } else if (level == 13) {
+    } else if (level == 23) {
         tiles.setTilemap(tilemap`level32`)
-    } else if (level == 14) {
+    } else if (level == 24) {
         tiles.setTilemap(tilemap`level4`)
-    } else if (level == 15) {
+    } else if (level == 25) {
         tiles.setTilemap(tilemap`level33`)
-    } else if (level == 16) {
+    } else if (level == 26) {
         tiles.setTilemap(tilemap`level34`)
         keyCount = 5
-    } else if (level == 17) {
+    } else if (level == 27) {
         tiles.setTilemap(tilemap`level35`)
         keyCount = 5
     } else if (false) {
@@ -2677,19 +3036,15 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.button, function (sprite, otherS
     if (Cursor0 == Play && controller.B.isPressed()) {
         menu = 1
         isChangedMenu = true
-        mainMenu()
     } else if (Cursor0 == Score && controller.B.isPressed()) {
         menu = 2
         isChangedMenu = true
-        mainMenu()
     } else if (Cursor0 == Options && controller.B.isPressed()) {
         menu = 3
         isChangedMenu = true
-        mainMenu()
     } else if (Cursor0 == Credits && controller.B.isPressed()) {
         menu = 4
         isChangedMenu = true
-        mainMenu()
     }
 })
 function initializeLevel (level: number) {
@@ -2735,6 +3090,8 @@ function spawnGoals () {
 let heroFacingLeft = false
 let key2: Sprite = null
 let playerStartLocation: tiles.Location = null
+let isChangedMenu = false
+let menu = 0
 let heart2: Sprite = null
 let fire: Sprite = null
 let caveBossAni: animation.Animation = null
@@ -2743,13 +3100,7 @@ let mainJumpRight: animation.Animation = null
 let mainJumpLeft: animation.Animation = null
 let mainRunRight: animation.Animation = null
 let mainRunLeft: animation.Animation = null
-let mainIdleRight: animation.Animation = null
-let mainIdleLeft: animation.Animation = null
-let doubleJumpSpeed = 0
-let canDoubleJump = false
-let mainDrageRight: animation.Animation = null
-let mainDrageLeft: animation.Animation = null
-let isChangedMenu = false
+let gravity = 0
 let exit: Sprite = null
 let back: Sprite = null
 let Credits: Sprite = null
@@ -2757,18 +3108,20 @@ let Options: Sprite = null
 let Score: Sprite = null
 let Play: Sprite = null
 let Cursor0: Sprite = null
+let mainIdleRight: animation.Animation = null
+let mainIdleLeft: animation.Animation = null
+let doubleJumpSpeed = 0
+let canDoubleJump = false
+let mainDrageRight: animation.Animation = null
+let mainDrageLeft: animation.Animation = null
+let invincibilityPeriod = 0
 let KeyAni: animation.Animation = null
 let currentLevel = 0
 let levelCount = 0
-let gravity = 0
 let pixelsToMeters = 0
-let invincibilityPeriod = 0
 let hero: Sprite = null
 let keyCount = 0
 let isKilled = 0
-let menu = 0
-menu = 0
-mainMenu()
 isKilled = 1
 keyCount = 0
 hero = sprites.create(img`
@@ -2789,15 +3142,12 @@ hero = sprites.create(img`
     . 6 7 . . 6 . . . . 6 . . . . . 
     . . . . . 6 6 5 . . 6 6 5 . . . 
     `, SpriteKind.Player)
-invincibilityPeriod = 600
 pixelsToMeters = 30
-gravity = 9.81 * pixelsToMeters
 initializeAnimations()
 createPlayer(hero)
 levelCount = 17
 currentLevel = 0
 setLevelTileMap0(currentLevel)
-mainMenu()
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799999999999999999999999999999999999999999999999
@@ -2974,10 +3324,5 @@ game.onUpdate(function () {
         } else {
             animation.setAction(hero, ActionKind.IdleRight)
         }
-    }
-})
-game.onUpdate(function () {
-    if (isChangedMenu == true) {
-        giveIntroduction()
     }
 })
