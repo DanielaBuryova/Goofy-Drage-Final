@@ -3033,16 +3033,16 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSpri
     keyCount += -1
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.button, function (sprite, otherSprite) {
-    if (Cursor0 == Play && controller.B.isPressed()) {
+    if (hero == Play && controller.B.isPressed()) {
         menu = 1
         isChangedMenu = true
-    } else if (Cursor0 == Score && controller.B.isPressed()) {
+    } else if (hero == Score && controller.B.isPressed()) {
         menu = 2
         isChangedMenu = true
-    } else if (Cursor0 == Options && controller.B.isPressed()) {
+    } else if (hero == Options && controller.B.isPressed()) {
         menu = 3
         isChangedMenu = true
-    } else if (Cursor0 == Credits && controller.B.isPressed()) {
+    } else if (hero == Credits && controller.B.isPressed()) {
         menu = 4
         isChangedMenu = true
     }
