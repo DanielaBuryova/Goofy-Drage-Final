@@ -1008,13 +1008,11 @@ function setLevelTileMap0 (level: number) {
             7777777777777777777777799999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             `)
         tiles.setTilemap(tilemap`level_1`)
-        scene.cameraFollowSprite(hero)
         createHero(hero)
         gravity = 9.81 * pixelsToMeters
         invincibilityPeriod = 600
-        info.setScore(0)
-        initializeAnimations()
         giveIntroduction()
+        initializeAnimations()
     } else if (level == 11) {
         tiles.setTilemap(tilemap`level2`)
     } else if (level == 12) {
@@ -2296,9 +2294,12 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function createHero (hero: Sprite) {
-    controller.moveSprite(hero)
+    hero.ay = gravity
+    controller.moveSprite(hero, 100, 0)
     hero.z = 5
-    gravity = 9.81 * pixelsToMeters
+    scene.cameraFollowSprite(hero)
+    info.setScore(0)
+    info.setLife(3)
 }
 function spawnHearts () {
     for (let value10 of tiles.getTilesByType(assets.tile`myTile3`)) {
@@ -2328,7 +2329,7 @@ function showInstruction (text: string) {
     game.showLongText(text, DialogLayout.Bottom)
 }
 sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherSprite) {
-    if (Cursor0.overlapsWith(Play) && controller.B.isPressed()) {
+    if (Cursor0.overlapsWith(Play) && controller.A.isPressed()) {
         currentLevel = 10
         otherSprite.destroy()
         setLevelTileMap0(currentLevel)
