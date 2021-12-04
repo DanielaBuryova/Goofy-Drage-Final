@@ -393,7 +393,7 @@ function giveIntroduction () {
             . 5 6 6 . . . . 5 6 6 . . . . . 
             `)
     }
-    if (currentLevel == 12) {
+    if (currentLevel == 22) {
         game.setDialogFrame(img`
             . a a a a a a a a a a a a a . . 
             a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
@@ -879,11 +879,12 @@ function setLevelTileMap0 (level: number) {
         Score.destroy()
         Options.destroy()
         Credits.destroy()
+        exit.destroy()
+        Cursor0.destroy()
     }
     if (level == 10) {
-        gravity = 9.81 * pixelsToMeters
-        invincibilityPeriod = 600
-        giveIntroduction()
+        Cursor0.destroy()
+        back.destroy()
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -1007,7 +1008,12 @@ function setLevelTileMap0 (level: number) {
             7777777777777777777777799999997777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
             `)
         tiles.setTilemap(tilemap`level_1`)
+        createPlayer(hero)
+        gravity = 9.81 * pixelsToMeters
+        invincibilityPeriod = 600
         info.setScore(0)
+        giveIntroduction()
+        initializeAnimations()
     } else if (level == 11) {
         tiles.setTilemap(tilemap`level2`)
     } else if (level == 12) {
@@ -2315,6 +2321,14 @@ function spawnHearts () {
 function showInstruction (text: string) {
     game.showLongText(text, DialogLayout.Bottom)
 }
+sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherSprite) {
+    if (Cursor0.overlapsWith(Play) && controller.B.isPressed()) {
+        currentLevel = 10
+        otherSprite.destroy()
+        setLevelTileMap0(currentLevel)
+        setLevelTileMap0(currentLevel)
+    }
+})
 function initializeHeroAnimations () {
     animateRun()
     animateIdle()
@@ -3019,12 +3033,9 @@ function initializecaveBossAni () {
         `)
 }
 function createPlayer (player2: Sprite) {
-    player2.ay = gravity
-    scene.cameraFollowSprite(player2)
-    controller.moveSprite(player2, 100, 0)
+    controller.moveSprite(player2, 50, 50)
     player2.z = 5
-    info.setLife(3)
-    info.setScore(0)
+    Cursor0.setStayInScreen(true)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
     otherSprite.destroy(effects.trail, 250)
@@ -3032,26 +3043,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSpri
     info.changeScoreBy(5)
     keyCount += -1
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.button, function (sprite, otherSprite) {
-    if (hero == Play && controller.B.isPressed()) {
-        menu = 1
-        isChangedMenu = true
-    } else if (hero == Score && controller.B.isPressed()) {
-        menu = 2
-        isChangedMenu = true
-    } else if (hero == Options && controller.B.isPressed()) {
-        menu = 3
-        isChangedMenu = true
-    } else if (hero == Credits && controller.B.isPressed()) {
-        menu = 4
-        isChangedMenu = true
-    }
-})
 function initializeLevel (level: number) {
     playerStartLocation = tiles.getTilesByType(assets.tile`tile9`)[0]
     tiles.placeOnTile(hero, playerStartLocation)
     tiles.setTileAt(playerStartLocation, assets.tile`tile0`)
-    giveIntroduction()
     createEnemies()
     spawnGoals()
     createCaveBoss()
@@ -3090,8 +3085,6 @@ function spawnGoals () {
 let heroFacingLeft = false
 let key2: Sprite = null
 let playerStartLocation: tiles.Location = null
-let isChangedMenu = false
-let menu = 0
 let heart2: Sprite = null
 let fire: Sprite = null
 let caveBossAni: animation.Animation = null
@@ -3107,7 +3100,6 @@ let Credits: Sprite = null
 let Options: Sprite = null
 let Score: Sprite = null
 let Play: Sprite = null
-let Cursor0: Sprite = null
 let mainIdleRight: animation.Animation = null
 let mainIdleLeft: animation.Animation = null
 let doubleJumpSpeed = 0
@@ -3118,33 +3110,51 @@ let invincibilityPeriod = 0
 let KeyAni: animation.Animation = null
 let currentLevel = 0
 let levelCount = 0
-let pixelsToMeters = 0
 let hero: Sprite = null
+let Cursor0: Sprite = null
+let pixelsToMeters = 0
 let keyCount = 0
 let isKilled = 0
 isKilled = 1
 keyCount = 0
+pixelsToMeters = 30
+Cursor0 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . f f f f . . . . . . 
+    . . . . f f 1 1 1 1 f f . . . . 
+    . . . f 1 1 1 1 1 1 1 1 f . . . 
+    . . . f 1 1 f 1 1 f 1 1 f . . . 
+    . . f 1 1 1 1 1 1 1 1 1 1 f . . 
+    . . f 1 f 1 1 1 1 1 1 f 1 f . . 
+    . . f 1 1 f 1 1 1 1 f 1 1 f . . 
+    . . f 1 1 1 f f f f 1 1 1 f . . 
+    . . . f 1 1 1 1 1 1 1 1 f . . . 
+    . . . f 1 1 1 1 1 1 1 1 f . . . 
+    . . . . f f 1 1 1 1 f f . . . . 
+    . . . . . . f f f f . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.cursor)
 hero = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    . . . . . . . 5 . . . . . . . . 
-    . . 6 6 6 . 8 . 5 . . . . . . . 
-    . . . 7 6 6 8 8 5 5 5 . . . . . 
-    . . 6 6 7 6 6 8 8 5 6 6 6 . . . 
-    . . . 7 6 7 6 5 8 6 6 9 6 f 7 . 
-    . . . 6 7 6 6 8 6 6 7 7 7 7 7 . 
-    . . . . 6 6 6 8 6 7 . . . 1 . . 
-    . . . . . 7 6 8 6 6 7 . . . . . 
-    . . . . . 6 6 6 6 6 6 7 . . . . 
-    . 5 . . 6 6 6 6 6 6 6 7 . . . . 
-    6 . . 6 7 6 7 6 6 7 6 7 . . . . 
-    6 . 6 7 . 6 . 7 7 7 6 . . . . . 
-    . 6 7 . . 6 . . . . 6 . . . . . 
-    . . . . . 6 6 5 . . 6 6 5 . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-pixelsToMeters = 30
-initializeAnimations()
-createPlayer(hero)
+createPlayer(Cursor0)
 levelCount = 17
 currentLevel = 0
 setLevelTileMap0(currentLevel)
