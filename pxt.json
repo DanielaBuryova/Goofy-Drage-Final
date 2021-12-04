@@ -13,7 +13,8 @@
         "tilemap.g.ts",
         "images.g.jres",
         "images.g.ts",
-        "main.py"
+        "main.py",
+        null
     ],
     "testFiles": [
         "test.ts"
