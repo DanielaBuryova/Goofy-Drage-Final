@@ -885,6 +885,7 @@ function setLevelTileMap0 (level: number) {
     if (level == 10) {
         Cursor0.destroy()
         back.destroy()
+        gravity = 9.81 * pixelsToMeters
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -1009,7 +1010,6 @@ function setLevelTileMap0 (level: number) {
             `)
         tiles.setTilemap(tilemap`level_1`)
         createHero(hero)
-        gravity = 9.81 * pixelsToMeters
         invincibilityPeriod = 600
         giveIntroduction()
         initializeAnimations()
@@ -3038,10 +3038,10 @@ function initializecaveBossAni () {
         ................................
         `)
 }
-function createPlayer (player2: Sprite) {
-    controller.moveSprite(player2, 50, 50)
-    player2.z = 5
-    Cursor0.setStayInScreen(true)
+function createPlayer (cursor: Sprite) {
+    controller.moveSprite(cursor, 0, 50)
+    cursor.z = 5
+    cursor.setStayInScreen(true)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
     otherSprite.destroy(effects.trail, 250)
