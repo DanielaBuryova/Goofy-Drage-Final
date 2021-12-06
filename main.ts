@@ -644,6 +644,39 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSp
     otherSprite.y += 3
     info.changeLifeBy(1)
 })
+function initializePlayAni () {
+    playAni = animation.createAnimation(ActionKind.Idle, 225)
+    playAni.addAnimationFrame(img`
+        51515151515151515151515151515
+        1fffffffffffffffffffffffffff1
+        5f5555555555555555555555555f5
+        1f5ffff55f555555fff55f555f5f1
+        5f5f555f5f55555f555f5f555f5f5
+        1f5f555f5f55555f555f55f5f55f1
+        5f5ffff55f55555f555f555f555f5
+        1f5f55555f55555fffff555f555f1
+        5f5f55555f55555f555f555f555f5
+        1f5f55555fffff5f555f555f555f1
+        5f5555555555555555555555555f5
+        1fffffffffffffffffffffffffff1
+        51515151515151515151515151515
+        `)
+    playAni.addAnimationFrame(img`
+        15151515151515151515151515151
+        5fffffffffffffffffffffffffff5
+        1f5555555555555555555555555f1
+        5f5ffff55f555555fff55f555f5f5
+        1f5f555f5f55555f555f5f555f5f1
+        5f5f555f5f55555f555f55f5f55f5
+        1f5ffff55f55555f555f555f555f1
+        5f5f55555f55555fffff555f555f5
+        1f5f55555f55555f555f555f555f1
+        5f5f55555fffff5f555f555f555f5
+        1f5555555555555555555555555f1
+        5fffffffffffffffffffffffffff5
+        15151515151515151515151515151
+        `)
+}
 function setLevelTileMap0 (level: number) {
     clearGame()
     if (level == 0) {
@@ -800,7 +833,7 @@ function setLevelTileMap0 (level: number) {
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             `, SpriteKind.button)
-        Score = sprites.create(img`
+        HighScore = sprites.create(img`
             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             f555555555555555555555555555555555555555555555555555555555f
             f5f555f5fffff55fff55f555f5555fff555fff555fff55ffff55fffff5f
@@ -867,7 +900,7 @@ function setLevelTileMap0 (level: number) {
             `, SpriteKind.button)
         Cursor0.setPosition(80, 50)
         Play.setPosition(80, 50)
-        Score.setPosition(80, 65)
+        HighScore.setPosition(80, 65)
         Options.setPosition(80, 80)
         Credits.setPosition(80, 95)
         exit.setPosition(80, 110)
@@ -876,14 +909,13 @@ function setLevelTileMap0 (level: number) {
     }
     if (level != 0) {
         Play.destroy()
-        Score.destroy()
+        HighScore.destroy()
         Options.destroy()
         Credits.destroy()
         exit.destroy()
         Cursor0.destroy()
     }
     if (level == 10) {
-        Cursor0.destroy()
         back.destroy()
         gravity = 9.81 * pixelsToMeters
         scene.setBackgroundImage(img`
@@ -2246,7 +2278,7 @@ function clearGame () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, location) {
     if (isKilled == 1 && keyCount <= 0) {
         info.stopCountdown()
-        if (currentLevel < 10) {
+        if (currentLevel < 20) {
             info.changeLifeBy(1)
         }
         currentLevel += 1
@@ -2300,6 +2332,11 @@ function createHero (hero: Sprite) {
     scene.cameraFollowSprite(hero)
     info.setScore(0)
     info.setLife(3)
+}
+function createCursor (cursor: Sprite) {
+    controller.moveSprite(cursor, 0, 50)
+    cursor.z = 5
+    cursor.setStayInScreen(true)
 }
 function spawnHearts () {
     for (let value10 of tiles.getTilesByType(assets.tile`myTile3`)) {
@@ -3038,11 +3075,6 @@ function initializecaveBossAni () {
         ................................
         `)
 }
-function createPlayer (cursor: Sprite) {
-    controller.moveSprite(cursor, 0, 50)
-    cursor.z = 5
-    cursor.setStayInScreen(true)
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
     otherSprite.destroy(effects.trail, 250)
     otherSprite.y += -3
@@ -3104,8 +3136,9 @@ let exit: Sprite = null
 let back: Sprite = null
 let Credits: Sprite = null
 let Options: Sprite = null
-let Score: Sprite = null
+let HighScore: Sprite = null
 let Play: Sprite = null
+let playAni: animation.Animation = null
 let mainIdleRight: animation.Animation = null
 let mainIdleLeft: animation.Animation = null
 let doubleJumpSpeed = 0
@@ -3160,7 +3193,7 @@ hero = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-createPlayer(Cursor0)
+createCursor(Cursor0)
 levelCount = 17
 currentLevel = 0
 setLevelTileMap0(currentLevel)
