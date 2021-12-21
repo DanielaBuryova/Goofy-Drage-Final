@@ -176,8 +176,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherS
         sprite.vy = -2 * pixelsToMeters
         info.changeScoreBy(3)
     } else {
-        info.changeLifeBy(-1)
-        sprite.say("Ow!", invincibilityPeriod)
+        if (info.life() > 1) {
+            sprite.say("Ow!", invincibilityPeriod)
+            info.changeLifeBy(-1)
+        }
+        if (info.life() <= 1) {
+            isDead()
+        }
     }
     pause(invincibilityPeriod)
 })
@@ -597,6 +602,11 @@ function attemptJump () {
         canDoubleJump = false
     }
 }
+function isDead () {
+    hero.say("Be careful!", invincibilityPeriod)
+    info.setLife(3)
+    setLevelTileMap0(currentLevel)
+}
 function animateIdle () {
     mainIdleLeft = animation.createAnimation(ActionKind.IdleLeft, 100)
     animation.attachAnimation(hero, mainIdleLeft)
@@ -802,24 +812,6 @@ function setLevelTileMap0 (level: number) {
             6666666666666666666666777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777776666666666666666666666
             6666666666666666666666777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777776666666666666666666666
             `)
-        Cursor0 = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . f f f f . . . . . . 
-            . . . . . . f 2 2 f . . . . . . 
-            . . . . . . f 2 2 f . . . . . . 
-            . . . . . . f f f f . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, SpriteKind.cursor)
         Play = sprites.create(img`
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
@@ -905,7 +897,6 @@ function setLevelTileMap0 (level: number) {
         Credits.setPosition(80, 95)
         exit.setPosition(80, 110)
         back.setPosition(80, 110)
-        controller.moveSprite(Cursor0, 0, controller.dy())
     }
     if (level != 0) {
         Play.destroy()
@@ -2388,8 +2379,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.caveBoss, function (sprite, othe
         pause(invincibilityPeriod)
         isKilled = 1
     } else {
-        info.changeLifeBy(-2)
-        sprite.say("Ow!", invincibilityPeriod)
+        if (info.life() > 2) {
+            sprite.say("Ow!", invincibilityPeriod)
+            info.changeLifeBy(-2)
+        }
+        if (info.life() <= 2) {
+            isDead()
+        }
     }
 })
 function initializecaveBossAni () {
@@ -3087,9 +3083,10 @@ function initializeLevel (level: number) {
     tiles.setTileAt(playerStartLocation, assets.tile`tile0`)
     createEnemies()
     spawnGoals()
-    createCaveBoss()
     spawnHearts()
-    createCaveBoss()
+    if (currentLevel == 20) {
+        createCaveBoss()
+    }
 }
 function hasNextLevel () {
     return currentLevel != levelCount
