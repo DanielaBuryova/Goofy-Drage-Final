@@ -581,6 +581,11 @@ function animateDrage () {
         . . . . . 6 6 5 . . 6 6 5 . . . 
         `)
 }
+function goBack () {
+    if (true) {
+    	
+    }
+}
 function attemptJump () {
     // else if: either fell off a ledge, or double jumping
     if (hero.isHittingTile(CollisionDirection.Bottom)) {
@@ -836,13 +841,13 @@ function setLevelTileMap0 (level: number) {
         Options = sprites.create(img`
             fffffffffffffffffffffffffffffffffffffffffffff
             f5555555555555555555555555555555555555555555f
-            f55fff55ffff55fffff5fffff55fff55f555f55fff55f
-            f5f555f5f555f555f55555f555f555f5f555f5f555f5f
-            f5f555f5f555f555f55555f555f555f5ff55f5f55555f
+            f55fff55ffff55fffff5fffff55fff55ff55f55fff55f
+            f5f555f5f555f555f55555f555f555f5ff55f5f555f5f
+            f5f555f5f555f555f55555f555f555f5f5f5f5f55555f
             f5f555f5ffff5555f55555f555f555f5f5f5f55fff55f
             f5f555f5f5555555f55555f555f555f5f5f5f55555f5f
             f5f555f5f5555555f55555f555f555f5f55ff5f555f5f
-            f55fff55f5555555f555fffff55fff55f555f55fff55f
+            f55fff55f5555555f555fffff55fff55f55ff55fff55f
             f5555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.button)
@@ -859,7 +864,7 @@ function setLevelTileMap0 (level: number) {
             f5555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.button)
-        back = sprites.create(img`
+        Back = sprites.create(img`
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
             f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
@@ -872,26 +877,26 @@ function setLevelTileMap0 (level: number) {
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             `, SpriteKind.button)
-        exit = sprites.create(img`
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 f f f f f 5 f 
-            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f f f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 5 f 5 f 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 5 5 f 5 5 5 f 
-            f 5 f f f f f 5 f 5 5 5 f 5 f f f f f 5 5 5 f 5 5 5 f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+        Controls = sprites.create(img`
+            fffffffffffffffffffffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555555555555555555555f
+            f55fff555fff55f555f5fffff5ffff555fff55f555555fff55f
+            f5f555f5f555f5ff55f555f555f555f5f555f5f55555f555f5f
+            f5f55555f555f5f5f5f555f555f555f5f555f5f55555f55555f
+            f5f55555f555f5f5f5f555f555ffff55f555f5f555555fff55f
+            f5f55555f555f5f5f5f555f555f555f5f555f5f555555555f5f
+            f5f555f5f555f5f55ff555f555f555f5f555f5f55555f555f5f
+            f55fff555fff55f555f555f555f555f55fff55fffff55fff55f
+            f5555555555555555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffffffffffffffff
             `, SpriteKind.button)
-        Cursor0.setPosition(80, 50)
+        Cursor0.setPosition(80, 35)
         Play.setPosition(80, 50)
         HighScore.setPosition(80, 65)
         Options.setPosition(80, 80)
         Credits.setPosition(80, 95)
-        exit.setPosition(80, 110)
-        back.setPosition(80, 110)
+        Controls.setPosition(80, 110)
+        Back.setPosition(80, 110)
     }
     if (level >= 10) {
         Cursor0.destroy()
@@ -901,10 +906,22 @@ function setLevelTileMap0 (level: number) {
         HighScore.destroy()
         Options.destroy()
         Credits.destroy()
-        exit.destroy()
-        if (level == 1) {
-            console.logValue("Your current high score is", info.highScore())
+        if (level == 1 && controller.A.isPressed()) {
+        	
         } else if (level == 2) {
+            Sounds2 = sprites.create(img`
+                fffffffffffffffffffffffffffffffffffffff
+                f5555555555555555555555555555555555555f
+                f55fff555fff55f555f5ff55f5ffff555fff55f
+                f5f555f5f555f5f555f5ff55f5f555f5f555f5f
+                f5f55555f555f5f555f5f5f5f5f555f5f55555f
+                f55fff55f555f5f555f5f5f5f5f555f55fff55f
+                f55555f5f555f5f555f5f5f5f5f555f55555f5f
+                f5f555f5f555f5f555f5f55ff5f555f5f555f5f
+                f55fff555fff555fff55f55ff5ffff555fff55f
+                f5555555555555555555555555555555555555f
+                fffffffffffffffffffffffffffffffffffffff
+                `, SpriteKind.button)
             Difficulty = sprites.create(img`
                 fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
                 f5555555555555555555555555555555555555555555555555555555555555f
@@ -921,19 +938,22 @@ function setLevelTileMap0 (level: number) {
             Language = sprites.create(img`
                 fffffffffffffffffffffffffffffffffffffffffffffffffff
                 f5555555555555555555555555555555555555555555555555f
-                f5f555555fff55f555f55fff55f555f55fff555fff55fffff5f
+                f5f555555fff55ff55f55fff55f555f55fff555fff55fffff5f
                 f5f55555f555f5ff55f5f555f5f555f5f555f5f555f5f55555f
                 f5f55555f555f5f5f5f5f55555f555f5f555f5f55555f55555f
                 f5f55555f555f5f5f5f5f5ff55f555f5f555f5f5ff55fff555f
                 f5f55555fffff5f5f5f5f555f5f555f5fffff5f555f5f55555f
                 f5f55555f555f5f55ff5f555f5f555f5f555f5f555f5f55555f
-                f5fffff5f555f5f555f55fff555fff55f555f55fff55fffff5f
+                f5fffff5f555f5f55ff55fff555fff55f555f55fff55fffff5f
                 f5555555555555555555555555555555555555555555555555f
                 fffffffffffffffffffffffffffffffffffffffffffffffffff
                 `, SpriteKind.button)
+            Sounds2.setPosition(80, 50)
             Difficulty.setPosition(80, 65)
             Language.setPosition(80, 80)
         } else if (level == 3) {
+        	
+        } else if (level == 4) {
             Easy = sprites.create(img`
                 f f f f f f f f f f f f f f f f f f f f f f f f f f f 
                 f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
@@ -976,24 +996,24 @@ function setLevelTileMap0 (level: number) {
             Easy.setPosition(80, 65)
             Medium.setPosition(80, 80)
             Hard.setPosition(80, 95)
-        } else if (level == 4) {
+        } else if (level == 5) {
             EN = sprites.create(img`
                 ffffffffffffffffffffffffffffff
                 f2118888818881221888188888112f
                 f1221188818881221888188811221f
                 f1112118881881221881888112111f
                 f8111221188181221818811221118f
-                f8881112ffffff22f8111f2111888f
-                f8888111f2111122f1112f1118888f
-                f8888881f1211122ff121f1888888f
-                f8888888f1122122ff211f8888888f
+                f8881112ffffff22ff111f2111888f
+                f8888111f2111122ff112f1118888f
+                f8888881f1211122f1f21f1888888f
+                f8888888f1122122f2f11f8888888f
                 f1111111f1111122f1f11f1111111f
                 f2222222ffff2222f2f22f2222222f
                 f1111111f1111122f11f1f1111111f
                 f8888888f1122122f22f1f8888888f
-                f8888881f1211122f112ff1888888f
+                f8888881f1211122f11f1f1888888f
                 f8888111f2111122f111ff1118888f
-                f8881112ffffff22f1811f2111888f
+                f8881112ffffff22f181ff2111888f
                 f8111221188181221818811221118f
                 f1112118881881221881888112111f
                 f1221188881881221881888811221f
@@ -1023,11 +1043,9 @@ function setLevelTileMap0 (level: number) {
                 f2222222222222222222222222222f
                 ffffffffffffffffffffffffffffff
                 `, SpriteKind.button)
-        } else {
-        	
         }
         if (level == 10) {
-            back.destroy()
+            Back.destroy()
             gravity = 9.81 * pixelsToMeters
             scene.setBackgroundImage(img`
                 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -2052,6 +2070,427 @@ function setLevelTileMap0 (level: number) {
         	
         }
         initializeLevel(level)
+        Controls.destroy()
+    }
+}
+function buttonDifficultyEffect () {
+    if (currentDifficulty == 0) {
+        animation.runImageAnimation(
+        Easy,
+        [img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f f f f f 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 5 f f f f f 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 9 f f f f f 9 9 f f f 9 9 9 f f f 9 9 f 9 9 9 f 9 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 9 f f f f f 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 9 f f f f f 9 9 f f f 9 9 9 f f f 9 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 f 9 9 9 f 9 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f f f f f 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 9 f f f f f 9 9 f f f 9 9 9 f f f 9 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 9 9 9 f 9 f 9 9 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 9 f 9 9 9 9 9 f f f f f 9 9 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f f f f f 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 9 f f f f f 9 9 f f f 9 9 9 f f f 9 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 9 9 9 f 9 f 9 9 f 
+            f 9 f f f 9 9 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 f 9 9 9 9 9 f f f f f 9 9 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f f f f f 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 9 f f f f f 9 9 f f f 9 9 9 f f f 9 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 9 9 9 f 9 f 9 9 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 9 f 9 9 9 9 9 f f f f f 9 9 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f f f f f 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 9 f f f f f 9 9 f f f 9 9 9 f f f 9 9 f 9 9 9 f 9 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 f 9 9 9 f 9 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 9 f 9 9 9 9 9 f 9 9 9 f 9 f 9 9 9 f 9 9 9 f 9 9 9 f 
+            f 9 f f f f f 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 9 f f f f f 9 9 f f f 9 9 9 f f f 9 9 f 9 9 9 f 9 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 9 f f f f f 9 f 9 9 9 f 9 9 f f f 9 9 9 9 f 9 9 9 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f 5 f f f f f 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f f f f f 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 5 5 5 f 5 f 5 5 f 
+            f 5 f f f 5 5 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f f f f f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 5 f f f 5 5 5 5 f 5 5 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `],
+        100,
+        false
+        )
+    } else if (currentDifficulty == 1) {
+        animation.runImageAnimation(
+        Medium,
+        [img`
+            fffffffffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555555555f
+            f5f555f5fffff5ffff55fffff5f555f5f555f5f
+            f5ff5ff5f55555f555f555f555f555f5ff5ff5f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5fffff5ffff55fffff55fff55f555f5f
+            f5555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f5f555f5fffff5ffff55fffff5f555f5f555f5f
+            f5ff5ff5f55555f555f555f555f555f5ff5ff5f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5fffff5ffff55fffff55fff55f555f5f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f4f444f4fffff4ffff44fffff4f444f4f444f4f
+            f5ff5ff5f55555f555f555f555f555f5ff5ff5f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f4f444f4fffff4ffff44fffff44fff44f444f4f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f4f444f4fffff4ffff44fffff4f444f4f444f4f
+            f4ff4ff4f44444f444f444f444f444f4ff4ff4f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4fffff4ffff44fffff44fff44f444f4f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f4f444f4fffff4ffff44fffff4f444f4f444f4f
+            f4ff4ff4f44444f444f444f444f444f4ff4ff4f
+            f4f4f4f4f44444f444f444f444f444f4f4f4f4f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4fffff4ffff44fffff44fff44f444f4f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f4f444f4fffff4ffff44fffff4f444f4f444f4f
+            f4ff4ff4f44444f444f444f444f444f4ff4ff4f
+            f4f4f4f4f44444f444f444f444f444f4f4f4f4f
+            f4f444f4fff444f444f444f444f444f4f444f4f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4fffff4ffff44fffff44fff44f444f4f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f4f444f4fffff4ffff44fffff4f444f4f444f4f
+            f4ff4ff4f44444f444f444f444f444f4ff4ff4f
+            f4f4f4f4f44444f444f444f444f444f4f4f4f4f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4fffff4ffff44fffff44fff44f444f4f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f4f444f4fffff4ffff44fffff4f444f4f444f4f
+            f4ff4ff4f44444f444f444f444f444f4ff4ff4f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f4f444f4f44444f444f444f444f444f4f444f4f
+            f4f444f4fffff4ffff44fffff44fff44f444f4f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f4f444f4fffff4ffff44fffff4f444f4f444f4f
+            f5ff5ff5f55555f555f555f555f555f5ff5ff5f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f4f444f4fffff4ffff44fffff44fff44f444f4f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f4444444444444444444444444444444444444f
+            f5f555f5fffff5ffff55fffff5f555f5f555f5f
+            f5ff5ff5f55555f555f555f555f555f5ff5ff5f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5fffff5ffff55fffff55fff55f555f5f
+            f4444444444444444444444444444444444444f
+            fffffffffffffffffffffffffffffffffffffff
+            `,img`
+            fffffffffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555555555f
+            f5f555f5fffff5ffff55fffff5f555f5f555f5f
+            f5ff5ff5f55555f555f555f555f555f5ff5ff5f
+            f5f5f5f5f55555f555f555f555f555f5f5f5f5f
+            f5f555f5fff555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5f55555f555f555f555f555f5f555f5f
+            f5f555f5fffff5ffff55fffff55fff55f555f5f
+            f5555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffff
+            `],
+        100,
+        false
+        )
+    } else if (currentDifficulty == 2) {
+        animation.runImageAnimation(
+        Hard,
+        [img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f 5 5 5 f 5 5 f f f 5 5 f f f f 5 5 f f f f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f f f f 5 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 5 f 5 5 5 f 5 5 f f f 5 5 f f f f 5 5 f f f f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f f f f 5 5 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 2 f 2 2 2 f 2 2 f f f 2 2 f f f f 2 2 f f f f 2 2 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f f f f 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 2 f 2 2 2 f 2 2 f f f 2 2 f f f f 2 2 f f f f 2 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f f f f 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 2 f 2 2 2 f 2 2 f f f 2 2 f f f f 2 2 f f f f 2 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 2 f 2 2 2 f 2 f f f f f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f f f f 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 2 f 2 2 2 f 2 2 f f f 2 2 f f f f 2 2 f f f f 2 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f f f f f 2 f 2 2 2 f 2 f f f f 2 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f f f f f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f f f f 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 2 f 2 2 2 f 2 2 f f f 2 2 f f f f 2 2 f f f f 2 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 2 f 2 2 2 f 2 f f f f f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f f f f 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 2 f 2 2 2 f 2 2 f f f 2 2 f f f f 2 2 f f f f 2 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f f f f 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 2 f 2 2 2 f 2 2 f f f 2 2 f f f f 2 2 f f f f 2 2 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 2 f 2 2 2 f 2 f 2 2 2 f 2 f 2 2 2 f 2 f f f f 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f 5 f 5 5 5 f 5 5 f f f 5 5 f f f f 5 5 f f f f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f f f f 5 5 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `,img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f 5 5 5 f 5 5 f f f 5 5 f f f f 5 5 f f f f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f f 5 f 5 5 5 f 5 f f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f f f f 5 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `],
+        100,
+        false
+        )
     }
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -2446,7 +2885,7 @@ function createHero (hero: Sprite) {
     info.setLife(3)
 }
 info.onLifeZero(function () {
-    if (true) {
+    if (currentDifficulty == 0) {
         isDead()
     }
 })
@@ -2488,58 +2927,71 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
         otherSprite.destroy()
         setLevelTileMap0(currentLevel)
     }
-    if (currentLevel != 10) {
-        if (Cursor0.overlapsWith(HighScore) && controller.A.isPressed()) {
-            currentLevel = 1
-            setLevelTileMap0(currentLevel)
-            giveIntroduction()
-            game.setDialogFrame(img`
-                . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-                9 1 1 1 1 1 1 1 1 1 1 1 1 1 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
-                9 1 1 1 1 1 1 1 1 1 1 1 1 1 1 9 
-                . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
-                `)
-            game.setDialogCursor(img`
-                . . . . . . . 5 4 . . . . . . . 
-                . . . . . . 5 5 5 4 . . . . . . 
-                . . . . . . . 4 4 . . . . . . . 
-                . . . . . 5 4 5 5 5 4 . . . . . 
-                . . 4 . 5 5 5 5 5 5 5 4 . 5 . . 
-                . 5 . 5 4 4 4 4 4 4 4 4 5 . 4 . 
-                . 4 . 5 5 5 5 5 5 5 5 5 4 . 5 . 
-                . 5 . 5 4 5 5 5 5 5 5 5 4 . 4 . 
-                . . 4 5 4 5 5 5 5 5 5 5 4 5 . . 
-                . . . . 5 4 5 5 5 5 5 4 . . . . 
-                . . . . . 5 4 5 5 5 4 . . . . . 
-                . . . . . . 5 5 5 4 . . . . . . 
-                . . . . . . . 5 4 . . . . . . . 
-                . . . . . . . 5 4 . . . . . . . 
-                . . . . . . 5 4 4 4 . . . . . . 
-                . . . . 5 4 5 5 5 5 4 4 . . . . 
-                `)
-            showInstruction("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back.")
-        }
-        if (Cursor0.overlapsWith(Options) && controller.A.isPressed()) {
-            currentLevel = 2
-            setLevelTileMap0(currentLevel)
-        }
-        if (currentLevel == 2 && Cursor0.overlapsWith(Difficulty) && controller.A.isPressed()) {
-            Difficulty.destroy()
-            Language.destroy()
-            currentLevel = 3
-            setLevelTileMap0(currentLevel)
+    if (Cursor0.overlapsWith(HighScore) && controller.A.isPressed()) {
+        Back.destroy()
+        currentLevel = 1
+        setLevelTileMap0(currentLevel)
+        giveIntroduction()
+        game.setDialogFrame(img`
+            . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+            9 1 1 1 1 1 1 1 1 1 1 1 1 1 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 9 9 9 9 9 9 9 9 9 9 9 9 1 9 
+            9 1 1 1 1 1 1 1 1 1 1 1 1 1 1 9 
+            . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . 5 4 . . . . . . . 
+            . . . . . . 5 5 5 4 . . . . . . 
+            . . . . . . . 4 4 . . . . . . . 
+            . . . . . 5 4 5 5 5 4 . . . . . 
+            . . 4 . 5 5 5 5 5 5 5 4 . 5 . . 
+            . 5 . 5 4 4 4 4 4 4 4 4 5 . 4 . 
+            . 4 . 5 5 5 5 5 5 5 5 5 4 . 5 . 
+            . 5 . 5 4 5 5 5 5 5 5 5 4 . 4 . 
+            . . 4 5 4 5 5 5 5 5 5 5 4 5 . . 
+            . . . . 5 4 5 5 5 5 5 4 . . . . 
+            . . . . . 5 4 5 5 5 4 . . . . . 
+            . . . . . . 5 5 5 4 . . . . . . 
+            . . . . . . . 5 4 . . . . . . . 
+            . . . . . . . 5 4 . . . . . . . 
+            . . . . . . 5 4 4 4 . . . . . . 
+            . . . . 5 4 5 5 5 5 4 4 . . . . 
+            `)
+        showInstruction("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back.")
+        goToMenu()
+    }
+    if (Cursor0.overlapsWith(Options) && controller.A.isPressed()) {
+        currentLevel = 2
+        setLevelTileMap0(currentLevel)
+    }
+    if (currentLevel == 2 && Cursor0.overlapsWith(Difficulty) && controller.A.isPressed()) {
+        Sounds2.destroy()
+        Difficulty.destroy()
+        Language.destroy()
+        currentLevel = 4
+        setLevelTileMap0(currentLevel)
+    }
+    if (currentLevel == 4) {
+        if (Cursor0.overlapsWith(Easy) && controller.A.isPressed()) {
+            currentDifficulty = 0
+            buttonDifficultyEffect()
+        } else if (Cursor0.overlapsWith(Medium) && controller.A.isPressed()) {
+            currentDifficulty = 1
+            buttonDifficultyEffect()
+        } else if (Cursor0.overlapsWith(Hard) && controller.A.isPressed()) {
+            currentDifficulty = 2
+            buttonDifficultyEffect()
         }
     }
 })
@@ -3268,6 +3720,10 @@ function initializeLevel (level: number) {
         createCaveBoss()
     }
 }
+function goToMenu () {
+    currentLevel = 0
+    setLevelTileMap0(currentLevel)
+}
 function hasNextLevel () {
     return currentLevel != levelCount
 }
@@ -3308,6 +3764,7 @@ let mainJumpRight: animation.Animation = null
 let mainJumpLeft: animation.Animation = null
 let mainRunRight: animation.Animation = null
 let mainRunLeft: animation.Animation = null
+let currentDifficulty = 0
 let gravity = 0
 let SK: Sprite = null
 let EN: Sprite = null
@@ -3316,8 +3773,9 @@ let Medium: Sprite = null
 let Easy: Sprite = null
 let Language: Sprite = null
 let Difficulty: Sprite = null
-let exit: Sprite = null
-let back: Sprite = null
+let Sounds2: Sprite = null
+let Controls: Sprite = null
+let Back: Sprite = null
 let Credits: Sprite = null
 let Options: Sprite = null
 let HighScore: Sprite = null
