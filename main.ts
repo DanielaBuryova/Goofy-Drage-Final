@@ -223,6 +223,7 @@ function giveIntroduction () {
         . a a a a a a a a a a a a a . . 
         . . . . . . . . . . . . . . . . 
         `)
+    showInstruction("hello?")
     if (currentLevel == 10) {
         game.setDialogFrame(img`
             . a a a a a a a a a a a a a . . 
@@ -582,7 +583,16 @@ function animateDrage () {
         `)
 }
 function goBack () {
-    if (true) {
+    Cursor0.setPosition(80, 35)
+    if (currentLevel == 3 || currentLevel == 4) {
+        Easy.destroy()
+        Medium.destroy()
+        Hard.destroy()
+        currentLevel = 2
+        setLevelTileMap0(currentLevel)
+    } else if (currentLevel == 2) {
+        goToMenu()
+    } else {
     	
     }
 }
@@ -2646,6 +2656,16 @@ function animateRun () {
         . . . . . 6 6 5 . . . . 6 6 5 . 
         `)
 }
+function difficultyMedium () {
+    if (currentLevel >= 15 && currentLevel < 20) {
+        currentLevel = 15
+    } else if (currentLevel >= 20 && currentLevel < 25) {
+        currentLevel = 20
+    } else if (currentLevel >= 25 && currentLevel < 30) {
+        currentLevel = 25
+    }
+    isDead()
+}
 function animateJumps () {
     mainJumpLeft = animation.createAnimation(ActionKind.JumpingLeft, 100)
     animation.attachAnimation(hero, mainJumpLeft)
@@ -2885,8 +2905,14 @@ function createHero (hero: Sprite) {
     info.setLife(3)
 }
 info.onLifeZero(function () {
-    if (currentDifficulty == 0) {
+    if (currentDifficulty == 2) {
+        game.over(false, effects.melt)
+    } else if (currentDifficulty == 1) {
+        difficultyMedium()
+    } else if (currentDifficulty == 0) {
         isDead()
+    } else {
+        game.over(false, effects.melt)
     }
 })
 function createCursor (cursor: Sprite) {
@@ -2922,6 +2948,9 @@ function showInstruction (text: string) {
     game.showLongText(text, DialogLayout.Bottom)
 }
 sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherSprite) {
+    if (Cursor0.overlapsWith(Back) && controller.A.isPressed()) {
+        goBack()
+    }
     if (Cursor0.overlapsWith(Play) && controller.A.isPressed()) {
         currentLevel = 10
         otherSprite.destroy()
@@ -2969,6 +2998,8 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
             . . . . 5 4 5 5 5 5 4 4 . . . . 
             `)
         showInstruction("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back.")
+        // this robiť bordel
+        // 
         goToMenu()
     }
     if (Cursor0.overlapsWith(Options) && controller.A.isPressed()) {
@@ -3721,6 +3752,12 @@ function initializeLevel (level: number) {
     }
 }
 function goToMenu () {
+    Sounds2.destroy()
+    Difficulty.destroy()
+    Language.destroy()
+    // ???????????
+    Back.destroy()
+    giveIntroduction()
     currentLevel = 0
     setLevelTileMap0(currentLevel)
 }
@@ -3768,9 +3805,6 @@ let currentDifficulty = 0
 let gravity = 0
 let SK: Sprite = null
 let EN: Sprite = null
-let Hard: Sprite = null
-let Medium: Sprite = null
-let Easy: Sprite = null
 let Language: Sprite = null
 let Difficulty: Sprite = null
 let Sounds2: Sprite = null
@@ -3785,6 +3819,9 @@ let mainIdleRight: animation.Animation = null
 let mainIdleLeft: animation.Animation = null
 let doubleJumpSpeed = 0
 let canDoubleJump = false
+let Hard: Sprite = null
+let Medium: Sprite = null
+let Easy: Sprite = null
 let mainDrageRight: animation.Animation = null
 let mainDrageLeft: animation.Animation = null
 let invincibilityPeriod = 0
