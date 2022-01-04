@@ -186,356 +186,6 @@ function initializeAnimations () {
     initializeKeyAni()
     initializecaveBossAni()
 }
-function giveIntroduction () {
-    game.setDialogCursor(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . 5 . . . . . . . 
-        . . . . . . . 5 . 8 . 6 6 6 . . 
-        . . . . . 5 5 5 8 8 6 6 7 . . . 
-        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-        . . 1 . . . 7 6 8 6 6 6 . . . . 
-        . . . . . 7 6 6 8 6 7 . . . . . 
-        . . . . 7 6 6 6 6 6 6 . . . . . 
-        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-        . . . . 6 . . . . . 6 . . 7 6 . 
-        . 5 6 6 . . . . 5 6 6 . . . . . 
-        `)
-    game.setDialogFrame(img`
-        . a a a a a a a a a a a a a . . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        . a a a a a a a a a a a a a . . 
-        . . . . . . . . . . . . . . . . 
-        `)
-    if (currentLevel == 10) {
-        game.setDialogFrame(img`
-            . a a a a a a a a a a a a a . . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            . a a a a a a a a a a a a a . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-        showInstruction("Use ARROWS to move and A to jump. Jump in the air to DOUBLE JUMP!")
-        game.setDialogCursor(img`
-            . . . . . . . 2 . . . . . . . . 
-            . . . . . . . 2 2 . . . . . . . 
-            . . . . 2 . 2 4 4 2 . . . . . . 
-            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
-            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
-            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
-            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
-            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
-            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
-            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
-            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
-            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
-            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
-            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
-            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
-            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
-            `)
-        showInstruction("Don't get your face burnt or you'll lose your lifes.")
-        game.setDialogFrame(img`
-            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
-            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
-            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
-            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
-            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
-            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . f f f f . . . . f f f f . . 
-            . f 2 2 2 2 f . . f 2 2 2 2 f . 
-            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
-            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
-            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
-            . . f c 2 2 2 2 2 2 2 2 2 f . . 
-            . . . f c 2 2 2 2 2 2 2 f . . . 
-            . . . . f c 2 2 2 2 2 f . . . . 
-            . . . . . f c 2 2 2 f . . . . . 
-            . . . . . . f c c f . . . . . . 
-            . . . . . . . f f . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        showInstruction("Play with friends, gain as much points as possible, beat your friends and become the best GOOFY DRAGON in the entire universe! Good luck!")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    if (currentLevel == 11) {
-        game.setDialogFrame(img`
-            . a a a a a a a a a a a a a . . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            . a a a a a a a a a a a a a . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            . . . . . . . 2 . . . . . . . . 
-            . . . . . . . 2 2 . . . . . . . 
-            . . . . 2 . 2 4 4 2 . . . . . . 
-            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
-            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
-            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
-            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
-            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
-            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
-            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
-            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
-            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
-            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
-            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
-            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
-            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
-            `)
-        showInstruction("You can destroy your enemies by jumping on their heads.")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    if (currentLevel == 22) {
-        game.setDialogFrame(img`
-            . a a a a a a a a a a a a a . . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 a a a a a a a a a a a 1 a . 
-            a 1 1 a a a a a a a a a 1 1 a . 
-            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-            . a a a a a a a a a a a a a . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        game.setDialogCursor(img`
-            b c c c c c c b d c c c b b b b c c c d b c c c c c c b 
-            c c f f f f f c b d c c c b b c c c d b c f f f f f c c 
-            c f f f f 2 f f c b c c c b b c c c b c f f 2 f f f f c 
-            b f f f 2 1 2 f f d b c c d d c c b d f f 2 1 2 f f f b 
-            b d f f f 2 f f f d b b c b b c b b d f f f 2 f f f d b 
-            c c b d f f f b b b d c c c c c c d b b b f f f d b c c 
-            b c c c d d d c c c c c c b b c c c c c c d d d c c c b 
-            `)
-        showInstruction("Beware, the cave statue is more harmful, than the fire of it's anger you've already met. You need to kill this monster and escape in 10s to enter the next level.")
-        game.setDialogCursor(img`
-            . . . . . f f f f f f . . . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 5 5 f . . f 5 5 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . . . f f 5 5 f f . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . f f 5 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f 4 4 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f f f f . . . . . . . 
-            `)
-        showInstruction("You need to collect at least 5 keys in this level to escape.")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    if (currentLevel == 26 || currentLevel == 17) {
-        game.setDialogCursor(img`
-            . . . . . f f f f f f . . . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 5 5 f . . f 5 5 f . . . 
-            . . . f 5 5 4 f f 4 5 5 f . . . 
-            . . . f 4 5 5 4 4 5 5 4 f . . . 
-            . . . . f 4 5 5 5 5 4 f . . . . 
-            . . . . . f f 5 5 f f . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . . f 5 5 f . . . . . . 
-            . . . . . f f 5 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f 4 4 5 f . . . . . . 
-            . . . . f 5 5 4 5 f . . . . . . 
-            . . . . . f f f f . . . . . . . 
-            `)
-        showInstruction("You need to collect at least 5 keys in this level to escape.")
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . 5 . . . . . . . 
-            . . . . . . . 5 . 8 . 6 6 6 . . 
-            . . . . . 5 5 5 8 8 6 6 7 . . . 
-            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-            . . 1 . . . 7 6 8 6 6 6 . . . . 
-            . . . . . 7 6 6 8 6 7 . . . . . 
-            . . . . 7 6 6 6 6 6 6 . . . . . 
-            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-            . . . . 6 . . . . . 6 . . 7 6 . 
-            . 5 6 6 . . . . 5 6 6 . . . . . 
-            `)
-    }
-    game.setDialogFrame(img`
-        . a a a a a a a a a a a a a . . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 a a a a a a a a a a a 1 a . 
-        a 1 1 a a a a a a a a a 1 1 a . 
-        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
-        . a a a a a a a a a a a a a . . 
-        . . . . . . . . . . . . . . . . 
-        `)
-    game.setDialogCursor(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . 5 . . . . . . . 
-        . . . . . . . 5 . 8 . 6 6 6 . . 
-        . . . . . 5 5 5 8 8 6 6 7 . . . 
-        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
-        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
-        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
-        . . 1 . . . 7 6 8 6 6 6 . . . . 
-        . . . . . 7 6 6 8 6 7 . . . . . 
-        . . . . 7 6 6 6 6 6 6 . . . . . 
-        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
-        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
-        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
-        . . . . 6 . . . . . 6 . . 7 6 . 
-        . 5 6 6 . . . . 5 6 6 . . . . . 
-        `)
-}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     attemptJump()
 })
@@ -672,6 +322,356 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSp
     otherSprite.y += 3
     info.changeLifeBy(1)
 })
+function giveIntroductionSK () {
+    game.setDialogCursor(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+        . . . . 6 . . . . . 6 . . 7 6 . 
+        . 5 6 6 . . . . 5 6 6 . . . . . 
+        `)
+    game.setDialogFrame(img`
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    if (currentLevel == 10) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+        showInstruction("Použite ŠÍPKY na pohyb a A na skok. Vyskočte do vzduchu na DVOJSKOK!")
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("Nenechaj si spáliť tvár, inak prídeš o život.")
+        game.setDialogFrame(img`
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . f f f f . . . . f f f f . . 
+            . f 2 2 2 2 f . . f 2 2 2 2 f . 
+            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
+            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
+            . . f c 2 2 2 2 2 2 2 2 2 f . . 
+            . . . f c 2 2 2 2 2 2 2 f . . . 
+            . . . . f c 2 2 2 2 2 f . . . . 
+            . . . . . f c 2 2 2 f . . . . . 
+            . . . . . . f c c f . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        showInstruction("Hrajte s priateľmi, získajte čo najviac bodov, porazte svojich priateľov a staňte sa tým najlepším GOOFY DRAKOM v celom vesmíre! Veľa štastia!")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 11) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("Svojich nepriateľov môžete zničiť skákaním po hlave.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 22) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            b c c c c c c b d c c c b b b b c c c d b c c c c c c b 
+            c c f f f f f c b d c c c b b c c c d b c f f f f f c c 
+            c f f f f 2 f f c b c c c b b c c c b c f f 2 f f f f c 
+            b f f f 2 1 2 f f d b c c d d c c b d f f 2 1 2 f f f b 
+            b d f f f 2 f f f d b b c b b c b b d f f f 2 f f f d b 
+            c c b d f f f b b b d c c c c c c d b b b f f f d b c c 
+            b c c c d d d c c c c c c b b c c c c c c d d d c c c b 
+            `)
+        showInstruction("Pozor, jaskynná socha je škodlivejšia ako oheň hnevu, s ktorým ste sa už stretli. Ak chcete prejsť do ďalšej úrovne, musíte zabiť toto monštrum a uniknúť do 10 sekúnd.")
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("Ak chcete uniknúť, musíte v tejto úrovni nazbierať aspoň 5 kľúčov.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 26 || currentLevel == 17) {
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("Ak chcete uniknúť, musíte v tejto úrovni nazbierať aspoň 5 kľúčov.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    game.setDialogFrame(img`
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    game.setDialogCursor(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+        . . . . 6 . . . . . 6 . . 7 6 . 
+        . 5 6 6 . . . . 5 6 6 . . . . . 
+        `)
+}
 function initializePlayAni () {
     playAni = animation.createAnimation(ActionKind.Idle, 225)
     playAni.addAnimationFrame(img`
@@ -1195,7 +1195,11 @@ function setLevelTileMap0 (level: number) {
             tiles.setTilemap(tilemap`level_1`)
             createHero(hero)
             invincibilityPeriod = 600
-            giveIntroduction()
+            if (currentLanguage == 0) {
+                giveIntroductionEN()
+            } else if (currentLanguage == 1) {
+                giveIntroductionSK()
+            }
             initializeAnimations()
             currentLife = 3
         } else if (level == 11) {
@@ -2097,6 +2101,356 @@ function setLevelTileMap0 (level: number) {
         Controls.destroy()
     }
 }
+function giveIntroductionEN () {
+    game.setDialogCursor(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+        . . . . 6 . . . . . 6 . . 7 6 . 
+        . 5 6 6 . . . . 5 6 6 . . . . . 
+        `)
+    game.setDialogFrame(img`
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    if (currentLevel == 10) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+        showInstruction("Use ARROWS to move and A to jump. Jump in the air to DOUBLE JUMP!")
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("Don't get your face burnt or you'll lose your lifes.")
+        game.setDialogFrame(img`
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 4 4 4 4 4 4 4 4 4 4 4 1 4 . 
+            4 1 1 4 4 4 4 4 4 4 4 4 1 1 4 . 
+            4 4 1 1 1 1 1 1 1 1 1 1 1 4 4 . 
+            . 4 4 4 4 4 4 4 4 4 4 4 4 4 . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . f f f f . . . . f f f f . . 
+            . f 2 2 2 2 f . . f 2 2 2 2 f . 
+            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
+            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
+            . . f c 2 2 2 2 2 2 2 2 2 f . . 
+            . . . f c 2 2 2 2 2 2 2 f . . . 
+            . . . . f c 2 2 2 2 2 f . . . . 
+            . . . . . f c 2 2 2 f . . . . . 
+            . . . . . . f c c f . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        showInstruction("Play with friends, gain as much points as possible, beat your friends and become the best GOOFY DRAGON in the entire universe! Good luck!")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 11) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . 2 . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . 2 . 2 4 4 2 . . . . . . 
+            . 2 . . 2 2 4 5 4 4 2 . . . 2 . 
+            . 2 2 . . 2 4 5 5 5 4 2 . 2 2 . 
+            . 2 5 2 2 4 f 5 5 5 f 4 2 4 2 . 
+            . . 2 4 4 5 4 f 4 f 4 4 4 5 2 . 
+            . . 2 5 4 4 4 4 4 4 4 4 5 5 2 . 
+            2 . 2 5 5 4 f 4 5 4 f 4 5 4 2 . 
+            2 2 4 4 4 4 5 5 5 5 4 4 4 2 . 2 
+            2 5 4 5 4 5 5 5 f 5 5 4 4 4 2 2 
+            . 2 4 2 4 2 4 f 5 f 4 4 2 4 5 2 
+            . 2 8 5 2 4 4 4 4 2 4 2 5 8 2 2 
+            . 9 9 2 8 2 4 2 2 4 2 8 2 9 9 . 
+            . . 5 9 5 8 2 2 2 2 8 5 9 5 . . 
+            . . . 5 5 9 8 5 8 5 9 9 5 . . . 
+            `)
+        showInstruction("You can destroy your enemies by jumping on their heads.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 22) {
+        game.setDialogFrame(img`
+            . a a a a a a a a a a a a a . . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 a a a a a a a a a a a 1 a . 
+            a 1 1 a a a a a a a a a 1 1 a . 
+            a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+            . a a a a a a a a a a a a a . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        game.setDialogCursor(img`
+            b c c c c c c b d c c c b b b b c c c d b c c c c c c b 
+            c c f f f f f c b d c c c b b c c c d b c f f f f f c c 
+            c f f f f 2 f f c b c c c b b c c c b c f f 2 f f f f c 
+            b f f f 2 1 2 f f d b c c d d c c b d f f 2 1 2 f f f b 
+            b d f f f 2 f f f d b b c b b c b b d f f f 2 f f f d b 
+            c c b d f f f b b b d c c c c c c d b b b f f f d b c c 
+            b c c c d d d c c c c c c b b c c c c c c d d d c c c b 
+            `)
+        showInstruction("Beware, the cave statue is more harmful, than the fire of it's anger you've already met. You need to kill this monster and escape in 10s to enter the next level.")
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("You need to collect at least 5 keys in this level to escape.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    if (currentLevel == 26 || currentLevel == 17) {
+        game.setDialogCursor(img`
+            . . . . . f f f f f f . . . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 5 5 f . . f 5 5 f . . . 
+            . . . f 5 5 4 f f 4 5 5 f . . . 
+            . . . f 4 5 5 4 4 5 5 4 f . . . 
+            . . . . f 4 5 5 5 5 4 f . . . . 
+            . . . . . f f 5 5 f f . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . . f 5 5 f . . . . . . 
+            . . . . . f f 5 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f 4 4 5 f . . . . . . 
+            . . . . f 5 5 4 5 f . . . . . . 
+            . . . . . f f f f . . . . . . . 
+            `)
+        showInstruction("You need to collect at least 5 keys in this level to escape.")
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . 5 . . . . . . . 
+            . . . . . . . 5 . 8 . 6 6 6 . . 
+            . . . . . 5 5 5 8 8 6 6 7 . . . 
+            . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+            . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+            . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+            . . 1 . . . 7 6 8 6 6 6 . . . . 
+            . . . . . 7 6 6 8 6 7 . . . . . 
+            . . . . 7 6 6 6 6 6 6 . . . . . 
+            . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+            . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+            . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+            . . . . 6 . . . . . 6 . . 7 6 . 
+            . 5 6 6 . . . . 5 6 6 . . . . . 
+            `)
+    }
+    game.setDialogFrame(img`
+        . a a a a a a a a a a a a a . . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 a a a a a a a a a a a 1 a . 
+        a 1 1 a a a a a a a a a 1 1 a . 
+        a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
+        . a a a a a a a a a a a a a . . 
+        . . . . . . . . . . . . . . . . 
+        `)
+    game.setDialogCursor(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . 5 . . . . . . . 
+        . . . . . . . 5 . 8 . 6 6 6 . . 
+        . . . . . 5 5 5 8 8 6 6 7 . . . 
+        . . . 6 6 6 5 8 8 6 6 7 6 6 . . 
+        . 7 f 6 9 6 6 8 5 6 7 6 7 . . . 
+        . 7 7 7 7 7 6 6 8 6 6 7 6 . . . 
+        . . 1 . . . 7 6 8 6 6 6 . . . . 
+        . . . . . 7 6 6 8 6 7 . . . . . 
+        . . . . 7 6 6 6 6 6 6 . . . . . 
+        . . . . 7 6 6 6 6 6 6 6 . . 5 . 
+        . . . . 7 6 7 6 6 7 6 7 6 . . 6 
+        . . . . 6 7 7 7 7 . 6 . 7 6 . 6 
+        . . . . 6 . . . . . 6 . . 7 6 . 
+        . 5 6 6 . . . . 5 6 6 . . . . . 
+        `)
+}
 function buttonDifficultyEffect () {
     if (currentDifficulty == 0) {
         animation.runImageAnimation(
@@ -2965,7 +3319,7 @@ function spawnHearts () {
     }
 }
 function showInstruction (text: string) {
-    game.showLongText(text, DialogLayout.Bottom)
+    game.showLongText(text, DialogLayout.Full)
 }
 sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherSprite) {
     if (Cursor0.overlapsWith(Back) && controller.A.isPressed()) {
@@ -3032,8 +3386,6 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
             destroyOptionsMenu()
             currentLevel = 5
             setLevelTileMap0(currentLevel)
-        } else {
-        	
         }
     }
     if (currentLevel == 4) {
@@ -3046,6 +3398,15 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
         } else if (Cursor0.overlapsWith(Hard) && controller.A.isPressed()) {
             currentDifficulty = 2
             buttonDifficultyEffect()
+        }
+    }
+    if (currentLevel == 5) {
+        if (Cursor0.overlapsWith(EN) && controller.A.isPressed()) {
+            currentLanguage = 0
+            buttonLaguegeEffect()
+        } else if (Cursor0.overlapsWith(SK) && controller.A.isPressed()) {
+            currentLanguage = 1
+            buttonLaguegeEffect()
         }
     }
 })
@@ -3781,12 +4142,29 @@ function goToMenu () {
         Language.destroy()
     }
     Back.destroy()
-    giveIntroduction()
+    giveIntroductionEN()
     currentLevel = 0
     setLevelTileMap0(currentLevel)
 }
 function hasNextLevel () {
     return currentLevel != levelCount
+}
+function buttonLaguegeEffect () {
+    if (currentLanguage == 0) {
+        animation.runMovementAnimation(
+        EN,
+        animation.animationPresets(animation.shake),
+        500,
+        false
+        )
+    } else if (currentLanguage == 1) {
+        animation.runMovementAnimation(
+        SK,
+        animation.animationPresets(animation.shake),
+        500,
+        false
+        )
+    }
 }
 function spawnGoals () {
     for (let value7 of tiles.getTilesByType(assets.tile`tile8`)) {
@@ -3828,6 +4206,7 @@ let mainJumpRight: animation.Animation = null
 let mainJumpLeft: animation.Animation = null
 let mainRunRight: animation.Animation = null
 let mainRunLeft: animation.Animation = null
+let currentLanguage = 0
 let gravity = 0
 let Language: Sprite = null
 let Difficulty: Sprite = null
