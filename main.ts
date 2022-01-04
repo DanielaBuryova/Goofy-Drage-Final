@@ -223,7 +223,6 @@ function giveIntroduction () {
         . a a a a a a a a a a a a a . . 
         . . . . . . . . . . . . . . . . 
         `)
-    showInstruction("hello?")
     if (currentLevel == 10) {
         game.setDialogFrame(img`
             . a a a a a a a a a a a a a . . 
@@ -584,16 +583,20 @@ function animateDrage () {
 }
 function goBack () {
     Cursor0.setPosition(80, 35)
-    if (currentLevel == 3 || currentLevel == 4) {
+    if (currentLevel == 4) {
         Easy.destroy()
         Medium.destroy()
         Hard.destroy()
+    }
+    if (currentLevel == 5) {
+        EN.destroy()
+        SK.destroy()
+    }
+    if (currentLevel == 3 || (currentLevel == 4 || currentLevel == 5)) {
         currentLevel = 2
         setLevelTileMap0(currentLevel)
     } else if (currentLevel == 2) {
         goToMenu()
-    } else {
-    	
     }
 }
 function attemptJump () {
@@ -614,7 +617,12 @@ function attemptJump () {
 }
 function isDead () {
     hero.say("Be careful!", invincibilityPeriod)
-    info.setLife(3)
+    if (currentDifficulty == 0) {
+        info.setLife(currentLife)
+    }
+    if (currentDifficulty == 1) {
+        info.setLife(3)
+    }
     setLevelTileMap0(currentLevel)
 }
 function animateIdle () {
@@ -919,6 +927,7 @@ function setLevelTileMap0 (level: number) {
         if (level == 1 && controller.A.isPressed()) {
         	
         } else if (level == 2) {
+            Cursor0.setPosition(80, 35)
             Sounds2 = sprites.create(img`
                 fffffffffffffffffffffffffffffffffffffff
                 f5555555555555555555555555555555555555f
@@ -964,6 +973,7 @@ function setLevelTileMap0 (level: number) {
         } else if (level == 3) {
         	
         } else if (level == 4) {
+            Cursor0.setPosition(80, 35)
             Easy = sprites.create(img`
                 f f f f f f f f f f f f f f f f f f f f f f f f f f f 
                 f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
@@ -1007,26 +1017,27 @@ function setLevelTileMap0 (level: number) {
             Medium.setPosition(80, 80)
             Hard.setPosition(80, 95)
         } else if (level == 5) {
+            Cursor0.setPosition(80, 35)
             EN = sprites.create(img`
                 ffffffffffffffffffffffffffffff
                 f2118888818881221888188888112f
-                f1221188818881221888188811221f
+                f1211188818881221888188811121f
                 f1112118881881221881888112111f
                 f8111221188181221818811221118f
-                f8881112ffffff22ff111f2111888f
-                f8888111f2111122ff112f1118888f
-                f8888881f1211122f1f21f1888888f
-                f8888888f1122122f2f11f8888888f
-                f1111111f1111122f1f11f1111111f
-                f2222222ffff2222f2f22f2222222f
-                f1111111f1111122f11f1f1111111f
-                f8888888f1122122f22f1f8888888f
-                f8888881f1211122f11f1f1888888f
-                f8888111f2111122f111ff1118888f
-                f8881112ffffff22f181ff2111888f
+                f8881112118181221818112111888f
+                f8888111221111221111221118888f
+                f8888881112111221112111888888f
+                f8888888811221221221188888888f
+                f1111111111111221111111111111f
+                f2222222222222222222222222222f
+                f1111111111111221111111111111f
+                f8888888811221221221188888888f
+                f8888881112111221112111888888f
+                f8888111221111221111221118888f
+                f8881112111811221181112111888f
                 f8111221188181221818811221118f
                 f1112118881881221881888112111f
-                f1221188881881221881888811221f
+                f1211188881881221881888811221f
                 f2118888818881221888188888112f
                 ffffffffffffffffffffffffffffff
                 `, SpriteKind.button)
@@ -1036,23 +1047,25 @@ function setLevelTileMap0 (level: number) {
                 f1111111111111111111111111111f
                 f1111111111111111111111111111f
                 f1111111111111111111111111111f
-                f112222222fff111f1111f1111111f
-                f11222122f111f11f111f11111111f
-                f1122111f2111111f11f111111111f
-                f8122212f2188888f8f8888888888f
-                f81211111f188888f8f8888888888f
-                f812221222fff888ff88888888888f
-                f812288822188f88f8f8888888888f
-                f818888888188f88f8f8888888888f
-                f818888888188f88f88f888888888f
-                f2188888f8122f22f222f22222222f
-                f22188888ffff222f2222f2222222f
+                f1122222221111111111111111111f
+                f1122212221111111111111111111f
+                f1122111221111111111111111111f
+                f8122212221888888888888888888f
+                f8121111121888888888888888888f
+                f8122212221888888888888888888f
+                f8122888221888888888888888888f
+                f8188888881888888888888888888f
+                f8188888881888888888888888888f
+                f2188888881222222222222222222f
+                f2218888812222222222222222222f
                 f2221888122222222222222222222f
                 f2222111222222222222222222222f
                 f2222222222222222222222222222f
                 f2222222222222222222222222222f
                 ffffffffffffffffffffffffffffff
                 `, SpriteKind.button)
+            EN.setPosition(80, 50)
+            SK.setPosition(80, 80)
         }
         if (level == 10) {
             Back.destroy()
@@ -1184,6 +1197,7 @@ function setLevelTileMap0 (level: number) {
             invincibilityPeriod = 600
             giveIntroduction()
             initializeAnimations()
+            currentLife = 3
         } else if (level == 11) {
             tiles.setTilemap(tilemap`level2`)
         } else if (level == 12) {
@@ -2666,6 +2680,11 @@ function difficultyMedium () {
     }
     isDead()
 }
+function destroyOptionsMenu () {
+    Sounds2.destroy()
+    Difficulty.destroy()
+    Language.destroy()
+}
 function animateJumps () {
     mainJumpLeft = animation.createAnimation(ActionKind.JumpingLeft, 100)
     animation.attachAnimation(hero, mainJumpLeft)
@@ -2849,8 +2868,9 @@ function clearGame () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, location) {
     if (isKilled == 1 && keyCount <= 0) {
         info.stopCountdown()
-        if (currentLevel < 20) {
+        if (currentLevel < 20 && (currentDifficulty == 0 || currentDifficulty == 1)) {
             info.changeLifeBy(1)
+            currentLife += 1
         }
         currentLevel += 1
         if (hasNextLevel()) {
@@ -2960,7 +2980,6 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
         Back.destroy()
         currentLevel = 1
         setLevelTileMap0(currentLevel)
-        giveIntroduction()
         game.setDialogFrame(img`
             . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
             9 1 1 1 1 1 1 1 1 1 1 1 1 1 1 9 
@@ -2997,21 +3016,25 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
             . . . . . . 5 4 4 4 . . . . . . 
             . . . . 5 4 5 5 5 5 4 4 . . . . 
             `)
-        showInstruction("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back.")
-        // this robiť bordel
-        // 
+        showHighScore("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back to the main menu.")
         goToMenu()
     }
     if (Cursor0.overlapsWith(Options) && controller.A.isPressed()) {
         currentLevel = 2
         setLevelTileMap0(currentLevel)
     }
-    if (currentLevel == 2 && Cursor0.overlapsWith(Difficulty) && controller.A.isPressed()) {
-        Sounds2.destroy()
-        Difficulty.destroy()
-        Language.destroy()
-        currentLevel = 4
-        setLevelTileMap0(currentLevel)
+    if (currentLevel == 2 && controller.A.isPressed()) {
+        if (Cursor0.overlapsWith(Difficulty)) {
+            destroyOptionsMenu()
+            currentLevel = 4
+            setLevelTileMap0(currentLevel)
+        } else if (Cursor0.overlapsWith(Language)) {
+            destroyOptionsMenu()
+            currentLevel = 5
+            setLevelTileMap0(currentLevel)
+        } else {
+        	
+        }
     }
     if (currentLevel == 4) {
         if (Cursor0.overlapsWith(Easy) && controller.A.isPressed()) {
@@ -3752,10 +3775,11 @@ function initializeLevel (level: number) {
     }
 }
 function goToMenu () {
-    Sounds2.destroy()
-    Difficulty.destroy()
-    Language.destroy()
-    // ???????????
+    if (currentLevel == 2) {
+        Sounds2.destroy()
+        Difficulty.destroy()
+        Language.destroy()
+    }
     Back.destroy()
     giveIntroduction()
     currentLevel = 0
@@ -3790,6 +3814,9 @@ function spawnGoals () {
         animation.setAction(key2, ActionKind.Idle)
     }
 }
+function showHighScore (text: string) {
+    game.showLongText(text, DialogLayout.Center)
+}
 let heroFacingLeft = false
 let key2: Sprite = null
 let playerStartLocation: tiles.Location = null
@@ -3801,10 +3828,7 @@ let mainJumpRight: animation.Animation = null
 let mainJumpLeft: animation.Animation = null
 let mainRunRight: animation.Animation = null
 let mainRunLeft: animation.Animation = null
-let currentDifficulty = 0
 let gravity = 0
-let SK: Sprite = null
-let EN: Sprite = null
 let Language: Sprite = null
 let Difficulty: Sprite = null
 let Sounds2: Sprite = null
@@ -3817,8 +3841,12 @@ let Play: Sprite = null
 let playAni: animation.Animation = null
 let mainIdleRight: animation.Animation = null
 let mainIdleLeft: animation.Animation = null
+let currentLife = 0
+let currentDifficulty = 0
 let doubleJumpSpeed = 0
 let canDoubleJump = false
+let SK: Sprite = null
+let EN: Sprite = null
 let Hard: Sprite = null
 let Medium: Sprite = null
 let Easy: Sprite = null
