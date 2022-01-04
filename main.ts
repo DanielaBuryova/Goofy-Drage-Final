@@ -708,6 +708,7 @@ function initializePlayAni () {
 function setLevelTileMap0 (level: number) {
     clearGame()
     if (level == 0) {
+        effects.bubbles.startScreenEffect()
         scene.setBackgroundImage(img`
             9999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799999999999999999999999999999999999999999999999
             9999999999999999999999999999999999999999999999999999777777777777777777777777777777777777777777777777777777777777799999999999999999999999999999999999999999999999
@@ -918,6 +919,7 @@ function setLevelTileMap0 (level: number) {
     }
     if (level >= 10) {
         Cursor0.destroy()
+        effects.bubbles.endScreenEffect()
     }
     if (level != 0) {
         Play.destroy()
