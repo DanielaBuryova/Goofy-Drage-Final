@@ -176,7 +176,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherS
         sprite.vy = -2 * pixelsToMeters
         info.changeScoreBy(3)
     } else {
-        sprite.say("Ow!", invincibilityPeriod)
+        if (currentLanguage == 0) {
+            sprite.say("Ow!", invincibilityPeriod)
+        } else {
+            sprite.say("Au!", invincibilityPeriod)
+        }
         info.changeLifeBy(-1)
     }
     pause(invincibilityPeriod)
@@ -266,7 +270,11 @@ function attemptJump () {
     }
 }
 function isDead () {
-    hero.say("Be careful!", invincibilityPeriod)
+    if (currentLanguage == 0) {
+        hero.say("Be careful!", invincibilityPeriod)
+    } else {
+        hero.say("Buď opatrný!", invincibilityPeriod)
+    }
     if (currentDifficulty == 0) {
         info.setLife(currentLife)
     }
@@ -831,91 +839,9 @@ function setLevelTileMap0 (level: number) {
             6666666666666666666666777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777776666666666666666666666
             6666666666666666666666777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777776666666666666666666666
             `)
-        Play = sprites.create(img`
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f 5 f f f f 5 5 f 5 5 5 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 f 5 f 5 5 f 
-            f 5 f f f f 5 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 f 5 5 5 5 5 f f f f f 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
-            f 5 f 5 5 5 5 5 f f f f f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            `, SpriteKind.button)
-        HighScore = sprites.create(img`
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-            f555555555555555555555555555555555555555555555555555555555f
-            f5f555f5fffff55fff55f555f5555fff555fff555fff55ffff55fffff5f
-            f5f555f555f555f555f5f555f555f555f5f555f5f555f5f555f5f55555f
-            f5f555f555f555f55555f555f555f55555f55555f555f5f555f5f55555f
-            f5fffff555f555f5fff5fffff5555fff55f55555f555f5ffff55fff555f
-            f5f555f555f555f555f5f555f5555555f5f55555f555f5f5f555f55555f
-            f5f555f555f555f555f5f555f555f555f5f555f5f555f5f55f55f55555f
-            f5f555f5fffff55fff55f555f5555fff555fff555fff55f555f5fffff5f
-            f555555555555555555555555555555555555555555555555555555555f
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-            `, SpriteKind.button)
-        Options = sprites.create(img`
-            fffffffffffffffffffffffffffffffffffffffffffff
-            f5555555555555555555555555555555555555555555f
-            f55fff55ffff55fffff5fffff55fff55ff55f55fff55f
-            f5f555f5f555f555f55555f555f555f5ff55f5f555f5f
-            f5f555f5f555f555f55555f555f555f5f5f5f5f55555f
-            f5f555f5ffff5555f55555f555f555f5f5f5f55fff55f
-            f5f555f5f5555555f55555f555f555f5f5f5f55555f5f
-            f5f555f5f5555555f55555f555f555f5f55ff5f555f5f
-            f55fff55f5555555f555fffff55fff55f55ff55fff55f
-            f5555555555555555555555555555555555555555555f
-            fffffffffffffffffffffffffffffffffffffffffffff
-            `, SpriteKind.button)
-        Credits = sprites.create(img`
-            fffffffffffffffffffffffffffffffffffffffffffff
-            f5555555555555555555555555555555555555555555f
-            f55fff55ffff55fffff5ffff55fffff5fffff55fff55f
-            f5f555f5f555f5f55555f555f555f55555f555f555f5f
-            f5f55555f555f5f55555f555f555f55555f555f55555f
-            f5f55555ffff55fff555f555f555f55555f5555fff55f
-            f5f55555f5f555f55555f555f555f55555f5555555f5f
-            f5f555f5f55f55f55555f555f555f55555f555f555f5f
-            f55fff55f555f5fffff5ffff55fffff555f5555fff55f
-            f5555555555555555555555555555555555555555555f
-            fffffffffffffffffffffffffffffffffffffffffffff
-            `, SpriteKind.button)
-        Back = sprites.create(img`
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 5 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 f 5 5 5 f 
-            f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f 5 5 5 5 f 
-            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 f 5 5 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 5 5 f 
-            f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
-            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-            `, SpriteKind.button)
-        Instructions = sprites.create(img`
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-            f5555555555555555555555555555555555555555555555555555555555555555555555555f
-            f5fffff5f555f55fff55fffff5ffff55f555f55fff55fffff5fffff55fff55f555f55fff55f
-            f555f555f555f5f555f555f555f555f5f555f5f555f555f55555f555f555f5f555f5f555f5f
-            f555f555ff55f5f5555555f555f555f5f555f5f5555555f55555f555f555f5ff55f5f55555f
-            f555f555f5f5f55fff5555f555ffff55f555f5f5555555f55555f555f555f5f5f5f55fff55f
-            f555f555f5f5f55555f555f555f555f5f555f5f5555555f55555f555f555f5f5f5f55555f5f
-            f555f555f55ff5f555f555f555f555f5f555f5f555f555f55555f555f555f5f55ff5f555f5f
-            f5fffff5f555f55fff5555f555f555f55fff555fff5555f555fffff55fff55f555f55fff55f
-            f5555555555555555555555555555555555555555555555555555555555555555555555555f
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-            `, SpriteKind.button)
         Cursor0.setPosition(80, 35)
-        Play.setPosition(80, 50)
-        HighScore.setPosition(80, 65)
-        Options.setPosition(80, 80)
-        Credits.setPosition(80, 95)
-        Instructions.setPosition(80, 110)
-        Back.setPosition(80, 110)
+        buttonsMenu()
+        buttonsPositionMenu()
     }
     if (level >= 10) {
         Cursor0.destroy()
@@ -930,48 +856,8 @@ function setLevelTileMap0 (level: number) {
         	
         } else if (level == 2) {
             Cursor0.setPosition(80, 35)
-            Sounds2 = sprites.create(img`
-                fffffffffffffffffffffffffffffffffffffff
-                f5555555555555555555555555555555555555f
-                f55fff555fff55f555f5ff55f5ffff555fff55f
-                f5f555f5f555f5f555f5ff55f5f555f5f555f5f
-                f5f55555f555f5f555f5f5f5f5f555f5f55555f
-                f55fff55f555f5f555f5f5f5f5f555f55fff55f
-                f55555f5f555f5f555f5f5f5f5f555f55555f5f
-                f5f555f5f555f5f555f5f55ff5f555f5f555f5f
-                f55fff555fff555fff55f55ff5ffff555fff55f
-                f5555555555555555555555555555555555555f
-                fffffffffffffffffffffffffffffffffffffff
-                `, SpriteKind.button)
-            Difficulty = sprites.create(img`
-                fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-                f5555555555555555555555555555555555555555555555555555555555555f
-                f5ffff55fffff5fffff5fffff5fffff55fff55f555f5f55555fffff5f555f5f
-                f5f555f555f555f55555f5555555f555f555f5f555f5f5555555f555f555f5f
-                f5f555f555f555f55555f5555555f555f55555f555f5f5555555f5555f5f55f
-                f5f555f555f555fff555fff55555f555f55555f555f5f5555555f55555f555f
-                f5f555f555f555f55555f5555555f555f55555f555f5f5555555f55555f555f
-                f5f555f555f555f55555f5555555f555f555f5f555f5f5555555f55555f555f
-                f5ffff55fffff5f55555f55555fffff55fff555fff55fffff555f55555f555f
-                f5555555555555555555555555555555555555555555555555555555555555f
-                fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-                `, SpriteKind.button)
-            Language = sprites.create(img`
-                fffffffffffffffffffffffffffffffffffffffffffffffffff
-                f5555555555555555555555555555555555555555555555555f
-                f5f555555fff55ff55f55fff55f555f55fff555fff55fffff5f
-                f5f55555f555f5ff55f5f555f5f555f5f555f5f555f5f55555f
-                f5f55555f555f5f5f5f5f55555f555f5f555f5f55555f55555f
-                f5f55555f555f5f5f5f5f5ff55f555f5f555f5f5ff55fff555f
-                f5f55555fffff5f5f5f5f555f5f555f5fffff5f555f5f55555f
-                f5f55555f555f5f55ff5f555f5f555f5f555f5f555f5f55555f
-                f5fffff5f555f5f55ff55fff555fff55f555f55fff55fffff5f
-                f5555555555555555555555555555555555555555555555555f
-                fffffffffffffffffffffffffffffffffffffffffffffffffff
-                `, SpriteKind.button)
-            Sounds2.setPosition(80, 50)
-            Difficulty.setPosition(80, 65)
-            Language.setPosition(80, 80)
+            buttonsOptions()
+            buttonsPositionOptions()
         } else if (level == 3) {
         	
         } else if (level == 4) {
@@ -1071,6 +957,7 @@ function setLevelTileMap0 (level: number) {
         }
         if (level == 10) {
             Back.destroy()
+            Instructions.destroy()
             gravity = 9.81 * pixelsToMeters
             scene.setBackgroundImage(img`
                 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -2453,6 +2340,14 @@ function giveIntroductionEN () {
         . 5 6 6 . . . . 5 6 6 . . . . . 
         `)
 }
+function buttonsPositionMenu () {
+    Play.setPosition(80, 50)
+    HighScore.setPosition(80, 65)
+    Options.setPosition(80, 80)
+    Credits.setPosition(80, 95)
+    Instructions.setPosition(80, 110)
+    Back.setPosition(80, 110)
+}
 function buttonDifficultyEffect () {
     if (currentDifficulty == 0) {
         animation.runImageAnimation(
@@ -3230,13 +3125,66 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, lo
         }
         currentLevel += 1
         if (hasNextLevel()) {
-            game.splash("Next level unlocked!")
+            if (currentLanguage == 0) {
+                game.splash("Next level unlocked!")
+            } else {
+                game.splash("Ďalšia úroveň odomknutá!")
+            }
             setLevelTileMap0(currentLevel)
         } else {
             game.over(true, effects.confetti)
         }
     }
 })
+function buttonsOptions () {
+    Sounds2 = sprites.create(img`
+        fffffffffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555555555f
+        f55fff555fff55f555f5ff55f5ffff555fff55f
+        f5f555f5f555f5f555f5ff55f5f555f5f555f5f
+        f5f55555f555f5f555f5f5f5f5f555f5f55555f
+        f55fff55f555f5f555f5f5f5f5f555f55fff55f
+        f55555f5f555f5f555f5f5f5f5f555f55555f5f
+        f5f555f5f555f5f555f5f55ff5f555f5f555f5f
+        f55fff555fff555fff55f55ff5ffff555fff55f
+        f5555555555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffffffffff
+        `, SpriteKind.button)
+    Difficulty = sprites.create(img`
+        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555555555555555555555555555555555f
+        f5ffff55fffff5fffff5fffff5fffff55fff55f555f5f55555fffff5f555f5f
+        f5f555f555f555f55555f5555555f555f555f5f555f5f5555555f555f555f5f
+        f5f555f555f555f55555f5555555f555f55555f555f5f5555555f5555f5f55f
+        f5f555f555f555fff555fff55555f555f55555f555f5f5555555f55555f555f
+        f5f555f555f555f55555f5555555f555f55555f555f5f5555555f55555f555f
+        f5f555f555f555f55555f5555555f555f555f5f555f5f5555555f55555f555f
+        f5ffff55fffff5f55555f55555fffff55fff555fff55fffff555f55555f555f
+        f5555555555555555555555555555555555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        `, SpriteKind.button)
+    Language = sprites.create(img`
+        fffffffffffffffffffffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555555555555555555555f
+        f5f555555fff55ff55f55fff55f555f55fff555fff55fffff5f
+        f5f55555f555f5ff55f5f555f5f555f5f555f5f555f5f55555f
+        f5f55555f555f5f5f5f5f55555f555f5f555f5f55555f55555f
+        f5f55555f555f5f5f5f5f5ff55f555f5f555f5f5ff55fff555f
+        f5f55555fffff5f5f5f5f555f5f555f5fffff5f555f5f55555f
+        f5f55555f555f5f55ff5f555f5f555f5f555f5f555f5f55555f
+        f5fffff5f555f5f55ff55fff555fff55f555f55fff55fffff5f
+        f5555555555555555555555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffffffffffffffffffffff
+        `, SpriteKind.button)
+    if (currentLanguage != 0) {
+        buttonsSK()
+    }
+}
+function buttonsPositionOptions () {
+    Sounds2.setPosition(80, 50)
+    Difficulty.setPosition(80, 65)
+    Language.setPosition(80, 80)
+}
 function createEnemies () {
     for (let value5 of tiles.getTilesByType(assets.tile`tile10`)) {
         fire = sprites.create(img`
@@ -3267,6 +3215,89 @@ function createEnemies () {
         }
     }
 }
+function buttonsMenu () {
+    Play = sprites.create(img`
+        f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+        f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+        f 5 f f f f 5 5 f 5 5 5 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+        f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+        f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 f 5 f 5 5 f 
+        f 5 f f f f 5 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+        f 5 f 5 5 5 5 5 f 5 5 5 5 5 f f f f f 5 5 5 f 5 5 5 f 
+        f 5 f 5 5 5 5 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+        f 5 f 5 5 5 5 5 f f f f f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+        f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+        f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+        `, SpriteKind.button)
+    HighScore = sprites.create(img`
+        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        f555555555555555555555555555555555555555555555555555555555f
+        f5f555f5fffff55fff55f555f5555fff555fff555fff55ffff55fffff5f
+        f5f555f555f555f555f5f555f555f555f5f555f5f555f5f555f5f55555f
+        f5f555f555f555f55555f555f555f55555f55555f555f5f555f5f55555f
+        f5fffff555f555f5fff5fffff5555fff55f55555f555f5ffff55fff555f
+        f5f555f555f555f555f5f555f5555555f5f55555f555f5f5f555f55555f
+        f5f555f555f555f555f5f555f555f555f5f555f5f555f5f55f55f55555f
+        f5f555f5fffff55fff55f555f5555fff555fff555fff55f555f5fffff5f
+        f555555555555555555555555555555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        `, SpriteKind.button)
+    Options = sprites.create(img`
+        fffffffffffffffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555555555555555f
+        f55fff55ffff55fffff5fffff55fff55ff55f55fff55f
+        f5f555f5f555f555f55555f555f555f5ff55f5f555f5f
+        f5f555f5f555f555f55555f555f555f5f5f5f5f55555f
+        f5f555f5ffff5555f55555f555f555f5f5f5f55fff55f
+        f5f555f5f5555555f55555f555f555f5f5f5f55555f5f
+        f5f555f5f5555555f55555f555f555f5f55ff5f555f5f
+        f55fff55f5555555f555fffff55fff55f55ff55fff55f
+        f5555555555555555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffffffffffffffff
+        `, SpriteKind.button)
+    Credits = sprites.create(img`
+        fffffffffffffffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555555555555555f
+        f55fff55ffff55fffff5ffff55fffff5fffff55fff55f
+        f5f555f5f555f5f55555f555f555f55555f555f555f5f
+        f5f55555f555f5f55555f555f555f55555f555f55555f
+        f5f55555ffff55fff555f555f555f55555f5555fff55f
+        f5f55555f5f555f55555f555f555f55555f5555555f5f
+        f5f555f5f55f55f55555f555f555f55555f555f555f5f
+        f55fff55f555f5fffff5ffff55fffff555f5555fff55f
+        f5555555555555555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffffffffffffffff
+        `, SpriteKind.button)
+    Back = sprites.create(img`
+        f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+        f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+        f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+        f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+        f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+        f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f f 5 5 5 f 
+        f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+        f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+        f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
+        f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+        f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+        `, SpriteKind.button)
+    Instructions = sprites.create(img`
+        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555555555555555555555555555555555555555555555f
+        f5fffff5f555f55fff55fffff5ffff55f555f55fff55fffff5fffff55fff55f555f55fff55f
+        f555f555f555f5f555f555f555f555f5f555f5f555f555f55555f555f555f5f555f5f555f5f
+        f555f555ff55f5f5555555f555f555f5f555f5f5555555f55555f555f555f5ff55f5f55555f
+        f555f555f5f5f55fff5555f555ffff55f555f5f5555555f55555f555f555f5f5f5f55fff55f
+        f555f555f5f5f55555f555f555f555f5f555f5f5555555f55555f555f555f5f5f5f55555f5f
+        f555f555f55ff5f555f555f555f555f5f555f5f555f555f55555f555f555f5f55ff5f555f5f
+        f5fffff5f555f55fff5555f555f555f55fff555fff5555f555fffff55fff55f555f55fff55f
+        f5555555555555555555555555555555555555555555555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        `, SpriteKind.button)
+    if (currentLanguage != 0) {
+        buttonsSK()
+    }
+}
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (!(hero.isHittingTile(CollisionDirection.Bottom))) {
         hero.vy += 80
@@ -3282,6 +3313,9 @@ function createHero (hero: Sprite) {
 }
 info.onLifeZero(function () {
     if (currentDifficulty == 2) {
+        if (currentLanguage != 0) {
+            game.splash("Prehral si!")
+        }
         game.over(false, effects.melt)
     } else if (currentDifficulty == 1) {
         difficultyMedium()
@@ -3372,7 +3406,11 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
             . . . . . . 5 4 4 4 . . . . . . 
             . . . . 5 4 5 5 5 5 4 4 . . . . 
             `)
-        showHighScore("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back to the main menu.")
+        if (currentLanguage == 0) {
+            showHighScore("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back to the main menu.")
+        } else {
+            showHighScore("Vaše aktuálne najvyššie skóre je " + convertToText(info.highScore()) + "." + " Stlačením tlačidla \"A\" sa vrátite do hlavného menu.")
+        }
         goToMenu()
     }
     if (Cursor0.overlapsWith(Options) && controller.A.isPressed()) {
@@ -3406,9 +3444,35 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
         if (Cursor0.overlapsWith(EN) && controller.A.isPressed()) {
             currentLanguage = 0
             buttonLaguegeEffect()
+            Back.setImage(img`
+                f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+                f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+                f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+                f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+                f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+                f 5 f f f f 5 5 f f f f f 5 f 5 5 5 5 5 f f f 5 5 5 f 
+                f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+                f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+                f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
+                f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+                f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+                `)
         } else if (Cursor0.overlapsWith(SK) && controller.A.isPressed()) {
             currentLanguage = 1
             buttonLaguegeEffect()
+            Back.setImage(img`
+                f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+                f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+                f 5 5 f f f 5 5 f f f f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 f 
+                f 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 5 5 5 5 5 5 f 5 5 5 f 
+                f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 f f f 5 5 f f f f f 5 f 
+                f 5 5 f f f 5 5 f f f f 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+                f 5 5 5 5 5 f 5 f 5 5 5 5 5 f f f f f 5 5 5 f 5 5 5 f 
+                f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+                f 5 5 f f f 5 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+                f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+                f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+                `)
         }
     }
 })
@@ -3429,7 +3493,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.caveBoss, function (sprite, othe
         isKilled = 1
     } else {
         if (info.life() > 2) {
-            sprite.say("Ow!", invincibilityPeriod)
+            if (currentLanguage == 0) {
+                sprite.say("Ow!", invincibilityPeriod)
+            } else {
+                sprite.say("Au!", invincibilityPeriod)
+            }
             info.changeLifeBy(-2)
         }
         if (info.life() <= 2) {
@@ -4168,6 +4236,115 @@ function buttonLaguegeEffect () {
         )
     }
 }
+function buttonsSK () {
+    if (currentLevel == 0) {
+        Play.setImage(img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f 5 5 5 f 5 f f f f 5 5 5 f f f 5 5 5 f 5 f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f f f f f 5 f 
+            f 5 f f f f f 5 f f f f 5 5 f f f f f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `)
+        HighScore.setImage(img`
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            f555555555555555555555555555555555555555555555555555555555555555555555f
+            f5f555f5f555f55fff555fff55f555f5555ff5555fff55f555f5555ff5ffff55fffff5f
+            f5f555f5f555f5f555f5f555f5f555f555555555f555f5f555f5555555f555f5f55555f
+            f5f555f5f555f5f55555f555f5f55f55fffff555f55555f55f555fff55f555f5f55555f
+            f5f555f55f5f555fff55f555f5fff555f55555555fff55fff555f555f5ffff55fff555f
+            f55f5f5555f5555555f5f555f5f55f55ff5555555555f5f55f55f555f5f555f5f55555f
+            f55f5f5555f555f555f5f555f5f555f5f5555555f555f5f555f5f555f5f555f5f55555f
+            f555f55555f5555fff555fff55f555f5fffff5555fff55f555f55fff55f555f5fffff5f
+            f555555555555555555555555555555555555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            `)
+        Options.setImage(img`
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555555555555555555555555555555555f
+            f5f555f55fff555fff55fffff55fff55f555f5fffff5f555f5fffff55fff55f
+            f5f555f5f555f5f555f555f555f555f5f555f5f55555f555f555f555f555f5f
+            f5ff55f5f555f5f5555555f555f555f5f555f5f55555ff55f555f555f555f5f
+            f5f5f5f5fffff55fff5555f555fffff55f5f55fff555f5f5f555f555fffff5f
+            f5f5f5f5f555f55555f555f555f555f55f5f55f55555f5f5f555f555f555f5f
+            f5f55ff5f555f5f555f555f555f555f55f5f55f55555f55ff555f555f555f5f
+            f5f555f5f555f55fff5555f555f555f555f555fffff5f555f5fffff5f555f5f
+            f5555555555555555555555555555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            `)
+        Credits.setImage(img`
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555555555555555555555555555555555555555f
+            f5ffff555fff555f5f555fff55f555f55fff55f555f55fff55f555f5fffff5fffff5f
+            f5f555f5f555f555f555f555f5f555f5f555f5f555f5f555f5f555f555f555f55555f
+            f5f555f5f555f5ffff55f555f5f55f55f555f5f555f5f555f5ff55f555f555f55555f
+            f5ffff55f555f5f555f5fffff5fff555f555f5f555f5fffff5ff55f555f555fff555f
+            f5f55555f555f5f555f5f555f5f55f55f555f55f5f55f555f5f5f5f555f555f55555f
+            f5f55555f555f5f555f5f555f5f555f5f555f55f5f55f555f5f55ff555f555f55555f
+            f5f555555fff55ffff55f555f5f555f55fff5555f555f555f5f555f5fffff5fffff5f
+            f5555555555555555555555555555555555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            `)
+        Instructions.setImage(img`
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555555555555555555555555555555555f
+            f5fffff5f555f55f5f55fffff5ffff55f555f5f555f55fff55fffff5fffff5f
+            f555f555f555f555f55555f555f555f5f555f5f555f5f555f555f555f55555f
+            f555f555ff55f55ffff555f555f555f5f555f5f55f55f5555555f555f55555f
+            f555f555f5f5f5f5555555f555ffff55f555f5fff555f5555555f555fff555f
+            f555f555f5f5f55fff5555f555f555f5f555f5f55f55f5555555f555f55555f
+            f555f555f55ff55555f555f555f555f5f555f5f555f5f555f555f555f55555f
+            f5fffff5f555f5ffff5555f555f555f55fff55f555f55fff55fffff5fffff5f
+            f5555555555555555555555555555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            `)
+    } else if (currentLevel == 2) {
+        Sounds2.setImage(img`
+            fffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555f
+            f5fffff5f555f5f555f5f555f5f555f5f
+            f55555f5f555f5f555f5f555f5f555f5f
+            f5555f55f555f5f555f5f55f55f555f5f
+            f555f555f555f5f555f5fff5555f5f55f
+            f55f55555f5f55f555f5f55f5555f555f
+            f5f555555f5f55f555f5f555f555f555f
+            f5fffff555f5555fff55f555f555f555f
+            f5555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffff
+            `)
+        Difficulty.setImage(img`
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555555555555555555555555555555555f
+            f55fff55ffff55fffff5fffff55fff555f5f55f555f55fff555fff555f5f55f
+            f5f555f5f555f555f55555f555f555f555f555f555f5f555f5f555f555f555f
+            f5f555f5f555f555f55555f555f555f5fffff5ff55f5f555f5f55555fffff5f
+            f5f555f5ffff5555f55555f555fffff5555f55f5f5f5f555f55fff5555f555f
+            f5f555f5f555f555f55555f555f555f555f555f5f5f5f555f55555f555f555f
+            f5f555f5f555f555f55555f555f555f55f5555f55ff5f555f5f555f555f555f
+            f55fff55ffff5555f555fffff5f555f5fffff5f555f55fff555fff5555f555f
+            f5555555555555555555555555555555555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            `)
+        Language.setImage(img`
+            fffffffffffffffffffffffffffffffff
+            f5555555555555555555555555555555f
+            f5fffff55fff55fffff5f555f5f555f5f
+            f55555f5f555f55555f5f555f5f555f5f
+            f55555f5f555f5555f55f555f5f55f55f
+            f55555f5fffff555f5555f5f55fff555f
+            f55555f5f555f55f555555f555f55f55f
+            f5f555f5f555f5f5555555f555f555f5f
+            f55fff55f555f5fffff555f555f555f5f
+            f5555555555555555555555555555555f
+            fffffffffffffffffffffffffffffffff
+            `)
+    }
+}
 function spawnGoals () {
     for (let value7 of tiles.getTilesByType(assets.tile`tile8`)) {
         key2 = sprites.create(img`
@@ -4206,13 +4383,12 @@ let caveBossAni: animation.Animation = null
 let boss: Sprite = null
 let mainJumpRight: animation.Animation = null
 let mainJumpLeft: animation.Animation = null
-let mainRunRight: animation.Animation = null
-let mainRunLeft: animation.Animation = null
-let currentLanguage = 0
-let gravity = 0
 let Language: Sprite = null
 let Difficulty: Sprite = null
 let Sounds2: Sprite = null
+let mainRunRight: animation.Animation = null
+let mainRunLeft: animation.Animation = null
+let gravity = 0
 let Instructions: Sprite = null
 let Back: Sprite = null
 let Credits: Sprite = null
@@ -4234,6 +4410,7 @@ let Easy: Sprite = null
 let mainDrageRight: animation.Animation = null
 let mainDrageLeft: animation.Animation = null
 let invincibilityPeriod = 0
+let currentLanguage = 0
 let KeyAni: animation.Animation = null
 let currentLevel = 0
 let levelCount = 0
@@ -4282,7 +4459,7 @@ hero = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 createCursor(Cursor0)
-levelCount = 17
+levelCount = 27
 currentLevel = 0
 setLevelTileMap0(currentLevel)
 scene.setBackgroundImage(img`
@@ -4461,5 +4638,34 @@ game.onUpdate(function () {
         } else {
             animation.setAction(hero, ActionKind.IdleRight)
         }
+    }
+})
+forever(function () {
+    music.setVolume(80)
+    if (currentLevel < 10) {
+        music.playMelody("G B A G C5 B A B ", 250)
+    } else {
+        music.stopAllSounds()
+    }
+    if (currentLevel < 10) {
+        music.playMelody("A F E F D G E F ", 250)
+    } else {
+        music.stopAllSounds()
+    }
+    if (currentLevel < 10) {
+        music.playMelody("G F G A - F E D ", 250)
+    } else {
+        music.stopAllSounds()
+    }
+    if (currentLevel < 10) {
+        music.playMelody("E B C5 A B G A F ", 250)
+    } else {
+        music.stopAllSounds()
+    }
+    if (currentLevel >= 10) {
+        music.setVolume(60)
+        music.playMelody("E B C5 A B G A F ", 250)
+    } else {
+        music.stopAllSounds()
     }
 })
