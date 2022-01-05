@@ -174,12 +174,20 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherS
         otherSprite.destroy(effects.ashes, 250)
         otherSprite.vy = -50
         sprite.vy = -2 * pixelsToMeters
+        if (currentSound == 1) {
+            music.pewPew.play()
+            music.powerUp.play()
+        }
         info.changeScoreBy(3)
     } else {
         if (currentLanguage == 0) {
             sprite.say("Ow!", invincibilityPeriod)
         } else {
             sprite.say("Au!", invincibilityPeriod)
+        }
+        if (currentSound == 1) {
+            music.smallCrash.play()
+            music.powerDown.play()
         }
         info.changeLifeBy(-1)
     }
@@ -391,6 +399,9 @@ function animateIdle () {
         `)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSprite) {
+    if (currentSound == 1) {
+        music.beamUp.play()
+    }
     otherSprite.destroy(effects.halo, 250)
     otherSprite.y += 3
     info.changeLifeBy(1)
@@ -2754,6 +2765,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, lo
         }
         currentLevel += 1
         if (hasNextLevel()) {
+            music.magicWand.play()
             if (currentLanguage == 0) {
                 game.splash("Next level unlocked!")
             } else {
@@ -3168,6 +3180,10 @@ function initializeHeroAnimations () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.caveBoss, function (sprite, otherSprite) {
     if (sprite.vy > 0 && !(sprite.isHittingTile(CollisionDirection.Top)) || sprite.y < otherSprite.top) {
+        if (currentSound == 1) {
+            music.zapped.play()
+            music.powerUp.play()
+        }
         otherSprite.destroy(effects.blizzard, 250)
         otherSprite.vy = -50
         sprite.vy = -2 * pixelsToMeters
@@ -3181,6 +3197,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.caveBoss, function (sprite, othe
                 sprite.say("Ow!", invincibilityPeriod)
             } else {
                 sprite.say("Au!", invincibilityPeriod)
+            }
+            if (currentSound == 1) {
+                music.bigCrash.play()
+                music.powerDown.play()
             }
             info.changeLifeBy(-2)
         }
@@ -3873,6 +3893,9 @@ function initializecaveBossAni () {
         `)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
+    if (currentSound == 1) {
+        music.baDing.play()
+    }
     otherSprite.destroy(effects.trail, 250)
     otherSprite.y += -3
     info.changeScoreBy(5)
@@ -4162,12 +4185,12 @@ let mainDrageRight: animation.Animation = null
 let mainDrageLeft: animation.Animation = null
 let On: Sprite = null
 let Off: Sprite = null
-let currentSound = 0
 let Hard: Sprite = null
 let Medium: Sprite = null
 let Easy: Sprite = null
 let invincibilityPeriod = 0
 let currentLanguage = 0
+let currentSound = 0
 let KeyAni: animation.Animation = null
 let currentLevel = 0
 let levelCount = 0
@@ -4401,22 +4424,14 @@ forever(function () {
     music.setVolume(80)
     if (currentSound == 1 && currentLevel < 10) {
         music.playMelody("G B A G C5 B A B ", 250)
-    } else {
-        music.stopAllSounds()
     }
     if (currentSound == 1 && currentLevel < 10) {
         music.playMelody("A F E F D G E F ", 250)
-    } else {
-        music.stopAllSounds()
     }
     if (currentSound == 1 && currentLevel < 10) {
         music.playMelody("G F G A - F E D ", 250)
-    } else {
-        music.stopAllSounds()
     }
     if (currentSound == 1 && currentLevel < 10) {
         music.playMelody("E B C5 A B G A F ", 250)
-    } else {
-        music.stopAllSounds()
     }
 })
