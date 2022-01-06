@@ -3090,9 +3090,56 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
             . . . . 5 4 5 5 5 5 4 4 . . . . 
             `)
         if (currentLanguage == 0) {
-            showHighScore("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back to the main menu.")
+            showInMenuText("Your current high score is " + convertToText(info.highScore()) + "." + " Press \"A\" button to get back to the main menu.")
         } else {
-            showHighScore("Vaše aktuálne najvyššie skóre je " + convertToText(info.highScore()) + "." + " Stlačením tlačidla \"A\" sa vrátite do hlavného menu.")
+            showInMenuText("Vaše aktuálne najvyššie skóre je " + convertToText(info.highScore()) + "." + " Stlačením tlačidla \"A\" sa vrátite do hlavného menu.")
+        }
+        goToMenu()
+    }
+    if (Cursor0.overlapsWith(Credits) && controller.A.isPressed()) {
+        Back.destroy()
+        currentLevel = 1
+        setLevelTileMap0(currentLevel)
+        game.setDialogFrame(img`
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
+            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
+            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
+            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
+            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
+            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . f f f f . . . . f f f f . . 
+            . f 2 2 2 2 f . . f 2 2 2 2 f . 
+            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
+            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
+            . . f c 2 2 2 2 2 2 2 2 2 f . . 
+            . . . f c 2 2 2 2 2 2 2 f . . . 
+            . . . . f c 2 2 2 2 2 f . . . . 
+            . . . . . f c 2 2 2 f . . . . . 
+            . . . . . . f c c f . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        if (currentLanguage == 0) {
+            showInMenuText("THANKS TO: " + "Troubleshooting     Erik Zemčík & " + "Juraj Gacho                 " + "Co-Level artist  Vincent Wiedermann")
+        } else {
+            showInMenuText("Vaše aktuálne najvyššie skóre je " + convertToText(info.highScore()) + "." + " Stlačením tlačidla \"A\" sa vrátite do hlavného menu.")
         }
         goToMenu()
     }
@@ -3892,6 +3939,9 @@ function initializecaveBossAni () {
         ................................
         `)
 }
+function showInMenuText (text: string) {
+    game.showLongText(text, DialogLayout.Full)
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.key, function (sprite, otherSprite) {
     if (currentSound == 1) {
         music.baDing.play()
@@ -4147,9 +4197,6 @@ function spawnGoals () {
         animation.attachAnimation(key2, KeyAni)
         animation.setAction(key2, ActionKind.Idle)
     }
-}
-function showHighScore (text: string) {
-    game.showLongText(text, DialogLayout.Center)
 }
 let heroFacingLeft = false
 let key2: Sprite = null
