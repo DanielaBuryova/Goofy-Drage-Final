@@ -993,7 +993,7 @@ function setLevelTileMap0 (level: number) {
         }
         if (level == 10) {
             Back.destroy()
-            Instructions.destroy()
+            About.destroy()
             gravity = 9.81 * pixelsToMeters
             scene.setBackgroundImage(img`
                 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -2023,7 +2023,7 @@ function setLevelTileMap0 (level: number) {
         	
         }
         initializeLevel(level)
-        Instructions.destroy()
+        About.destroy()
     }
 }
 function giveIntroductionEN () {
@@ -2381,7 +2381,7 @@ function buttonsPositionMenu () {
     HighScore.setPosition(80, 65)
     Options.setPosition(80, 80)
     Credits.setPosition(80, 95)
-    Instructions.setPosition(80, 110)
+    About.setPosition(80, 110)
     Back.setPosition(80, 110)
 }
 function buttonDifficultyEffect () {
@@ -2958,18 +2958,18 @@ function buttonsMenu () {
         f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
         f f f f f f f f f f f f f f f f f f f f f f f f f f f 
         `, SpriteKind.button)
-    Instructions = sprites.create(img`
-        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        f5555555555555555555555555555555555555555555555555555555555555555555555555f
-        f5fffff5f555f55fff55fffff5ffff55f555f55fff55fffff5fffff55fff55f555f55fff55f
-        f555f555f555f5f555f555f555f555f5f555f5f555f555f55555f555f555f5f555f5f555f5f
-        f555f555ff55f5f5555555f555f555f5f555f5f5555555f55555f555f555f5ff55f5f55555f
-        f555f555f5f5f55fff5555f555ffff55f555f5f5555555f55555f555f555f5f5f5f55fff55f
-        f555f555f5f5f55555f555f555f555f5f555f5f5555555f55555f555f555f5f5f5f55555f5f
-        f555f555f55ff5f555f555f555f555f5f555f5f555f555f55555f555f555f5f55ff5f555f5f
-        f5fffff5f555f55fff5555f555f555f55fff555fff5555f555fffff55fff55f555f55fff55f
-        f5555555555555555555555555555555555555555555555555555555555555555555555555f
-        fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+    About = sprites.create(img`
+        fffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555f
+        f55fff55ffff555fff55f555f5fffff5f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5fffff5ffff55f555f5f555f555f555f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5f555f5ffff555fff555fff5555f555f
+        f5555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffff
         `, SpriteKind.button)
     if (currentLanguage != 0) {
         buttonsSK()
@@ -4050,18 +4050,18 @@ function buttonsSK () {
             f5555555555555555555555555555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             `)
-        Instructions.setImage(img`
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-            f5555555555555555555555555555555555555555555555555555555555555f
-            f5fffff5f555f55f5f55fffff5ffff55f555f5f555f55fff55fffff5fffff5f
-            f555f555f555f555f55555f555f555f5f555f5f555f5f555f555f555f55555f
-            f555f555ff55f55ffff555f555f555f5f555f5f55f55f5555555f555f55555f
-            f555f555f5f5f5f5555555f555ffff55f555f5fff555f5555555f555fff555f
-            f555f555f5f5f55fff5555f555f555f5f555f5f55f55f5555555f555f55555f
-            f555f555f55ff55555f555f555f555f5f555f5f555f5f555f555f555f55555f
-            f5fffff5f555f5ffff5555f555f555f55fff55f555f55fff55fffff5fffff5f
-            f5555555555555555555555555555555555555555555555555555555555555f
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        About.setImage(img`
+            fffffffffffffffffffffffffffff
+            f555555555555555555555555555f
+            f55fff5555f555f5ffff55fffff5f
+            f5f555f555f555f5f555f5f55555f
+            f5f555f555f555f5f555f5f55555f
+            f5f555f555fffff5ffff55fff555f
+            f5f555f555f555f5f555f5f55555f
+            f5f555f555f555f5f555f5f55555f
+            f55fff5555f555f5f555f5fffff5f
+            f555555555555555555555555555f
+            fffffffffffffffffffffffffffff
             `)
     } else if (currentLevel == 2) {
         Sounds2.setImage(img`
@@ -4213,7 +4213,7 @@ let Sounds2: Sprite = null
 let mainRunRight: animation.Animation = null
 let mainRunLeft: animation.Animation = null
 let gravity = 0
-let Instructions: Sprite = null
+let About: Sprite = null
 let Back: Sprite = null
 let Credits: Sprite = null
 let Options: Sprite = null
