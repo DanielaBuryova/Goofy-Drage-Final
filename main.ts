@@ -3137,9 +3137,9 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
             . . . . . . . . . . . . . . . . 
             `)
         if (currentLanguage == 0) {
-            showInMenuText("THANKS TO: " + "Troubleshooting     Erik Zemčík & " + "Juraj Gacho                 " + "Co-Level artist  Vincent Wiedermann")
+            showInMenuText("THANKS TO: " + "Troubleshooting     Erik Zemčík & " + "Juraj Gacho                 " + "Co-Level art designer  Vincent Wiedermann")
         } else {
-            showInMenuText("Vaše aktuálne najvyššie skóre je " + convertToText(info.highScore()) + "." + " Stlačením tlačidla \"A\" sa vrátite do hlavného menu.")
+            showInMenuText("ĎAKUJEM:             " + "Riešenie problémov       Erik Zemčík & " + "Juraj Gacho                 " + "Co-Úrovňový umelecký dizajnér              Vincent Wiedermann")
         }
         goToMenu()
     }
