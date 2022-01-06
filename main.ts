@@ -3143,6 +3143,53 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
         }
         goToMenu()
     }
+    if (Cursor0.overlapsWith(About) && controller.A.isPressed()) {
+        Back.destroy()
+        currentLevel = 1
+        setLevelTileMap0(currentLevel)
+        game.setDialogFrame(img`
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
+            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
+            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
+            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
+            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
+            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
+            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            `)
+        game.setDialogCursor(img`
+            . . . . . . . . . . . . . . . . 
+            . . f f f f . . . . f f f f . . 
+            . f 2 2 2 2 f . . f 2 2 2 2 f . 
+            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
+            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
+            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
+            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
+            . . f c 2 2 2 2 2 2 2 2 2 f . . 
+            . . . f c 2 2 2 2 2 2 2 f . . . 
+            . . . . f c 2 2 2 2 2 f . . . . 
+            . . . . . f c 2 2 2 f . . . . . 
+            . . . . . . f c c f . . . . . . 
+            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `)
+        if (currentLanguage == 0) {
+            showInMenuText("THANKS TO: " + "Troubleshooting     Erik Zemčík & " + "Juraj Gacho                 " + "Co-Level art designer  Vincent Wiedermann")
+        } else {
+            showInMenuText("ĎAKUJEM:             " + "Riešenie problémov       Erik Zemčík & " + "Juraj Gacho                 " + "Co-Úrovňový umelecký dizajnér              Vincent Wiedermann")
+        }
+        goToMenu()
+    }
     if (Cursor0.overlapsWith(Options) && controller.A.isPressed()) {
         currentLevel = 2
         setLevelTileMap0(currentLevel)
