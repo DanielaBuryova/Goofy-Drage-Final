@@ -613,7 +613,7 @@ function giveIntroductionSK () {
             . 5 6 6 . . . . 5 6 6 . . . . . 
             `)
     }
-    if (currentLevel == 22) {
+    if (currentLevel == 20) {
         game.setDialogFrame(img`
             . a a a a a a a a a a a a a . . 
             a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
@@ -680,7 +680,7 @@ function giveIntroductionSK () {
             . 5 6 6 . . . . 5 6 6 . . . . . 
             `)
     }
-    if (currentLevel == 26 || currentLevel == 17) {
+    if (currentLevel == 26 || currentLevel == 27) {
         game.setDialogCursor(img`
             . . . . . f f f f f f . . . . . 
             . . . . f 4 5 5 5 5 4 f . . . . 
@@ -1127,6 +1127,11 @@ function setLevelTileMap0 (level: number) {
             initializeAnimations()
             currentLife = 3
         } else if (level == 11) {
+            if (currentLanguage == 0) {
+                giveIntroductionEN()
+            } else if (currentLanguage == 1) {
+                giveIntroductionSK()
+            }
             tiles.setTilemap(tilemap`level2`)
         } else if (level == 12) {
             scene.setBackgroundImage(img`
@@ -1877,6 +1882,11 @@ function setLevelTileMap0 (level: number) {
                 `)
             tiles.setTilemap(tilemap`level19`)
         } else if (level == 20) {
+            if (currentLanguage == 0) {
+                giveIntroductionEN()
+            } else if (currentLanguage == 1) {
+                giveIntroductionSK()
+            }
             scene.setBackgroundImage(img`
                 ccccccccccccccbbbbbbbbbbbbbbbbbbccccccccccccccccccbbbbbcbbbbbbbbccbbcccccccccccccccbbbbbbbccccccbbbbbbbbbbcbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccc
                 ccccccccccccccbbbbbbbbbbbbbbbbbbccccccccccccccccccbbbbbcbbbcbbbbbcbbcbbccccccccccccbbbbbbcccccccbbbbccbbbcbbbbbbbbbbbbbbbbbbbbcccbbbbbbbbbbbbbbbbbbbbbbbbbcccccc
@@ -2013,9 +2023,19 @@ function setLevelTileMap0 (level: number) {
         } else if (level == 25) {
             tiles.setTilemap(tilemap`level33`)
         } else if (level == 26) {
+            if (currentLanguage == 0) {
+                giveIntroductionEN()
+            } else if (currentLanguage == 1) {
+                giveIntroductionSK()
+            }
             tiles.setTilemap(tilemap`level34`)
             keyCount = 5
         } else if (level == 27) {
+            if (currentLanguage == 0) {
+                giveIntroductionEN()
+            } else if (currentLanguage == 1) {
+                giveIntroductionSK()
+            }
             tiles.setTilemap(tilemap`level35`)
             keyCount = 5
         } else if (false) {
@@ -2231,7 +2251,7 @@ function giveIntroductionEN () {
             . 5 6 6 . . . . 5 6 6 . . . . . 
             `)
     }
-    if (currentLevel == 22) {
+    if (currentLevel == 20) {
         game.setDialogFrame(img`
             . a a a a a a a a a a a a a . . 
             a a 1 1 1 1 1 1 1 1 1 1 1 a a . 
@@ -2298,7 +2318,7 @@ function giveIntroductionEN () {
             . 5 6 6 . . . . 5 6 6 . . . . . 
             `)
     }
-    if (currentLevel == 26 || currentLevel == 17) {
+    if (currentLevel == 26 || currentLevel == 27) {
         game.setDialogCursor(img`
             . . . . . f f f f f f . . . . . 
             . . . . f 4 5 5 5 5 4 f . . . . 
