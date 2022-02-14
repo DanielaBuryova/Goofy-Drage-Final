@@ -988,12 +988,11 @@ function setLevelTileMap0 (level: number) {
                 f2222222222222222222222222222f
                 ffffffffffffffffffffffffffffff
                 `, SpriteKind.button)
-            EN.setPosition(80, 50)
-            SK.setPosition(80, 80)
+            EN.setPosition(80, 60)
+            SK.setPosition(80, 85)
         }
         if (level == 10) {
             Back.destroy()
-            About.destroy()
             gravity = 9.81 * pixelsToMeters
             scene.setBackgroundImage(img`
                 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -2023,7 +2022,6 @@ function setLevelTileMap0 (level: number) {
         	
         }
         initializeLevel(level)
-        About.destroy()
     }
 }
 function giveIntroductionEN () {
@@ -2381,7 +2379,6 @@ function buttonsPositionMenu () {
     HighScore.setPosition(80, 65)
     Options.setPosition(80, 80)
     Credits.setPosition(80, 95)
-    About.setPosition(80, 110)
     Back.setPosition(80, 110)
 }
 function buttonDifficultyEffect () {
@@ -2765,7 +2762,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`tile11`, function (sprite, lo
         }
         currentLevel += 1
         if (hasNextLevel()) {
-            music.magicWand.play()
+            if (currentSound == 1) {
+                music.magicWand.play()
+            }
             if (currentLanguage == 0) {
                 game.splash("Next level unlocked!")
             } else {
@@ -2946,30 +2945,17 @@ function buttonsMenu () {
         fffffffffffffffffffffffffffffffffffffffffffff
         `, SpriteKind.button)
     Back = sprites.create(img`
-        f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-        f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-        f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
-        f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
-        f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
-        f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f f 5 5 5 f 
-        f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
-        f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
-        f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
-        f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-        f f f f f f f f f f f f f f f f f f f f f f f f f f f 
-        `, SpriteKind.button)
-    About = sprites.create(img`
-        fffffffffffffffffffffffffffffffff
-        f5555555555555555555555555555555f
-        f55fff55ffff555fff55f555f5fffff5f
-        f5f555f5f555f5f555f5f555f555f555f
-        f5f555f5f555f5f555f5f555f555f555f
-        f5fffff5ffff55f555f5f555f555f555f
-        f5f555f5f555f5f555f5f555f555f555f
-        f5f555f5f555f5f555f5f555f555f555f
-        f5f555f5ffff555fff555fff5555f555f
-        f5555555555555555555555555555555f
-        fffffffffffffffffffffffffffffffff
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . . . . . . . . . . . . 
         `, SpriteKind.button)
     if (currentLanguage != 0) {
         buttonsSK()
@@ -3035,6 +3021,35 @@ function showInstruction (text: string) {
     game.showLongText(text, DialogLayout.Full)
 }
 sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherSprite) {
+    if (currentLanguage == 0 && currentLevel != 0) {
+        Back.setImage(img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+            f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `)
+    } else if (currentLanguage == 0 && currentLevel != 0) {
+        Back.setImage(img`
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+            f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
+            f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
+            f f f f f f f f f f f f f f f f f f f f f f f f f f f 
+            `)
+    }
     if (Cursor0.overlapsWith(Back) && controller.A.isPressed()) {
         animation.runMovementAnimation(
         Back,
@@ -3097,53 +3112,6 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
         goToMenu()
     }
     if (Cursor0.overlapsWith(Credits) && controller.A.isPressed()) {
-        Back.destroy()
-        currentLevel = 1
-        setLevelTileMap0(currentLevel)
-        game.setDialogFrame(img`
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
-            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
-            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
-            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
-            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
-            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            `)
-        game.setDialogCursor(img`
-            . . . . . . . . . . . . . . . . 
-            . . f f f f . . . . f f f f . . 
-            . f 2 2 2 2 f . . f 2 2 2 2 f . 
-            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
-            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
-            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
-            . . f c 2 2 2 2 2 2 2 2 2 f . . 
-            . . . f c 2 2 2 2 2 2 2 f . . . 
-            . . . . f c 2 2 2 2 2 f . . . . 
-            . . . . . f c 2 2 2 f . . . . . 
-            . . . . . . f c c f . . . . . . 
-            . . . . . . . f f . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-        if (currentLanguage == 0) {
-            showInMenuText("THANKS TO: " + "Troubleshooting     Erik Zemčík & " + "Juraj Gacho                 " + "Co-Level art designer  Vincent Wiedermann")
-        } else {
-            showInMenuText("ĎAKUJEM:             " + "Riešenie problémov       Erik Zemčík & " + "Juraj Gacho                 " + "Co-Úrovňový umelecký dizajnér              Vincent Wiedermann")
-        }
-        goToMenu()
-    }
-    if (Cursor0.overlapsWith(About) && controller.A.isPressed()) {
         Back.destroy()
         currentLevel = 1
         setLevelTileMap0(currentLevel)
@@ -4097,19 +4065,6 @@ function buttonsSK () {
             f5555555555555555555555555555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             `)
-        About.setImage(img`
-            fffffffffffffffffffffffffffff
-            f555555555555555555555555555f
-            f55fff5555f555f5ffff55fffff5f
-            f5f555f555f555f5f555f5f55555f
-            f5f555f555f555f5f555f5f55555f
-            f5f555f555fffff5ffff55fff555f
-            f5f555f555f555f5f555f5f55555f
-            f5f555f555f555f5f555f5f55555f
-            f55fff5555f555f5f555f5fffff5f
-            f555555555555555555555555555f
-            fffffffffffffffffffffffffffff
-            `)
     } else if (currentLevel == 2) {
         Sounds2.setImage(img`
             fffffffffffffffffffffffffffffffff
@@ -4260,7 +4215,6 @@ let Sounds2: Sprite = null
 let mainRunRight: animation.Animation = null
 let mainRunLeft: animation.Animation = null
 let gravity = 0
-let About: Sprite = null
 let Back: Sprite = null
 let Credits: Sprite = null
 let Options: Sprite = null
