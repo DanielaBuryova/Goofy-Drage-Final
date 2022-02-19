@@ -407,6 +407,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSp
     info.changeLifeBy(1)
 })
 function giveIntroductionSK () {
+    if (currentLevel == 1) {
+        showInstruction("Váš príbeh sa začína na lúke, ste mierumilovný drak, ktorý je trochu praštěný, ale miluje všetko a všetkých, najviac svojich priateľov. Jedného dňa sa tak zrazu z ničoho nič objaví oheň a vy sa v snahe udržať všetkých v bezpečí rozhodnete ísť za ohňom cez lúky, lesy, až do podzemnej jaskyne. Podarí sa vám nájsť zdroj požiaru a zničiť ho?")
+    }
     game.setDialogCursor(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -927,7 +930,7 @@ function setLevelTileMap0 (level: number) {
         Play.destroy()
         HighScore.destroy()
         Options.destroy()
-        Credits.destroy()
+        About.destroy()
         if (level == 2) {
             Cursor0.setPosition(80, 35)
             buttonsOptions()
@@ -2045,6 +2048,9 @@ function setLevelTileMap0 (level: number) {
     }
 }
 function giveIntroductionEN () {
+    if (currentLevel == 1) {
+        showInstruction("Your story starts in a meadow, you are a peaceful dragon who is a little goofy, but loves everything and everyone, the most its friends. One day so suddenly a fire appears out of nowhere and in an effort to keep everyone safe, you decide to follow the fire through the meadows, forests, threes, even into the cave underground. Will you be able to find the source of the fire and destroy it?")
+    }
     game.setDialogCursor(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -2398,7 +2404,7 @@ function buttonsPositionMenu () {
     Play.setPosition(80, 50)
     HighScore.setPosition(80, 65)
     Options.setPosition(80, 80)
-    Credits.setPosition(80, 95)
+    About.setPosition(80, 95)
     Back.setPosition(80, 110)
 }
 function buttonDifficultyEffect () {
@@ -2951,18 +2957,18 @@ function buttonsMenu () {
         f5555555555555555555555555555555555555555555f
         fffffffffffffffffffffffffffffffffffffffffffff
         `, SpriteKind.button)
-    Credits = sprites.create(img`
-        fffffffffffffffffffffffffffffffffffffffffffff
-        f5555555555555555555555555555555555555555555f
-        f55fff55ffff55fffff5ffff55fffff5fffff55fff55f
-        f5f555f5f555f5f55555f555f555f55555f555f555f5f
-        f5f55555f555f5f55555f555f555f55555f555f55555f
-        f5f55555ffff55fff555f555f555f55555f5555fff55f
-        f5f55555f5f555f55555f555f555f55555f5555555f5f
-        f5f555f5f55f55f55555f555f555f55555f555f555f5f
-        f55fff55f555f5fffff5ffff55fffff555f5555fff55f
-        f5555555555555555555555555555555555555555555f
-        fffffffffffffffffffffffffffffffffffffffffffff
+    About = sprites.create(img`
+        fffffffffffffffffffffffffffffffff
+        f5555555555555555555555555555555f
+        f55fff55ffff555fff55f555f5fffff5f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5fffff5ffff55f555f5f555f555f555f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5f555f5f555f5f555f5f555f555f555f
+        f5f555f5ffff555fff555fff5555f555f
+        f5555555555555555555555555555555f
+        fffffffffffffffffffffffffffffffff
         `, SpriteKind.button)
     Back = sprites.create(img`
         . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -3055,17 +3061,17 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             `)
-    } else if (currentLanguage == 0 && currentLevel != 0) {
+    } else if (currentLanguage == 1 && currentLevel != 0) {
         Back.setImage(img`
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
-            f 5 f f f f 5 5 5 f f f 5 5 5 f f f 5 5 f 5 5 5 f 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
-            f 5 f f f f 5 5 f 5 5 5 f 5 f 5 5 5 5 5 f f f 5 5 5 f 
-            f 5 f 5 5 5 f 5 f f f f f 5 f 5 5 5 5 5 f 5 5 f 5 5 f 
-            f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 5 5 5 f 5 f 
-            f 5 f f f f 5 5 f 5 5 5 f 5 5 f f f 5 5 f 5 5 5 f 5 f 
+            f 5 5 f f f 5 5 f f f f 5 5 f 5 5 5 f 5 5 f 5 f 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 f 5 5 5 5 5 5 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 f f f 5 5 f f f f f 5 f 
+            f 5 5 f f f 5 5 f f f f 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 5 5 5 5 f 5 f 5 5 5 5 5 f f f f f 5 5 5 f 5 5 5 f 
+            f 5 f 5 5 5 f 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
+            f 5 5 f f f 5 5 f 5 5 5 5 5 f 5 5 5 f 5 5 5 f 5 5 5 f 
             f 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 f 
             f f f f f f f f f f f f f f f f f f f f f f f f f f f 
             `)
@@ -3131,50 +3137,50 @@ sprites.onOverlap(SpriteKind.button, SpriteKind.cursor, function (sprite, otherS
         }
         goToMenu()
     }
-    if (Cursor0.overlapsWith(Credits) && controller.A.isPressed()) {
+    if (Cursor0.overlapsWith(About) && controller.A.isPressed()) {
         Back.destroy()
         currentLevel = 1
         setLevelTileMap0(currentLevel)
         game.setDialogFrame(img`
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
-            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
-            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
-            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 3 3 3 3 3 3 3 3 2 3 2 3 
-            3 3 2 3 3 3 3 3 3 3 3 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 2 3 
-            3 3 2 3 3 3 2 3 3 3 2 3 3 3 2 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 
+            7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 
+            6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 
+            7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 6 
+            6 7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 
+            7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 6 
+            6 7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 
+            7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 6 
+            6 7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 
+            7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 6 
+            6 7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 
+            7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 6 
+            6 7 6 7 7 7 7 7 7 7 7 7 7 7 6 7 
+            7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 
+            6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 
+            7 6 7 6 7 6 7 6 7 6 7 6 7 6 7 6 
             `)
         game.setDialogCursor(img`
             . . . . . . . . . . . . . . . . 
-            . . f f f f . . . . f f f f . . 
-            . f 2 2 2 2 f . . f 2 2 2 2 f . 
-            f 2 2 2 2 2 2 f f 2 2 2 2 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 2 4 2 2 f 
-            f 2 2 2 2 2 2 2 2 2 2 4 2 2 2 f 
-            f c 2 2 2 2 2 2 2 2 2 2 2 2 2 f 
-            . f c 2 2 2 2 2 2 2 2 2 2 2 f . 
-            . . f c 2 2 2 2 2 2 2 2 2 f . . 
-            . . . f c 2 2 2 2 2 2 2 f . . . 
-            . . . . f c 2 2 2 2 2 f . . . . 
-            . . . . . f c 2 2 2 f . . . . . 
-            . . . . . . f c c f . . . . . . 
-            . . . . . . . f f . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             `)
         if (currentLanguage == 0) {
-            showInMenuText("THANKS TO: " + "Troubleshooting     Erik Zemčík & " + "Juraj Gacho                 " + "Co-Level art designer  Vincent Wiedermann")
+            giveIntroductionEN()
         } else {
-            showInMenuText("ĎAKUJEM:             " + "Riešenie problémov       Erik Zemčík & " + "Juraj Gacho                 " + "Co-Úrovňový umelecký dizajnér              Vincent Wiedermann")
+            giveIntroductionSK()
         }
         goToMenu()
     }
@@ -4072,18 +4078,18 @@ function buttonsSK () {
             f5555555555555555555555555555555555555555555555555555555555555f
             fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
             `)
-        Credits.setImage(img`
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-            f5555555555555555555555555555555555555555555555555555555555555555555f
-            f5ffff555fff555f5f555fff55f555f55fff55f555f55fff55f555f5fffff5fffff5f
-            f5f555f5f555f555f555f555f5f555f5f555f5f555f5f555f5f555f555f555f55555f
-            f5f555f5f555f5ffff55f555f5f55f55f555f5f555f5f555f5ff55f555f555f55555f
-            f5ffff55f555f5f555f5fffff5fff555f555f5f555f5fffff5ff55f555f555fff555f
-            f5f55555f555f5f555f5f555f5f55f55f555f55f5f55f555f5f5f5f555f555f55555f
-            f5f55555f555f5f555f5f555f5f555f5f555f55f5f55f555f5f55ff555f555f55555f
-            f5f555555fff55ffff55f555f5f555f55fff5555f555f555f5f555f5fffff5fffff5f
-            f5555555555555555555555555555555555555555555555555555555555555555555f
-            fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        About.setImage(img`
+            fffffffffffffffffffffffffffff
+            f555555555555555555555555555f
+            f55fff5555f555f5ffff55fffff5f
+            f5f555f555f555f5f555f5f55555f
+            f5f555f555f555f5f555f5f55555f
+            f5f555f555fffff5ffff55fff555f
+            f5f555f555f555f5f555f5f55555f
+            f5f555f555f555f5f555f5f55555f
+            f55fff5555f555f5f555f5fffff5f
+            f555555555555555555555555555f
+            fffffffffffffffffffffffffffff
             `)
     } else if (currentLevel == 2) {
         Sounds2.setImage(img`
@@ -4236,7 +4242,7 @@ let mainRunRight: animation.Animation = null
 let mainRunLeft: animation.Animation = null
 let gravity = 0
 let Back: Sprite = null
-let Credits: Sprite = null
+let About: Sprite = null
 let Options: Sprite = null
 let HighScore: Sprite = null
 let Play: Sprite = null
