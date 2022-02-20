@@ -759,39 +759,6 @@ function giveIntroductionSK () {
         . 5 6 6 . . . . 5 6 6 . . . . . 
         `)
 }
-function initializePlayAni () {
-    playAni = animation.createAnimation(ActionKind.Idle, 225)
-    playAni.addAnimationFrame(img`
-        51515151515151515151515151515
-        1fffffffffffffffffffffffffff1
-        5f5555555555555555555555555f5
-        1f5ffff55f555555fff55f555f5f1
-        5f5f555f5f55555f555f5f555f5f5
-        1f5f555f5f55555f555f55f5f55f1
-        5f5ffff55f55555f555f555f555f5
-        1f5f55555f55555fffff555f555f1
-        5f5f55555f55555f555f555f555f5
-        1f5f55555fffff5f555f555f555f1
-        5f5555555555555555555555555f5
-        1fffffffffffffffffffffffffff1
-        51515151515151515151515151515
-        `)
-    playAni.addAnimationFrame(img`
-        15151515151515151515151515151
-        5fffffffffffffffffffffffffff5
-        1f5555555555555555555555555f1
-        5f5ffff55f555555fff55f555f5f5
-        1f5f555f5f55555f555f5f555f5f1
-        5f5f555f5f55555f555f55f5f55f5
-        1f5ffff55f55555f555f555f555f1
-        5f5f55555f55555fffff555f555f5
-        1f5f55555f55555f555f555f555f1
-        5f5f55555fffff5f555f555f555f5
-        1f5555555555555555555555555f1
-        5fffffffffffffffffffffffffff5
-        15151515151515151515151515151
-        `)
-}
 function setLevelTileMap0 (level: number) {
     clearGame()
     if (level == 0) {
@@ -4246,7 +4213,6 @@ let About: Sprite = null
 let Options: Sprite = null
 let HighScore: Sprite = null
 let Play: Sprite = null
-let playAni: animation.Animation = null
 let mainIdleRight: animation.Animation = null
 let mainIdleLeft: animation.Animation = null
 let currentLife = 0
